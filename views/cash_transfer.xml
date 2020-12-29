@@ -306,20 +306,6 @@
             </field>
         </record>
 
-          
-        <record model="ir.ui.view" id="confirmation_request_to_search_view">
-            <field name="name">cash_managment.confirm_cash_to.search</field>
-            <field name="model">cash_managment.confirm_cash_to</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="state" />
-    
-                     <field name ="confirm_date"/>
-                    <separator/>
-                     <filter name="confirm_datess" string="Today" domain="[('confirm_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
-                </search>
-            </field>
-        </record>
 
         <record model="ir.ui.view" id=" cash_managment_confirm_cash_centerto_to_search_view">
             <field name="name"> cash_managment_confirm_cash_centerto.search</field>
@@ -356,15 +342,6 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="to_confirm_request_list_action">
-            <field name="name">Cash Transfer Confirmations</field>
-            <field name="res_model">cash_managment.confirm_cash_to</field>
-            <field name="view_mode">tree,form</field>
-             <field name ="context">{"search_default_confirm_datess":1}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Cash Transfer Confirmations</p>
-            </field>
-        </record>
         <record model="ir.actions.act_window" id="cash_managment_confirm_cash_centerto_list_action">
             <field name="name">Cash Transfer Confirmations</field>
             <field name="res_model">cash_managment.confirm_cash_centerto</field>
@@ -376,17 +353,12 @@
         </record>
 
     
-  
-  
-        
-
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>
         <menuitem id="confirm_cash_request" name="Cash Transfer Requests" parent="main_service_menu"/>
-        <menuitem id="confirm_cash_req" name="From Branch Cash Transfer Confirmations" parent="confirm_cash_request" action="confirm_request_list_action"/>
-        <menuitem id="confirm_cash_to_req" name="To Branch Cash Transfer Confirmations" parent="confirm_cash_request" action="to_confirm_request_list_action"/>
-        <menuitem id="cash_center_request_confirmation" name="From Branch Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
-        <menuitem id="cash_managment_confirm_cash_centerto" name="To Branch Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_managment_confirm_cash_centerto_list_action"/>
+        <menuitem id="confirm_cash_req" name="Cash Transfer Confirmation" parent="confirm_cash_request" action="confirm_request_list_action"/>
+        <menuitem id="cash_center_request_confirmation" name="Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
+        <!--<menuitem id="cash_managment_confirm_cash_centerto" name="To Branch Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_managment_confirm_cash_centerto_list_action"/>-->
     
             
 </odoo>

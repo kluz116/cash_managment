@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_cash_request_tree" model="ir.ui.view">
+            <field name="name">cash_managment.request.tree</field>
+            <field name="model">cash_managment.request</field>
+             <field name="arch" type="xml">
+                <tree string="All Requests">
+                    <field name="state" />
+                    <field name="title" />
+                    <field name="description" />
+                    <field name="validate_comment"/> 
+                    <field name="approval_comment"/>
+                    <field name="start_date"/>
+                    <field name="validate_date"/>
+                    <field name="approval_date"/>
+                    <field name="created_by"/>
+                    <field name="validated_by"/> 
+                    <field name="approved_by"/>  
+                </tree>
+            </field>
+        </record>
+        <record id="view_cash_request_ongoing_tree" model="ir.ui.view">
+            <field name="name">cash_managment.requestapproved.tree</field>
+            <field name="model">cash_managment.requestapproved</field>
+             <field name="arch" type="xml">
+                <tree string="Ongoing Requests">
+                        
+                        <field name = "title"/>
+                        <field name = "state" />
+                        <field name="branch_id"/>
+                        <field name ="from_by"/>
+                        <field name="to_branch"/>
+                        <field name ="to_by"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date"/>
+                        <field name = "initiated_by"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_cash_center_request_ongoing_tree" model="ir.ui.view">
+            <field name="name">cash_managment.cash_center_request.tree</field>
+            <field name="model">cash_managment.cash_center_request</field>
+             <field name="arch" type="xml">
+                <tree string="Cash Center Requests">
+                        
+                        <field name = "amount"/>
+                        <field name = "state" />
+                        <field name="from_branch"/>
+                        <field name="to_branch"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date"/>
+                        <field name = "initiated_by"/>
+                </tree>
+            </field>
+        </record>
+         
+         <record id="center_cash_view_form_request" model="ir.ui.view">
+            <field name="name">cash_managment.cash_center_request.form</field>
+            <field name="model">cash_managment.cash_center_request</field>
+            <field name="arch" type="xml">
+                <form string="Initiate Request" create="false" edit="false">
+                   <sheet>
+                        <group>
+                           <field name = "state" readonly="1"/>
+                        </group>
+                        
+                        <group>
+                             <field name = "amount"/>
+                        </group>
+                        <group>
+                             <field name ="from_branch"/>
+                        </group>
+                         <group>
+                             <field name ="to_branch"/>
+                         </group>
+                         <group>
+                             <field name ="courier"/>
+                        </group>
+                         <group>
+                            <field name ="initiate_date" invisible="1"/> 
+                        </group>
+                        <group>
+                             <field name = "initiated_by" invisible="1"/> 
+                        </group>
+                        
+                                        
+                    </sheet>  
+                </form>
+            </field>
+        </record>
+  
+         <record model="ir.ui.view" id="request_form_view">
+            <field name="name">cash_managment.request.form</field>
+            <field name="model">cash_managment.request</field>
+            <field name="arch" type="xml">
+                <form string="Add Request" create="false" edit="false">
+                    <header>
+                        <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
+                        <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
+                        <button name="%(cash_managment.supervise_cash_cancel_form_view)d" type="action" states='cancel' string="Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_approve_form_view)d" type="action" states='validate' string="Approve Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />     
+                        <button name="%(cash_managment.wizard_cash_initaite_form_view)d" type="action" states='approve' string="Initiate Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />                  
+                        <field name="state" widget="statusbar" statusbar_visible="new,validate,approve,reject,implement,closed" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="state"  readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="title"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                         <group>
+                            <field name="start_date"/>
+                        </group>
+                          <group>
+                            <field name="created_by" readonly="1"/>
+                        </group>
+                          <group>
+                            <field name="branch_code_from" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="branch_manager_to" invisible="1"/>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="request_search_view">
+            <field name="name">cash_managment.request.search</field>
+            <field name="model">cash_managment.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                    <field name="state" />
+                    <field name="title" />
+                    <field name="description" />
+                    <field name="validate_comment"/> 
+                    <field name="approval_comment"/>
+                    <field name="start_date"/>
+                    <field name="validate_date"/>
+                    <field name="approval_date"/>
+                    <field name="created_by"/>
+                    <field name="validated_by"/> 
+                    <field name="approved_by"/> 
+                    <separator/>
+                     <filter name="start_dates" string="Today" domain="[('start_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cash_center_request_search_view">
+            <field name="name">cash_managment.cash_center_request.search</field>
+            <field name="model">cash_managment.cash_center_request</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                        <field name = "state"/>
+                         <field name = "amount"/>
+                         <field name ="from_branch"/>
+                         <field name ="to_branch"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date" /> 
+                        <field name = "initiated_by" /> 
+                       
+                    <separator/>
+                     <filter name="initiate_dates" string="Today" domain="[('initiate_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                </search>
+            </field>
+        </record>
+
+   
+        <record model="ir.actions.act_window" id="request_list_action">
+            <field name="name">Requests</field>
+            <field name="res_model">cash_managment.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name ="context">{"search_default_start_dates":1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
+            </field>
+        </record>
+
+         <record model="ir.actions.act_window" id="cash_center_request_list_action">
+            <field name="name">Cash Center Requests</field>
+            <field name="res_model">cash_managment.cash_center_request</field>
+            <field name="view_mode">tree,form</field>
+            <field name ="context">{"search_default_initiate_dates":1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
+            </field>
+        </record>
+
+        
+        <record model="ir.actions.act_window" id="request_ongoing_list_action">
+            <field name="name">Ongoing Requests</field>
+            <field name="res_model">cash_managment.requestapproved</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
+            </field>
+        </record>
+
+ 
+        <!-- top level menu: no parent -->
+        <menuitem id="main_service_menu" name="Cash Management"/>
+        <menuitem id="config_cash_request" name="Cash Request Managment" parent="main_service_menu"/>
+        <menuitem id="config_cash_req" name="Cash Requests" parent="config_cash_request" action="request_list_action"/>
+        <menuitem id="cash_center_requests" name="Cash Center Requests" parent="config_cash_request" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
+    
+          
+            
+</odoo>

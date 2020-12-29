@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="validate_cash_view_form_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.validate_cash.form</field>
+            <field name="model">cash_managment.validate_cash</field>
+            <field name="arch" type="xml">
+                <form string="Validate Cash Request">
+                        <group>
+                           <field name="validate_comment"/>
+                        </group>
+                        <group>
+                            <field name="validate_date"/>
+                        </group>
+                        <group>
+                            <field name="validated_by" invisible="1"/>
+                        </group>
+                    <footer>
+                        <button name="action_validate_cash" string="Validate" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_validate_form_view" model="ir.actions.act_window">
+            <field name="name">Validate Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.validate_cash</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="validate_cash_view_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+
+</odoo>

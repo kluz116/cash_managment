@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<odoo>
+         <record id="cash_managment_confirm_cash_center_view_form" model="ir.ui.view">
+            <field name="name">cash_managment.confirm_cash_center.form</field>
+            <field name="model">cash_managment.confirm_cash_center</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Transfer Request" create="false" edit="false">
+                   <sheet>
+                        <group>
+                           <field name = "state" invisible="1"/>
+                        </group>
+                        <group>
+                             <field name = "amount_request_id"/>
+                        </group>
+                         <group>
+                             
+                         </group>
+                         <notebook>
+                                <page string="Cash Denominations">
+                                    <group>
+                                       <field name ="deno_fifty_thounsand"/>
+                                    </group>
+                                    <group>
+                                       <field name ="deno_twenty_thounsand"/>
+                                    </group>
+                                    <group>
+                                       <field name ="deno_ten_thounsand"/>
+                                    </group>
+                                     <group>
+                                       <field name ="deno_five_thounsand"/>
+                                    </group>
+                                     <group>
+                                       <field name ="deno_two_thounsand"/>
+                                    </group>
+                                     <group>
+                                       <field name ="deno_one_thounsand"/>
+                                    </group>
+                                </page>
+                                  <page string="Coin Denominations">
+                                    <group>
+                                       <field name ="coin_one_thounsand"/>
+                                    </group>
+                                    <group>
+                                       <field name ="coin_five_houndred"/>
+                                    </group>
+                                    <group>
+                                       <field name ="coin_two_hundred"/>
+                                    </group>
+                                     <group>
+                                       <field name ="coin_one_hundred"/>
+                                    </group>
+                                     <group>
+                                       <field name ="coin_fifty"/>
+                                    </group> 
+                                </page>
+                          </notebook>  
+                           <group>
+                             <field name ="total" readonly="1"/>
+                            </group> 
+                            <group>
+                             <field name ="confirm_date" invisible="1"/>
+                            </group> 
+                            <group>
+                             <field name ="confirmed_by" invisible="1"/>
+                            </group>             
+                    </sheet> 
+                     <footer>
+                        <button name="cash_managment_confirm_cash_center" string="Confirm Request" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer> 
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_managment_confirm_cash_center" model="ir.actions.act_window">
+            <field name="name">Confirm Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.confirm_cash_center</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cash_managment_confirm_cash_center_view_form"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

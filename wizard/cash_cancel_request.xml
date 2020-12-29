@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="cancel_cash_view_form_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.cancel_cash.form</field>
+            <field name="model">cash_managment.cancel_cash</field>
+            <field name="arch" type="xml">
+                <form string="Cash Reject">
+                    <group class="oe_title">
+                        <field name="state" readonly="1"/> 
+                        <field name="cancel_comment"/>
+                        <field name="cancel_date"/>
+                    </group>
+                    <footer>
+                        <button name="cash_cancel" string="Cancel Request" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_cancel_form_view" model="ir.actions.act_window">
+            <field name="name">Cancel Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.cancel_cash</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cancel_cash_view_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

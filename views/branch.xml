@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_cash_managment_tree" model="ir.ui.view">
+            <field name="name">cash_managment.branch.tree</field>
+            <field name="model">cash_managment.branch</field>
+             <field name="arch" type="xml">
+                <tree string="All Branches">
+                    <field name="branch_code" />
+                    <field name="branch_name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cash_managment_courier_tree" model="ir.ui.view">
+            <field name="name">cash_managment.courier.tree</field>
+            <field name="model">cash_managment.courier</field>
+             <field name="arch" type="xml">
+                <tree string="Courier">
+                    <field name="courier_name" />
+                </tree>
+            </field>
+        </record>
+       <record model="ir.ui.view" id="branch_form_view">
+            <field name="name">cash_managment.branch.form</field>
+            <field name="model">cash_managment.branch</field>
+            <field name="arch" type="xml">
+                <form string="Add Branch" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="branch_code"/>
+                        </group>
+                        <group>
+                            <field name="branch_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="courier_form_view">
+            <field name="name">cash_managment.courier.form</field>
+            <field name="model">cash_managment.courier</field>
+            <field name="arch" type="xml">
+                <form string="Add Courier" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="courier_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="branch_search_view">
+            <field name="name">cash_managment.branch.search</field>
+            <field name="model">cash_managment.branch</field>
+            <field name="arch" type="xml">
+                <search>
+                      <field name="branch_code" />
+                      <field name="branch_name" />
+                      
+                </search>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="courier_search_view">
+            <field name="name">cash_managment.courier.search</field>
+            <field name="model">cash_managment.courier</field>
+            <field name="arch" type="xml">
+                <search>
+                      <field name="courier_name" />
+    
+                </search>
+            </field>
+        </record>
+
+   
+        <record model="ir.actions.act_window" id="branch_list_action">
+            <field name="name">Branches</field>
+            <field name="res_model">cash_managment.branch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Branch</p>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="courier_list_action">
+            <field name="name">Courier</field>
+            <field name="res_model">cash_managment.courier</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Courier</p>
+            </field>
+        </record>
+
+ 
+        <!-- top level menu: no parent -->
+        <menuitem id="main_service_menu" name="Cash Managment"/>
+        <menuitem id="config_menu" name="Configurations" parent="main_service_menu" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="config_team" name="Branches" parent="config_menu" action="branch_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="config_courier" name="Courier" parent="config_menu" action="courier_list_action" groups="cash_managment.Cash_Managment_Support"/>
+            
+</odoo>

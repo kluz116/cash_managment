@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+          <record id="initiate_cash_view_form_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.approved_request.form</field>
+            <field name="model">cash_managment.approved_request</field>
+            <field name="arch" type="xml">
+                <form string="Initiate Cash Request">
+                    <group class="oe_title">
+                        <field name = "state" readonly="1"/>
+                         <field name = "title"/>
+                        <field name ="branch_id"/>
+                        <field name ="from_by"/>
+                        
+                    
+                        <field name ="to_branch"/>
+                         <field name ="to_by"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date" invisible="1"/> 
+                        <field name = "initiated_by" invisible="1"/> 
+                       
+                     
+                    </group>
+                    <footer>
+                        <button name="initiate_request" string="Initiate" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_initaite_form_view" model="ir.actions.act_window">
+            <field name="name">Initiate Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.approved_request</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="initiate_cash_view_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

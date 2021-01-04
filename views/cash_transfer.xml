@@ -111,7 +111,7 @@
                 <xpath expr="//sheet" position="before">
                     <header>
                         <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
-                        <field name = "current_user" />
+                        <field name = "current_user" invisible='1' />
                         <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" invisible="1"/>
                     </header>
                 </xpath>

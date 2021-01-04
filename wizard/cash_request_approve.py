@@ -9,11 +9,15 @@ class ApprovedCashRequest(models.TransientModel):
 
     branch_id = fields.Many2one('cash_managment.branch',string ='From Branch', required=True)
     from_branch_id = fields.Integer(related='branch_id.id')
-    from_by = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', branch_id)]")
+    from_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', branch_id)]")
+    from_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', branch_id)]")
     from_by_id = fields.Integer(related='from_by.id')
+    from_by_id_two = fields.Integer(related='from_by_two.id')
     to_branch = fields.Many2one('cash_managment.branch',string ='To Branch', required=True)
-    to_by = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', to_branch)]")
+    to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
+    to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', to_branch)]")
     to_by_id = fields.Integer(related='to_by.id')
+    to_by_id_two = fields.Integer(related='to_by_two.id')
     to_branch_id = fields.Integer(related='to_branch.id')
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     courier_id = fields.Integer(related='courier.id',string="Courier")
@@ -53,8 +57,10 @@ class ApprovedCashRequest(models.TransientModel):
         #self.write({'state': 'pending'})  
         vals = {'branch_id': self.from_branch_id,
                 'from_by': self.from_by_id,
+                'from_by_two': self.from_by_id_two,
                  'to_branch': self.to_branch_id,
                  'to_by': self.to_by_id,
+                 'to_by': self.to_by_id_two,
                  'courier':self.courier_id,
                  'initiate_date':self.initiate_date,
                  'initiated_by':self.initiated_by_id,
@@ -65,7 +71,8 @@ class ApprovedCashRequest(models.TransientModel):
         cash_confirm_req = self.env['cash_managment.request'].browse(self._context.get('active_ids'))
         for request in cash_confirm_req:
             request.branch_code_from = self.from_branch_request
-            request.branch_manager_from = self.from_by_id
+            request.branch_manager_from = self.from_by_id_two
+            request.branch_accountant_from = self.from_by_id
             request.state = 'closed'
 
             # template_id = self.env.ref('cash_managment.email_template_initiate_request').id

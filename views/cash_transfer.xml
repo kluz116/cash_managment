@@ -123,6 +123,9 @@
                              <field name = "initiated_request_id"/>
                         </group>
                          <group>
+                             <field name = "actual_amount"/>
+                        </group>
+                         <group>
                              <field name = "from_branch"/>
                         </group>
                          <group>

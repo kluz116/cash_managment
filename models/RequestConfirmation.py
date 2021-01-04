@@ -8,8 +8,8 @@ class Re(models.Model):
 
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Amount To Confirm', domain = [('state','=','pending')])
-
+    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount To Confirm', domain = [('state','=','pending')])
+    actual_amount = fields.Integer(string="Actual Amount Corfimed")
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
     to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -30,7 +30,7 @@ class Re(models.Model):
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Ongoing'),('confirmed', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Ongoing'),('confirmed_one', 'Confirmed'),('confirmed_two', 'Confirmed'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     to_users =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
@@ -44,14 +44,15 @@ class Re(models.Model):
         for e in self:
             partner = self.env['res.users'].browse(self.env.uid).partner_id
             e.current_user = (True if partner.id == self.to_users else False)
-
+ 
+    '''
     @api.one
     @api.constrains('total','initiated_request_id')
     def _check_amount(self):
         if self.initiated_request_id.title.title != self.total:
             raise exceptions.ValidationError("The Amount {total} Shs Does Not Equal {amount} Shs  Which Was Approved By Cash Center".format(total=self.total,amount = self.initiated_request_id.title.title))
 
-
+    '''
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')
     def _compute_total(self):
         for record in self:

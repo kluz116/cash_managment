@@ -21,7 +21,7 @@
         <field name="name">Branch Accountant View Rule</field>
         <field name="model_id" ref="model_cash_managment_request"/>
         <field name="groups" eval="[(4, ref('cash_managment.Branch_Accountant'))]" />
-        <field name="domain_force">[('user_id', '=', user.id)]</field>    
+        <field name="domain_force">[('|'),('user_id', '=', user.id),('branch_accountant_from','=', user.partner_id.id)]</field>    
     </record>
   
     <record model="ir.rule" id="partner_view_rule_Branch_Manager">

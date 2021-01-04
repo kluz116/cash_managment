@@ -31,19 +31,37 @@ class Re(models.Model):
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
     state = fields.Selection([('ongoing', 'Ongoing'),('confirmed_one', 'Confirmed'),('confirmed_two', 'Confirmed'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    from_manager_comment = fields.Text(string="Comment")
+    from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
-    to_users =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
-    #user_id = fields.Many2one('res.partner','Customer', default=lambda self: self.env.user.partner_id)
-    #current_user_id =  fields.Integer(related ='current_user.id', string='Current User Id')
-    #user_id = fields.Many2one('res.users', 'User', related='resource_id.user_id')
+    from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='To',store=True)
+    to_branch_accountant =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
+    to_branch_manager =  fields.Integer(related ='initiated_request_id.to_by_two.id', string='To',store=True)
     current_user = fields.Boolean('is current user ?', compute='_get_current_user')
+    current_to_branch_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
+    current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
 
-    @api.depends('to_users')
+
+    @api.depends('from_manager')
     def _get_current_user(self):
         for e in self:
             partner = self.env['res.users'].browse(self.env.uid).partner_id
-            e.current_user = (True if partner.id == self.to_users else False)
+            e.current_user = (True if partner.id == self.from_manager else False)
+
+    @api.depends('to_branch_accountant')
+    def _get_to_branch_accountant(self):
+        for e in self:
+            partner = self.env['res.users'].browse(self.env.uid).partner_id
+            e.current_to_branch_accountant = (True if partner.id == self.to_branch_accountant else False)
+ 
+
+    @api.depends('to_branch_manager')
+    def _get_to_branch_manager(self):
+        for e in self:
+            partner = self.env['res.users'].browse(self.env.uid).partner_id
+            e.current_to_branch_manager = (True if partner.id == self.to_branch_manager else False)
  
     '''
     @api.one
@@ -63,8 +81,4 @@ class Re(models.Model):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
 
-    @api.depends('current_user')
-    def _get_partner(self):
-        partner = self.env['res.users'].browse(self.env.uid).partner_id
-        for rec in self: 
-            rec.current_user = partner.id
+   

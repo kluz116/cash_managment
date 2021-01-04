@@ -110,9 +110,9 @@
                 <form string="Create Confirmation Request" create="false" edit="false">
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="%(cash_managment.wizard_cash_confirm_form_view)d" type="action" string="Confirm Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" attrs="{'invisible':['|',('current_user', '=', False),('state', 'not in', ['ongoing'])]}"    />
-                        <field name = "current_user"  invisible="1"/>
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed" invisible="1"/>
+                        <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
+                        <field name = "current_user" />
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" invisible="1"/>
                     </header>
                 </xpath>
                    <sheet>
@@ -355,13 +355,13 @@
             </field>
         </record>
 
-    
+
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>
         <menuitem id="confirm_cash_request" name="Cash Transfer Requests" parent="main_service_menu"/>
         <menuitem id="confirm_cash_req" name="Cash Transfer Confirmation" parent="confirm_cash_request" action="confirm_request_list_action"/>
         <menuitem id="cash_center_request_confirmation" name="Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
-        <!--<menuitem id="cash_managment_confirm_cash_centerto" name="To Branch Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_managment_confirm_cash_centerto_list_action"/>-->
+ 
     
             
 </odoo>

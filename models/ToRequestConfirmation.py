@@ -46,7 +46,7 @@ class ToConfirmCash(models.Model):
     def _compute_total_dollars(self):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
-
+    '''
     @api.one
     @api.constrains('total','amount_request_id')
     def _check_amount(self):
@@ -123,3 +123,4 @@ class ToConfirmCash(models.Model):
     def _check_coin_fifty(self):
         if self.amount_request_id.coin_fifty != self.coin_fifty :
             raise exceptions.ValidationError("Coin 50(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_fifty,deno_two = self.amount_request_id.coin_fifty))
+    '''

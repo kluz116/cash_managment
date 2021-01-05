@@ -11,8 +11,6 @@
                         <field name ="branch_id"/>
                         <field name ="from_by"/>
                         <field name ="from_by_two"/>
-                        
-                    
                         <field name ="to_branch"/>
                         <field name ="to_by"/>
                         <field name ="to_by_two"/>
@@ -20,7 +18,6 @@
                         <field name ="initiate_date" invisible="1"/> 
                         <field name = "initiated_by" invisible="1"/> 
                        
-                     
                     </group>
                     <footer>
                         <button name="initiate_request" string="Initiate" type="object" class="btn-primary"/>

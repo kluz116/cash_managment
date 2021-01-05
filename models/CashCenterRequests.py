@@ -6,11 +6,25 @@ class CashCenterRequest(models.Model):
     _description = "All Cash Center Requuests"
     _rec_name ="amount"
 
-    from_branch = fields.Many2one('cash_managment.branch',string ='From Branch', required=True)
-    to_branch = fields.Many2one('cash_managment.branch',string ='To Branch', required=True)
+    branch_id = fields.Many2one('cash_managment.branch',string ='From', required=True)
+    from_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', branch_id)]")
+    from_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', branch_id)]")
+    to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)
+    to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
+    to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', to_branch)]")
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
-    state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="ongoing", string="Request Status")
+    state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
     amount = fields.Integer(string='Amount', required=True)
     
+    @api.onchange ('branch_id')
+    def on_change_fromid(self):
+        for record in self:
+            self.from_by == record.from_by
+
+    @api.onchange ('to_branch')
+    def on_change_toid(self):
+        for record in self:
+            self.to_by == record.to_by    
+   

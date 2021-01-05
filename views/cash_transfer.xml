@@ -29,8 +29,7 @@
             <field name="model">cash_managment.cash_center_request_confirmation</field>
              <field name="arch" type="xml">
                 <tree string="All Requests">
-                    
-                  
+            
                     <field name="total"/>
                     <field name="deno_fifty_thounsand"/>
                     <field name="deno_twenty_thounsand"/>
@@ -103,7 +102,7 @@
         </record>
      
          
-         <record id="request_confirmation_view_form" model="ir.ui.view">
+        <record id="request_confirmation_view_form" model="ir.ui.view">
             <field name="name">cash_managment.request_confirmation.form</field>
             <field name="model">cash_managment.request_confirmation</field>
             <field name="arch" type="xml">
@@ -218,10 +217,18 @@
             <field name="model">cash_managment.cash_center_request_confirmation</field>
             <field name="arch" type="xml">
                 <form string="Create Confirmation Request" create="false" edit="false">
-                      <header>
-                        <button name="%(cash_managment.wizard_cash_managment_confirm_cash_center)d" type="action" states='ongoing' string="Confirm Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,closed" invisible="1"/>
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_confirm_form_view)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_to_manager_form_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        
+                        <field name = "current_user" invisible='1' />
+                        <field name ="current_to_branch_accountant" invisible ='1'/>
+                        <field name ="current_to_branch_manager" invisible ='1'/>
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" invisible="1"/>
                     </header>
+                </xpath>
                    <sheet>
                         <group>
                            <field name = "state" readonly="1"/>
@@ -229,7 +236,17 @@
                         <group>
                              <field name = "initiated_request_id"/>
                         </group>
-                     
+                         <group>
+                             <field name = "actual_amount"/>
+                        </group>
+                         <group>
+                             <field name = "from_branch"/>
+                        </group>
+                         <group>
+                             <field name = "to_branch"/>
+                        </group>
+                        
+                      
                          <notebook>
                                 <page string="Cash Denominations">
                                     <group>
@@ -268,9 +285,30 @@
                                        <field name ="coin_fifty"/>
                                     </group> 
                                 </page>
+                                <page string="USD Denominations">
+                                    <group>
+                                       <field name ="hundred_dollar"/>
+                                    </group>
+                                    <group>
+                                       <field name ="fifty_dollar"/>
+                                    </group>
+                                    <group>
+                                       <field name ="twenty_dollar"/>
+                                    </group>
+                                     <group>
+                                       <field name ="ten_dollar"/>
+                                    </group>
+                                     <group>
+                                       <field name ="five_dollar"/>
+                                    </group> 
+                                    <group>
+                                       <field name ="one_dollar"/>
+                                    </group> 
+                                </page>
                           </notebook>  
-                           <group>
+                            <group>
                              <field name ="total" readonly="1"/>
+                             <field name ="total_usd" readonly="1"/>
                             </group> 
                             <group>
                              <field name ="confirm_date" invisible="1"/>
@@ -282,6 +320,8 @@
                 </form>
             </field>
         </record>
+
+
   
   
    

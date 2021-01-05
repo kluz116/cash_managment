@@ -9,7 +9,7 @@ class ConfirmCash(models.TransientModel):
     
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Amount To Confirm.',domain = [('state','=','ongoing')])
+    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Amount To Confirm.',domain = [('state','=','confirmed_one')])
     amo_request_id = fields.Integer(related ='amount_request_id.id', string='To')
     to_branch = fields.Integer(related ='amount_request_id.to_branch', string='To', store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -30,7 +30,7 @@ class ConfirmCash(models.TransientModel):
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Ongoing'),('confirmed', 'Confirmed')],default="ongoing", string="Request Status")
+    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_one", string="Status")
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Integer(related ='confirmed_by.id', string='To')
 
@@ -45,13 +45,13 @@ class ConfirmCash(models.TransientModel):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
 
-    @api.one
+    '''@api.one
     @api.constrains('total','amount_request_id')
     def _check_amount(self):
         if self.amount_request_id.initiated_request_id.title.title != self.total:
             raise exceptions.ValidationError("The Amount {total} Shs Does Not Equal {amount} Shs  Which Was Approved By Cash Center".format(total=self.total,amount = self.amount_request_id.initiated_request_id.title.title))
   
-   
+    '''
 
     @api.multi
     def cash_confirm_request(self):
@@ -77,7 +77,7 @@ class ConfirmCash(models.TransientModel):
         self.env['cash_managment.confirm_cash_to'].create(vals)
         cash_confirm = self.env['cash_managment.request_confirmation'].browse(self._context.get('active_ids'))
         for request in cash_confirm:
-            request.state = 'confirmed'
+            request.state = 'confirmed_two'
 
         '''
         cash = self.env['cash_managment.requestapproved'].browse(self._context.get('active_ids'))
@@ -87,7 +87,7 @@ class ConfirmCash(models.TransientModel):
      
         
             '''
-    
+    '''
     @api.one
     @api.constrains('deno_fifty_thounsand','amount_request_id')
     def _check_denominator_fifty(self):
@@ -157,3 +157,4 @@ class ConfirmCash(models.TransientModel):
     def _check_coin_fifty(self):
         if self.amount_request_id.coin_fifty != self.coin_fifty :
             raise exceptions.ValidationError("Coin 50(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_fifty,deno_two = self.amount_request_id.coin_fifty))
+    '''

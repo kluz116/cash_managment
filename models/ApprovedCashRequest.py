@@ -18,13 +18,7 @@ class ApprovedCashRequest(models.Model):
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Requested Amount', required=True, domain = [('state','=','approve')])
-    current_user = fields.Boolean('is current user ?', compute='_get_current_user')
-
-    @api.depends('to_by')
-    def _get_current_user(self):
-        for e in self:
-            partner = self.env['res.users'].browse(self.env.uid).partner_id
-            e.current_user = (True if partner.id == self.to_by.id else False)
+  
     @api.onchange ('branch_id')
     def on_change_fromid(self):
         for record in self:

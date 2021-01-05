@@ -55,17 +55,18 @@ class ApprovedCashRequest(models.TransientModel):
     @api.multi
     def initiate_request(self):
         #self.write({'state': 'pending'})  
-        vals = {'branch_id': self.from_branch_id,
-                'from_by': self.from_by_id,
-                'from_by_two': self.from_by_id_two,
+        vals = { 'branch_id': self.from_branch_id,
+                 'from_by': self.from_by_id,
+                 'from_by_two': self.from_by_id_two,
                  'to_branch': self.to_branch_id,
                  'to_by': self.to_by_id,
-                 'to_by': self.to_by_id_two,
+                 'to_by_two': self.to_by_id_two,
                  'courier':self.courier_id,
                  'initiate_date':self.initiate_date,
                  'initiated_by':self.initiated_by_id,
                  'state':self.state,
-                 'title':self.title_id}
+                 'title':self.title_id
+                 }
 
         self.env['cash_managment.requestapproved'].create(vals)
         cash_confirm_req = self.env['cash_managment.request'].browse(self._context.get('active_ids'))

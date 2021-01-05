@@ -30,10 +30,11 @@ class Re(models.Model):
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Ongoing'),('confirmed_one', 'Confirmed'),('confirmed_two', 'Confirmed'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
-    
+    to_manager_comment = fields.Text(string="Comment")
+    to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='To',store=True)

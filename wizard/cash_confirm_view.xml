@@ -12,10 +12,8 @@
                         <group>
                              <field name = "amount_request_id"/>
                         </group>
-                     
-                        
                          <group>
-                             <field name = "to_branch"/>
+                             <field name = "to_branch" invisible="1"/>
                         </group>
                          <notebook>
                                 <page string="Cash Denominations">

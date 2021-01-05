@@ -117,10 +117,10 @@ class ToConfirmCash(models.Model):
     def _check_coin_one_hundred(self):
         if self.amount_request_id.coin_one_hundred != self.coin_one_hundred :
             raise exceptions.ValidationError("Coin 100(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_one_hundred,deno_two = self.amount_request_id.coin_one_hundred))
-        
-    @api.one
-    @api.constrains('amount_request_id','coin_fifty')
-    def _check_coin_fifty(self):
-        if self.amount_request_id.coin_fifty != self.coin_fifty :
-            raise exceptions.ValidationError("Coin 50(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_fifty,deno_two = self.amount_request_id.coin_fifty))
+    
+    #@api.one
+    #@api.constrains('amount_request_id','coin_fifty')
+    #def _check_coin_fifty(self):
+        #if self.amount_request_id.coin_fifty != self.coin_fifty :
+            #raise exceptions.ValidationError("Coin 50(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_fifty,deno_two = self.amount_request_id.coin_fifty))
     '''

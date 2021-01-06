@@ -15,7 +15,7 @@ class CashCenterRequest(models.Model):
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
-    state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
+    state = fields.Selection([('ongoing', 'Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
     amount = fields.Integer(string='Amount', required=True)
     
     @api.onchange ('branch_id')

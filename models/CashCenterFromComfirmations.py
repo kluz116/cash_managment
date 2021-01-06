@@ -73,7 +73,3 @@ class CashCenterConfirmations(models.Model):
     def _compute_total_dollars(self):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
-
-   
-
-

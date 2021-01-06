@@ -225,7 +225,7 @@
         <menuitem id="main_service_menu" name="Cash Management"/>
         <menuitem id="config_cash_request" name="Cash Request Managment" parent="main_service_menu"/>
         <menuitem id="config_cash_req" name="Cash Requests" parent="config_cash_request" action="request_list_action"/>
-        <menuitem id="cash_center_requests" name="Cash Center Requests" parent="config_cash_request" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="cash_center_requests" name="Cash Center Requests" parent="config_cash_request" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
     
           

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="cash_managment_from_manager_cash_center_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.from_manager_cash_center.form</field>
+            <field name="model">cash_managment.from_manager_cash_center</field>
+            <field name="arch" type="xml">
+                <form string="Cash Confirm">
+                    <group class="oe_title">
+                        <field name="state" readonly="1"/> 
+                        <field name="from_manager_comment"/>
+                        <field name="from_manager_date"/>
+                    </group>
+                    <footer>
+                        <button name="cash_confirm_cash_center" string="Confirm Cash" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_managment_from_manager_cash_center" model="ir.actions.act_window">
+            <field name="name">Confirm Cash</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.from_manager_cash_center</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cash_managment_from_manager_cash_center_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

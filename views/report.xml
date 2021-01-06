@@ -104,8 +104,8 @@
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>
         <menuitem id="confirm_cash_report" name="Cash Managment Reports" parent="main_service_menu"/>
-        <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
-        <menuitem id="confirm_cash_to_req" name="Cash Transfer Confirmations" parent="confirm_cash_report" action="to_confirm_request_list_action"/>
+        <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
+        <menuitem id="confirm_cash_to_req" name="Cash Transfer Confirmations Report" parent="confirm_cash_report" action="to_confirm_request_list_action"/>
          
             
 </odoo>

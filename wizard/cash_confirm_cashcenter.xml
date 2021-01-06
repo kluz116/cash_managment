@@ -10,11 +10,11 @@
                            <field name = "state" invisible="1"/>
                         </group>
                         <group>
-                             <field name = "amount_request_id"/>
+                             <field name = "amount_request_ids"/>
                         </group>
                          <group>
-                             
-                         </group>
+                             <field name = "to_branch" invisible="1"/>
+                        </group>
                          <notebook>
                                 <page string="Cash Denominations">
                                     <group>
@@ -36,7 +36,7 @@
                                        <field name ="deno_one_thounsand"/>
                                     </group>
                                 </page>
-                                  <page string="Coin Denominations">
+                                 <page string="Coin Denominations">
                                     <group>
                                        <field name ="coin_one_thounsand"/>
                                     </group>
@@ -53,9 +53,30 @@
                                        <field name ="coin_fifty"/>
                                     </group> 
                                 </page>
+                                 <page string="USD Denominations">
+                                    <group>
+                                       <field name ="hundred_dollar"/>
+                                    </group>
+                                    <group>
+                                       <field name ="fifty_dollar"/>
+                                    </group>
+                                    <group>
+                                       <field name ="twenty_dollar"/>
+                                    </group>
+                                     <group>
+                                       <field name ="ten_dollar"/>
+                                    </group>
+                                     <group>
+                                       <field name ="five_dollar"/>
+                                    </group> 
+                                    <group>
+                                       <field name ="one_dollar"/>
+                                    </group> 
+                                </page>
                           </notebook>  
                            <group>
                              <field name ="total" readonly="1"/>
+                             <field name ="total_usd" readonly="1"/>
                             </group> 
                             <group>
                              <field name ="confirm_date" invisible="1"/>
@@ -72,12 +93,12 @@
             </field>
         </record>
 
-        <record id="wizard_cash_managment_confirm_cash_center" model="ir.actions.act_window">
+         <record id="wizard_cash_managment_confirm_cash_center_cash" model="ir.actions.act_window">
             <field name="name">Confirm Cash Request</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cash_managment.confirm_cash_center</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="cash_managment_confirm_cash_center_view_form"/>
             <field name="target">new</field>
-        </record>
+         </record>
 </odoo>

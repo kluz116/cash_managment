@@ -219,9 +219,9 @@
                 <form string="Create Confirmation Request" create="false" edit="false">
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_confirm_form_view)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_managment_to_manager_form_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_from_manager_cash_center)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_confirm_cash_center_cash)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_to_manager_cash_cente_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         
                         <field name = "current_user" invisible='1' />
                         <field name ="current_to_branch_accountant" invisible ='1'/>
@@ -404,8 +404,8 @@
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>
         <menuitem id="confirm_cash_request" name="Cash Transfer Requests" parent="main_service_menu"/>
-        <menuitem id="confirm_cash_req" name="Cash Transfer Confirmation" parent="confirm_cash_request" action="confirm_request_list_action"/>
-        <menuitem id="cash_center_request_confirmation" name="Cash Transfer - Cash Center" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
+        <menuitem id="confirm_cash_req" name="Cash Transfer Confirmation - Branches" parent="confirm_cash_request" action="confirm_request_list_action"/>
+        <menuitem id="cash_center_request_confirmation" name="Cash Transfer Confirmation - Cash Center" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
  
     
             

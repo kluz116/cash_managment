@@ -4,12 +4,13 @@ from datetime import datetime
 class CashCenterToConfirmCash(models.Model):
     _name = "cash_managment.confirm_cash_centerto"
     _description = "Confirm Cash"
-    _rec_name = 'amount_request_id'
+    _rec_name = 'amount_request_ids'
 
     
-    total = fields.Float(compute='_compute_total',string="Total")
-    amount_request_id = fields.Many2one('cash_managment.cash_center_request_confirmation',string='Amount To Confirm.')
-    #to_branch = fields.Char(related ='amount_request_id.to_branch', string='To')
+    total = fields.Float(compute='_compute_total',string="Total",store=True)
+    total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
+    amount_request_ids = fields.Many2one('cash_managment.cash_center_request_confirmation',string='Amount To Confirm.')
+    to_branch = fields.Integer(related ='amount_request_ids.to_branch', string='To', store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
     deno_twenty_thounsand = fields.Integer(string="20,000 Shs")
     deno_ten_thounsand = fields.Integer(string="10,000 Shs")
@@ -21,11 +22,16 @@ class CashCenterToConfirmCash(models.Model):
     coin_two_hundred = fields.Integer(string="200 Shs")
     coin_one_hundred = fields.Integer(string="100 Shs")
     coin_fifty = fields.Integer(string="50 Shs")
+    hundred_dollar = fields.Integer(string="$100")
+    fifty_dollar = fields.Integer(string="$50")
+    twenty_dollar = fields.Integer(string="$20")
+    ten_dollar = fields.Integer(string="$10")
+    five_dollar = fields.Integer(string="$5")
+    one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="ongoing", string="Status")
-    #confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     confirmed_by = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]}, default=lambda self: self.env.user.id)
-    user_id = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]}, default=lambda self: self.env.user.id)
+    user_id = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     
   
 
@@ -35,3 +41,8 @@ class CashCenterToConfirmCash(models.Model):
             record.total = record.deno_fifty_thounsand + record.deno_twenty_thounsand + record.deno_ten_thounsand + record.deno_five_thounsand + record.deno_two_thounsand + record.deno_one_thounsand + record.coin_one_thounsand + record.coin_five_houndred + record.coin_two_hundred + record.coin_one_hundred + record.coin_fifty
 
     
+
+    @api.depends('hundred_dollar','fifty_dollar','twenty_dollar','ten_dollar','five_dollar','one_dollar')
+    def _compute_total_dollars(self):
+        for rec in self:
+            rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar

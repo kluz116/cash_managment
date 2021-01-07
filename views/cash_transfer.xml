@@ -135,6 +135,9 @@
                          <group>
                              <field name = "to_branch"/>
                         </group>
+                           <group>
+                             <field name = "from_manager"/>
+                        </group>
                         
                       
                          <notebook>

@@ -6,8 +6,9 @@
             <field name="arch" type="xml">
                 <form string="Cash Reject">
                     <group class="oe_title">
-                            <field name="reject_comment"/>
-                            <field name="reject_date"/>
+                        <field name="state" readonly="1"/> 
+                        <field name="reject_comment"/>
+                        <field name="reject_date"/>
                         
                     </group>
                     <footer>

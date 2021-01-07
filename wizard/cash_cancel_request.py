@@ -21,4 +21,8 @@ class CashCancel(models.TransientModel):
             req.cancel_comment = self.cancel_comment
             req.cancel_date = self.cancel_date
             req.canceled_by = self.canceled_by
+
+            template_id = self.env.ref('cash_managment.email_template_cancel_request').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(req.id,force_send=True)
         

@@ -29,8 +29,10 @@
                         <field name = "state" />
                         <field name="branch_id"/>
                         <field name ="from_by"/>
+                        <field name ="from_by_two"/>
                         <field name="to_branch"/>
                         <field name ="to_by"/>
+                        <field name ="to_by_two"/>
                         <field name ="courier"/>
                         <field name ="initiate_date"/>
                         <field name = "initiated_by"/>

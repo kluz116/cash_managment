@@ -8,16 +8,16 @@ class ApprovedCashRequest(models.Model):
 
     
     branch_id = fields.Many2one('cash_managment.branch',string ='From', required=True)
-    from_by = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', branch_id)]")
-    from_by_two = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', branch_id)]")
+    from_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', branch_id)]")
+    from_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', branch_id)]")
     to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)
-    to_by = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', to_branch)]")
-    to_by_two = fields.Many2one('res.partner','Name',domain="[('branch_id', '=', to_branch)]")
+    to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
+    to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', to_branch)]")
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
-    title = fields.Many2one('cash_managment.request',string='Requested Amount', required=True, domain = [('state','=','approve')])
+    title = fields.Many2one('cash_managment.request',string='Requested', required=True, domain = [('state','=','approve')])
   
     @api.onchange ('branch_id')
     def on_change_fromid(self):

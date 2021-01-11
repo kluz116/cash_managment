@@ -20,4 +20,11 @@ class ToManger(models.TransientModel):
             req.state = self.state
             req.to_manager_comment = self.to_manager_comment
             req.to_manager_date = self.to_manager_date
+
+            template_id = self.env.ref('cash_managment.email_template_final_manager_confirm').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(req.id,force_send=True)
+
+
+        
          

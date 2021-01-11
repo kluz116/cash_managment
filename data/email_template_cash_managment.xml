@@ -221,19 +221,20 @@
   
         </record>
 
-        <record id="email_template_manager_confirm" model="mail.template">
+        <record id="email_template_final_manager_confirm" model="mail.template">
             <field name="name">Cash Management: To Manager Final Confirmation Request</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
-            <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
+            <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
-                   Hello ${object.initiated_request_id.to_by_two.name}, 
+                   Hello Team, 
                     <br /><br />
-                     Please Confirm Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} which has been recieved from Branch ${object.from_branch}.
-                    
+                     Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} has been confirmed and recieved from Branch ${object.from_branch}.
+      
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.

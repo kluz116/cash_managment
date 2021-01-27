@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions
 from datetime import datetime
 
 class CashCenterConfirmations(models.Model):
@@ -8,8 +8,8 @@ class CashCenterConfirmations(models.Model):
 
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount To Confirm', domain = [('state','=','ongoing')])
-    actual_amount = fields.Integer(string="Actual Amount Corfimed")
+    initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount Transfered', domain = [('state','=','ongoing')],required=True)
+    actual_amount = fields.Float(string="Actual Amount Transfered",required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
     to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -73,3 +73,10 @@ class CashCenterConfirmations(models.Model):
     def _compute_total_dollars(self):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
+    
+
+    @api.one
+    @api.constrains('total','actual_amount')
+    def _check_amount(self):
+        if self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))

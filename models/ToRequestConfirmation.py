@@ -9,7 +9,8 @@ class ToConfirmCash(models.Model):
     
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Amount To Confirm.')
+    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Expected Amount Transfered')
+    actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     to_branch = fields.Integer(related ='amount_request_id.to_branch', string='To', store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
     deno_twenty_thounsand = fields.Integer(string="20,000 Shs")
@@ -46,14 +47,14 @@ class ToConfirmCash(models.Model):
     def _compute_total_dollars(self):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
-    '''
+    
     @api.one
-    @api.constrains('total','amount_request_id')
+    @api.constrains('total','actual_amount')
     def _check_amount(self):
-        if self.amount_request_id.initiated_request_id.title.title != self.total:
-            raise exceptions.ValidationError("The Amount {total} Shs Does Not Equal {amount} Shs  Which Was Approved By Cash Center".format(total=self.total,amount = self.amount_request_id.initiated_request_id.title.title))
+        if self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
-   
+    '''
     @api.one
     @api.constrains('deno_fifty_thounsand','amount_request_id')
     def _check_denominator_fifty(self):

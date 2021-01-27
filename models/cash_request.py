@@ -10,7 +10,7 @@ class CashManagment(models.Model):
     title = fields.Integer(string='Request Amount', required=True)
     description  = fields.Text(string="Description", required=True)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
-    start_date = fields.Datetime(string='Start Date', default=datetime.today())
+    start_date = fields.Datetime(string='Start Date', default=datetime.now())
     end_date = fields.Datetime(string='Start Date')
     close_date = fields.Datetime(string='Close Date')
     validate_comment = fields.Text(string="Comment")
@@ -27,7 +27,7 @@ class CashManagment(models.Model):
     approved_by = fields.Many2one('res.users',string="Approved By")
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
     reject_comment = fields.Text(string="Reject Comment")
-    reject_date =  fields.Datetime(string='Reject Date', default=datetime.today())
+    reject_date =  fields.Datetime(string='Reject Date', default=datetime.now())
     rejected_by = fields.Many2one('res.users','Canceled By')
     branch_code_to = fields.Integer(compute='_compute_branch',string='Branch Code',store=True)
     branch_code_from = fields.Integer(string='Branch Code To')
@@ -36,7 +36,6 @@ class CashManagment(models.Model):
     branch_manager_from = fields.Integer(string='From Branch Manager')
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
-    #branch = fields.Many2one('cash_managment.branch',string ='From Branch', required=True)
     
 
     @api.depends('user_id')

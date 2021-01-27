@@ -5,9 +5,9 @@
             <field name="name">cash_managment.requestmapping.tree</field>
             <field name="model">cash_managment.requestmapping</field>
              <field name="arch" type="xml">
-                <tree string="Confirmations">
+                <tree string="Confirmations" edit="False">
                 
-                    <field name="from_branch" />
+                     <field name="from_branch" />
                     <field name="from_total"/>
                     <field name="from_total_usd" />
                     <field name="from_confirm_date"/>

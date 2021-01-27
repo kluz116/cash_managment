@@ -8,8 +8,8 @@ class Re(models.Model):
 
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount To Confirm', domain = [('state','=','pending')])
-    actual_amount = fields.Integer(string="Actual Amount Corfimed")
+    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
+    actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
     to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -64,14 +64,14 @@ class Re(models.Model):
             partner = self.env['res.users'].browse(self.env.uid).partner_id
             e.current_to_branch_manager = (True if partner.id == self.to_branch_manager else False)
  
-    '''
+    
     @api.one
-    @api.constrains('total','initiated_request_id')
+    @api.constrains('total','actual_amount')
     def _check_amount(self):
-        if self.initiated_request_id.title.title != self.total:
-            raise exceptions.ValidationError("The Amount {total} Shs Does Not Equal {amount} Shs  Which Was Approved By Cash Center".format(total=self.total,amount = self.initiated_request_id.title.title))
+        if self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
-    '''
+    
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')
     def _compute_total(self):
         for record in self:

@@ -9,7 +9,8 @@ class ConfirmCash(models.TransientModel):
     
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Amount To Confirm.',domain = [('state','=','confirmed_one')])
+    amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Expected Amount Transfered',domain = [('state','=','confirmed_one')],required=True)
+    actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     amo_request_id = fields.Integer(related ='amount_request_id.id', string='To')
     to_branch = fields.Integer(related ='amount_request_id.to_branch', string='To', store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -58,6 +59,7 @@ class ConfirmCash(models.TransientModel):
         #self.write({'state': 'confirmed'})  
         vals = {'total': self.total,
                 'amount_request_id': self.amo_request_id,
+                'actual_amount' : self.actual_amount,
                 'to_branch': self.to_branch,
                 'deno_fifty_thounsand': self.deno_fifty_thounsand,
                  'deno_twenty_thounsand': self.deno_twenty_thounsand,
@@ -82,84 +84,4 @@ class ConfirmCash(models.TransientModel):
             template_id = self.env.ref('cash_managment.email_template_to_manager_confirm').id
             template =  self.env['mail.template'].browse(template_id)
             template.send_mail(request.id,force_send=True)
-
-
-        '''
-        cash = self.env['cash_managment.requestapproved'].browse(self._context.get('active_ids'))
-        for req in cash:
-            req.state = 'confirmed'
             
-     
-        
-            '''
-    '''
-    @api.one
-    @api.constrains('deno_fifty_thounsand','amount_request_id')
-    def _check_denominator_fifty(self):
-        if self.amount_request_id.deno_fifty_thounsand != self.deno_fifty_thounsand :
-            raise exceptions.ValidationError("50,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_fifty_thounsand,deno_two = self.amount_request_id.deno_fifty_thounsand))
-
-    @api.one
-    @api.constrains('amount_request_id','deno_twenty_thounsand')
-    def _check_denominator_twenty(self):
-        if self.amount_request_id.deno_twenty_thounsand != self.deno_twenty_thounsand :
-            raise exceptions.ValidationError("20,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_twenty_thounsand,deno_two = self.amount_request_id.deno_twenty_thounsand))
-
-
-    @api.one
-    @api.constrains('amount_request_id','deno_ten_thounsand')
-    def _check_deno_ten_thounsand(self):
-        if self.amount_request_id.deno_ten_thounsand != self.deno_ten_thounsand :
-            raise exceptions.ValidationError("10,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_ten_thounsand,deno_two = self.amount_request_id.deno_ten_thounsand))
-
-
-    @api.one
-    @api.constrains('amount_request_id','deno_five_thounsand')
-    def _check_deno_five_thounsand(self):
-        if self.amount_request_id.deno_five_thounsand != self.deno_five_thounsand :
-            raise exceptions.ValidationError("5,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_five_thounsand,deno_two = self.amount_request_id.deno_five_thounsand))
-
-
-    @api.one
-    @api.constrains('amount_request_id','deno_two_thounsand')
-    def _check_deno_two_thounsand(self):
-        if self.amount_request_id.deno_two_thounsand != self.deno_two_thounsand :
-            raise exceptions.ValidationError("2,000(Shs)Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_two_thounsand,deno_two = self.amount_request_id.deno_two_thounsand))
-
-    @api.one
-    @api.constrains('amount_request_id','deno_one_thounsand')
-    def _check_deno_one_thounsand(self):
-        if self.amount_request_id.deno_one_thounsand != self.deno_one_thounsand :
-            raise exceptions.ValidationError("1,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} Shs  Which Was Confirmed : ".format(deno_one=self.deno_one_thounsand,deno_two = self.amount_request_id.deno_one_thounsand))
-
-
-    @api.one
-    @api.constrains('amount_request_id','coin_one_thounsand')
-    def _check_coin_one_thounsand(self):
-        if self.amount_request_id.coin_one_thounsand != self.coin_one_thounsand :
-            raise exceptions.ValidationError("Coin 1,000(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_one_thounsand,deno_two = self.amount_request_id.coin_one_thounsand))
-
-    @api.one
-    @api.constrains('amount_request_id','coin_five_houndred')
-    def _check_coin_five_houndred(self):
-        if self.amount_request_id.coin_five_houndred != self.coin_five_houndred :
-            raise exceptions.ValidationError("Coin 500(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_five_houndred,deno_two = self.amount_request_id.coin_five_houndred))
-
-    @api.one
-    @api.constrains('amount_request_id','coin_two_hundred')
-    def _check_coin_two_hundred(self):
-        if self.amount_request_id.coin_two_hundred != self.coin_two_hundred :
-            raise exceptions.ValidationError("Coin 200(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_two_hundred,deno_two = self.amount_request_id.coin_two_hundred))
-
-    @api.one
-    @api.constrains('amount_request_id','coin_one_hundred')
-    def _check_coin_one_hundred(self):
-        if self.amount_request_id.coin_one_hundred != self.coin_one_hundred :
-            raise exceptions.ValidationError("Coin 100(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_one_hundred,deno_two = self.amount_request_id.coin_one_hundred))
-        
-    @api.one
-    @api.constrains('amount_request_id','coin_fifty')
-    def _check_coin_fifty(self):
-        if self.amount_request_id.coin_fifty != self.coin_fifty :
-            raise exceptions.ValidationError("Coin 50(Shs) Denomination Amount {deno_one} (Shs) Doesn't Equal To {deno_two} (Shs)  Which Was Confirmed : ".format(deno_one=self.coin_fifty,deno_two = self.amount_request_id.coin_fifty))
-    '''

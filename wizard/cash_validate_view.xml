@@ -9,7 +9,7 @@
                            <field name="validate_comment"/>
                         </group>
                         <group>
-                            <field name="validate_date"/>
+                            <field name="validate_date" readonly ="1"/>
                         </group>
                         <group>
                             <field name="validated_by" invisible="1"/>

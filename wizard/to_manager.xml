@@ -8,7 +8,7 @@
                     <group class="oe_title">
                         <field name="state" readonly="1"/> 
                         <field name="to_manager_comment"/>
-                        <field name="to_manager_date"/>
+                        <field name="to_manager_date" invisible="1"/>
                     </group>
                     <footer>
                         <button name="cash_confirm_manager" string="Confirm Cash" type="object" class="btn-primary"/>

@@ -9,7 +9,8 @@ class ConfirmCashCashCenter(models.TransientModel):
     
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    amount_request_ids = fields.Many2one('cash_managment.cash_center_request_confirmation',string='Amount To Confirm.',domain = [('state','=','confirmed_one')])
+    amount_request_ids = fields.Many2one('cash_managment.cash_center_request_confirmation',string='Expected Amount Transfered',domain = [('state','=','confirmed_one')],required=True)
+    actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     amo_request_id = fields.Integer(related ='amount_request_ids.id', string='To')
     to_branch = fields.Integer(related ='amount_request_ids.to_branch', string='To', store=True)
     deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
@@ -48,10 +49,11 @@ class ConfirmCashCashCenter(models.TransientModel):
 
     @api.multi
     def cash_managment_confirm_cash_center(self):
-        vals = {'total': self.total,
-                'amount_request_id': self.amo_request_id,
-                'to_branch': self.to_branch,
-                'deno_fifty_thounsand': self.deno_fifty_thounsand,
+        vals = { 'total': self.total,
+                 'amount_request_id': self.amo_request_id,
+                 'actual_amount': self.actual_amount,
+                 'to_branch': self.to_branch,
+                 'deno_fifty_thounsand': self.deno_fifty_thounsand,
                  'deno_twenty_thounsand': self.deno_twenty_thounsand,
                  'deno_ten_thounsand':self.deno_ten_thounsand,
                  'deno_five_thounsand':self.deno_five_thounsand,
@@ -64,7 +66,8 @@ class ConfirmCashCashCenter(models.TransientModel):
                  'coin_fifty':self.coin_fifty,
                  'confirm_date':self.confirm_date,
                  'state':'confirmed',
-                 'confirmed_by':self.user_id}
+                 'confirmed_by':self.user_id
+                 }
                  
         self.env['cash_managment.confirm_cash_centerto'].create(vals)
         cash_confirm = self.env['cash_managment.cash_center_request_confirmation'].browse(self._context.get('active_ids'))

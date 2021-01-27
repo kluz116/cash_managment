@@ -12,11 +12,14 @@
                         <group>
                              <field name = "amount_request_id"/>
                         </group>
+                        <group>
+                             <field name = "actual_amount"/>
+                        </group>
                          <group>
                              <field name = "to_branch" invisible="1"/>
                         </group>
                          <notebook>
-                                <page string="Cash Denominations">
+                                <page string="UGX Denominations - Cash">
                                     <group>
                                        <field name ="deno_fifty_thounsand"/>
                                     </group>
@@ -36,7 +39,7 @@
                                        <field name ="deno_one_thounsand"/>
                                     </group>
                                 </page>
-                                 <page string="Coin Denominations">
+                                 <page string="UGX Denominations - Coins">
                                     <group>
                                        <field name ="coin_one_thounsand"/>
                                     </group>
@@ -53,7 +56,7 @@
                                        <field name ="coin_fifty"/>
                                     </group> 
                                 </page>
-                                 <page string="USD Denominations">
+                                 <page string="USD Denominations - Cash">
                                     <group>
                                        <field name ="hundred_dollar"/>
                                     </group>

@@ -23,7 +23,7 @@
             <field name="name">cash_managment.requestapproved.tree</field>
             <field name="model">cash_managment.requestapproved</field>
              <field name="arch" type="xml">
-                <tree string="Ongoing Requests">
+                <tree string="Ongoing Requests"  create="false" edit="false">
                         
                         <field name = "title"/>
                         <field name = "state" />
@@ -134,7 +134,7 @@
                             <field name="description"/>
                         </group>
                          <group>
-                            <field name="start_date" readonly ="1"/>
+                            <field name="start_date"/>
                         </group>
                           <group>
                             <field name="created_by" invisible="1"/>
@@ -191,6 +191,29 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="cash_ongoing_request_search_view">
+            <field name="name">cash_managment.cash_ongoing_request.search</field>
+            <field name="model">cash_managment.requestapproved</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                        <field name = "title"/>
+                        <field name = "state" />
+                        <field name="branch_id"/>
+                        <field name ="from_by"/>
+                        <field name ="from_by_two"/>
+                        <field name="to_branch"/>
+                        <field name ="to_by"/>
+                        <field name ="to_by_two"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date"/>
+                        <field name = "initiated_by"/>
+                       
+                    <separator/>
+                     <filter name="initiate_datess" string="Ongoing Requests" domain="[('state', '=','pending')]" />
+                </search>
+            </field>
+        </record>
+
    
         <record model="ir.actions.act_window" id="request_list_action">
             <field name="name">Cash Requests</field>
@@ -217,8 +240,9 @@
             <field name="name">Ongoing Requests</field>
             <field name="res_model">cash_managment.requestapproved</field>
             <field name="view_mode">tree,form</field>
+            <field name ="context">{"search_default_initiate_datess":1}</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
+                <p class="o_view_nocontent_smiling_face">Ongoing Cash Requests Request</p>
             </field>
         </record>
 

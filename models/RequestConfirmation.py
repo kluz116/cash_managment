@@ -6,9 +6,15 @@ class Re(models.Model):
     _description = "This is a model for all requests confirmations"
     _rec_name ="total"
 
+
+    partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
+    from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
+    partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
+    #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)
+    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True)
+    #initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
     actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
     to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
@@ -81,5 +87,10 @@ class Re(models.Model):
     def _compute_total_dollars(self):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
+
+    @api.depends('partner_ids')
+    def _compute_branch_from_bys(self):
+        for record in self:
+            record.from_bys = record.partner_ids.id
 
    

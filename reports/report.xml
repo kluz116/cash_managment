@@ -1,0 +1,11 @@
+<report
+    id="account_invoices"
+    model="account.invoice"
+    string="Invoices"
+    name="account.report_invoice"
+    report_type="qweb-pdf"
+    print_report_name="object._get_report_filename()"
+    attachment_use="True"
+    attachment="(object.state in ('open','paid')) and
+        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+/>

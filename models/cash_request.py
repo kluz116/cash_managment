@@ -8,7 +8,7 @@ class CashManagment(models.Model):
     _rec_name ='title'
 
     title = fields.Integer(string='Request Amount', required=True)
-    description  = fields.Text(string="Description", required=True)
+    description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
     end_date = fields.Datetime(string='Start Date')

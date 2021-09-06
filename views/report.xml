@@ -4,10 +4,10 @@
         <record id="cash_managment_requestmapping_tree" model="ir.ui.view">
             <field name="name">cash_managment.requestmapping.tree</field>
             <field name="model">cash_managment.requestmapping</field>
-             <field name="arch" type="xml">
-                <tree string="Confirmations" edit="False">
+             <field name="arch" type="xml" >
+                <tree string="Confirmations">
                 
-                     <field name="from_branch" />
+                    <field name="from_branch" />
                     <field name="from_total"/>
                     <field name="from_total_usd" />
                     <field name="from_confirm_date"/>
@@ -25,7 +25,7 @@
             <field name="name">cash_managment.request_confirmation.tree</field>
             <field name="model">cash_managment.confirm_cash_to</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">           
+                <tree string="All Requests" create="false" edit="false">           
                     <field name="total"/>
                      <field name="state"/>
                     <field name="deno_fifty_thounsand"/>
@@ -51,14 +51,8 @@
             <field name="model">cash_managment.requestmapping</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="from_branch" />
-                    <field name="from_total"/>
-                    <field name="from_total_usd" />
                     <field name="from_confirm_date"/>
                     <field name="from_confirmed_by" />
-                    <field name="to_branch"/>
-                    <field name="to_total" />
-                    <field name="to_total_usd" />
                     <field name="to_confirm_date"/>
                     <field name="to_confirmed_by" />  
                     <separator/>

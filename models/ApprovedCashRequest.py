@@ -18,7 +18,7 @@ class ApprovedCashRequest(models.Model):
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Requested', required=True, domain = [('state','=','approve')])
-  
+    from_by_branch = fields.Integer(compute='_compute_from_by',string='From',store=True)
     @api.onchange ('branch_id')
     def on_change_fromid(self):
         for record in self:
@@ -28,4 +28,11 @@ class ApprovedCashRequest(models.Model):
     def on_change_toid(self):
         for record in self:
             self.to_by == record.to_by    
+
+    
+    @api.depends('from_by')
+    def _compute_from_by(self):
+        for record in self:
+            record.from_by_branch = record.from_by.id
+
    

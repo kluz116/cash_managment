@@ -6,8 +6,8 @@ class RequestMapping(models.Model):
     _auto = False
     _rec_name ="from_total"
 
-    from_branch = fields.Integer(string='From')
-    to_branch = fields.Integer( string='To')
+    from_branch = fields.Integer(string='Branch')
+    to_branch = fields.Integer( string='Branch')
     from_confirm_date =  fields.Datetime(string='Confirmed Date')
     to_confirm_date =  fields.Datetime(string='Confirmed Date')
     from_confirmed_by = fields.Many2one('res.users','Confirmed By:')

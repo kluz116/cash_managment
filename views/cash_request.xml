@@ -140,7 +140,7 @@
                         <group>
                            <field name = "state" readonly="1"/>
                         </group>
-                    
+                     
                         <group>
                              <field name = "amount"/>
                         </group>
@@ -365,8 +365,8 @@
  
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Management"/>
-        <menuitem id="config_cash_request" name="Cash Request Managment" parent="main_service_menu"/>
-        <menuitem id="config_cash_req" name="Cash Requests" parent="config_cash_request" action="request_list_action"/>
+        <menuitem id="config_cash_request" name="Online Cash Managment" parent="main_service_menu"/>
+        <menuitem id="config_cash_req" name="CIT Request" parent="config_cash_request" action="request_list_action"/>
         <menuitem id="cash_center_requests" name="Cash Center Requests" parent="config_cash_request" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="bank_center_requests" name="Bank Cash Requests" parent="config_cash_request" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>

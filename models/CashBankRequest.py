@@ -9,7 +9,7 @@ class CashBankRequest(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount = fields.Monetary(string='Amount', required=True)
     
-    branch_id = fields.Many2one('cash_managment.branch',string ='From', required=True)
+    branch_id = fields.Many2one('cash_managment.branch',string ='From')
     from_bank= fields.Many2one('cash_managment.bank',string ='From Bank')
     to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)
     to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
@@ -20,10 +20,6 @@ class CashBankRequest(models.Model):
     state = fields.Selection([('ongoing', 'Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
 
     
-    @api.onchange ('branch_id')
-    def on_change_fromid(self):
-        for record in self:
-            self.from_by == record.from_by
 
     @api.onchange ('to_branch')
     def on_change_toid(self):

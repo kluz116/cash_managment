@@ -16,7 +16,8 @@ class CashCenterRequest(models.Model):
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
-    amount = fields.Integer(string='Amount', required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency')
+    amount = fields.Monetary(string='Amount', required=True)
     
     @api.onchange ('branch_id')
     def on_change_fromid(self):

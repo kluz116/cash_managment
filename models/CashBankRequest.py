@@ -9,7 +9,7 @@ class CashBankRequest(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount = fields.Monetary(string='Amount', required=True)
     
-    branch_id = fields.Many2one('cash_managment.branch',string ='From', required=True)
+    branch_id = fields.Many2one('cash_managment.branch',string ='From')
     from_bank= fields.Many2one('cash_managment.bank',string ='From Bank')
     to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)
     to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
@@ -18,15 +18,19 @@ class CashBankRequest(models.Model):
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
+    unique_field = fields.Char(compute='comp_name', store=True)
 
     
-    @api.onchange ('branch_id')
-    def on_change_fromid(self):
-        for record in self:
-            self.from_by == record.from_by
 
     @api.onchange ('to_branch')
     def on_change_toid(self):
         for record in self:
             self.to_by == record.to_by    
+
+    @api.depends('to_branch','initiate_date')
+    def comp_name(self):
+        value = 'CIT-'
+        date_time = self.initiate_date.strftime("%m%d%Y")
+        last= '000'
+        self.unique_field = (value or '')+''+(date_time or '')+'-'+(last or '')+''+(str(self.id))
    

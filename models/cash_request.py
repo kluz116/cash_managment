@@ -8,6 +8,8 @@ class CashManagment(models.Model):
     _rec_name ='title'
 
     title = fields.Integer(string='Request Amount', required=True)
+    #currency_id = fields.Many2one('res.currency', string='Currency')
+    #title = fields.Monetary(string='Amount', required=True)
     description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
@@ -36,7 +38,7 @@ class CashManagment(models.Model):
     branch_manager_from = fields.Integer(string='From Branch Manager')
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
-    
+    unique_field = fields.Char(compute='comp_name', store=True)
 
     @api.depends('user_id')
     def _compute_branch(self):
@@ -48,6 +50,13 @@ class CashManagment(models.Model):
         for record in self:
             record.branch_manager_to = record.partner_id.manager
 
+
+    @api.depends('start_date')
+    def comp_name(self):
+        value = 'CIT-'
+        date_time = self.start_date.strftime("%m%d%Y")
+        last= '000'
+        self.unique_field = (value or '')+''+(date_time or '')+'-'+(last or '')+''+(str(self.id))
 
 
 

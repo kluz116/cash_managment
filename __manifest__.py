@@ -39,6 +39,7 @@
         'wizard/to_manager.xml',
         'wizard/from_manager_cash_center.xml',
         'wizard/to_manager_cash_center.xml',
+        'wizard/to_manager_cash_bank.xml',
         'views/branch.xml',
         'views/cash_request.xml',
         'views/cash_users.xml',

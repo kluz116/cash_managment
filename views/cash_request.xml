@@ -5,6 +5,7 @@
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
                 <tree string="All Requests">
+                     <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
                     <field name="description" />
@@ -44,9 +45,10 @@
             <field name="model">cash_managment.cash_center_request</field>
              <field name="arch" type="xml">
                 <tree string="Cash Center Requests">
-                        
-                         <field name = "state" readonly="1"/>
-                         <field name = "amount"/>
+                
+                        <field name="unique_field" string="Ref"/>
+                        <field name = "state" readonly="1"/>
+                        <field name = "amount"/>
                         <field name ="branch_id"/>
                         <field name ="from_by"/>
                         <field name ="from_by_two"/>
@@ -65,10 +67,11 @@
             <field name="name">cash_managment.cash_bank_request.tree</field>
             <field name="model">cash_managment.cash_bank_request</field>
              <field name="arch" type="xml">
-                <tree string="Bank Cash Requests">
-                        
-                         <field name = "state" readonly="1"/>
-                         <field name = "amount"/>
+                <tree string="Bank Cash Requests" colors="green:state=='ongoing';red:state in ('closed')">
+              
+                        <field name = "unique_field" string="Ref"/>
+                        <field name = "state" readonly="1"/>
+                        <field name = "amount"/>
                         <field name ="from_bank"/>
                         <field name ="to_branch"/>
                         <field name ="to_by"/>
@@ -140,7 +143,7 @@
                         <group>
                            <field name = "state" readonly="1"/>
                         </group>
-                    
+                     
                         <group>
                              <field name = "amount"/>
                         </group>
@@ -342,7 +345,7 @@
 
 
         <record model="ir.actions.act_window" id="cash_bank_request_list_action">
-            <field name="name">Cash Bank Requests</field>
+            <field name="name">CIT Bank To Branch Requests</field>
             <field name="res_model">cash_managment.cash_bank_request</field>
             <field name="view_mode">tree,form</field>
             <field name ="context">{"search_default_initiate_dates":1}</field>
@@ -364,12 +367,12 @@
 
  
         <!-- top level menu: no parent -->
-        <menuitem id="main_service_menu" name="Cash Management"/>
-        <menuitem id="config_cash_request" name="Cash Request Managment" parent="main_service_menu"/>
-        <menuitem id="config_cash_req" name="Cash Requests" parent="config_cash_request" action="request_list_action"/>
-        <menuitem id="cash_center_requests" name="Cash Center Requests" parent="config_cash_request" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
-        <menuitem id="bank_center_requests" name="Bank Cash Requests" parent="config_cash_request" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
-        <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="main_service_menu" name="Online Cash Management"/>
+        <menuitem id="config_cash_request" name="Cash Managment Requests"   sequence="1"  parent="main_service_menu"/>
+        <menuitem id="config_cash_req" name="Branch To Branch - CIT" parent="config_cash_request"   sequence="2" action="request_list_action"/>
+        <menuitem id="cash_center_requests" name="Cash Team (Branch To Branch) - CIT " parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
+        <menuitem id="bank_center_requests" name="Bank To Branch - CIT" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
+        <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request"   sequence="5" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
     
           
             

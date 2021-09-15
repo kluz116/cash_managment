@@ -16,7 +16,9 @@ class CashCenterRequest(models.Model):
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('ongoing', 'Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
-    amount = fields.Integer(string='Amount', required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency')
+    amount = fields.Monetary(string='Amount', required=True)
+    unique_field = fields.Char(compute='comp_name', store=True)
     
     @api.onchange ('branch_id')
     def on_change_fromid(self):
@@ -26,5 +28,12 @@ class CashCenterRequest(models.Model):
     @api.onchange ('to_branch')
     def on_change_toid(self):
         for record in self:
-            self.to_by == record.to_by    
+            self.to_by == record.to_by  
+    
+    @api.depends('initiate_date')
+    def comp_name(self):
+        value = 'CIT-'
+        date_time = self.initiate_date.strftime("%m%d%Y")
+        last= '000'
+        self.unique_field = (value or '')+''+(date_time or '')+'-'+(last or '')+''+(str(self.id))  
    

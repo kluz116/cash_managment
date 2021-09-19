@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="cash_banking_supervison_form_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.supervise_cash_banking.form</field>
+            <field name="model">cash_managment.supervise_cash_banking</field>
+            <field name="arch" type="xml">
+                <form string="Cash Supervision">
+                    <group class="oe_title">
+                        <field name="state" readonly="1"/> 
+                        <field name="supervision_comment"/>
+                        <field name="supervision_date" readonly ="1"/>
+                    </group>
+                    <footer>
+                        <button name="cash_banking_supervision" string="Supervise" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_banking_supervisoin_form_view" model="ir.actions.act_window">
+            <field name="name">Supervise Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.supervise_cash_banking</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cash_banking_supervison_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

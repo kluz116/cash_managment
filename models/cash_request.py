@@ -1,5 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, api ,exceptions
 from datetime import datetime
+from pytz import timezone 
 
 
 class CashManagment(models.Model):
@@ -7,9 +8,10 @@ class CashManagment(models.Model):
     _description ="Cash Requests Model"
     _rec_name ='title'
 
-    title = fields.Integer(string='Request Amount', required=True)
-    #currency_id = fields.Many2one('res.currency', string='Currency')
-    #title = fields.Monetary(string='Amount', required=True)
+    #title = fields.Integer(string='Request Amount', required=True)
+   
+    currency_id = fields.Many2one('res.currency', string='Currency')
+    title = fields.Monetary(string='Amount', required=True)
     description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
@@ -40,6 +42,13 @@ class CashManagment(models.Model):
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
     unique_field = fields.Char(compute='comp_name', store=True)
 
+    week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
+    week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)
+    from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
+    to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
+    initiate_time = fields.Char(compute='comp_time', store=True)
+    
+
     @api.depends('user_id')
     def _compute_branch(self):
         for record in self:
@@ -57,6 +66,57 @@ class CashManagment(models.Model):
         date_time = self.start_date.strftime("%m%d%Y")
         last= '000'
         self.unique_field = (value or '')+''+(date_time or '')+'-'+(last or '')+''+(str(self.id))
+
+
+    @api.depends('start_date')
+    def comp_time(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
+        self.initiate_time = date_time
+
+    @api.depends('week_day')
+    def comp_weekday(self):
+        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+        self.week_day_coverage = window_coverage.working_days
+
+    @api.depends('week_day')
+    def comp_from_houry(self):
+        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+
+        today = datetime.today()
+        date_time = today.strftime("%Y-%m-%d")
+        date_from = (date_time or '')+' '+(str(int(window_coverage.from_hour)) or '')+':'+('00')
+        self.from_hour = date_from
+
+    @api.depends('week_day')
+    def comp_to_hour(self):
+        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+        today = datetime.today()
+        date_time = today.strftime("%Y-%m-%d")
+        date_from = (date_time or '')+' '+(str(int(window_coverage.to_hour)) or '')+':'+('00')
+        self.to_hour = date_from
+        
+                
+    @api.one
+    @api.constrains('week_day','week_day_coverage')
+    def _check_amount(self):
+        if self.week_day != self.week_day_coverage :
+            raise exceptions.ValidationError("Sorry, Today is not a working day and you can not submit in cash request.")
+
+    
+    @api.one
+    @api.constrains('from_hour','to_hour','initiate_time')
+    def _check_hours(self):
+        start_date = datetime.strptime(self.from_hour,'%Y-%m-%d %H:%M')
+        end_date = datetime.strptime(self.to_hour,'%Y-%m-%d %H:%M')
+        compare_date = datetime.strptime(self.initiate_time,'%Y-%m-%d %H:%M')
+
+        if compare_date < start_date:
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.".format(compare_date=compare_date))
+        elif compare_date > end_date:
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
+   
+
 
 
 

@@ -7,13 +7,13 @@ class ToMangerCashBank(models.TransientModel):
     _rec_name = 'state'
 
     
-    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('closed', 'Closed')], string="Status")
+    state = fields.Selection([('pending', 'Pending'),('closed', 'Closed')],default="pending", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
    
     
     @api.multi
-    def cash_confirm_manager_cashcenter(self):
+    def cash_confirm_manager_cashcenter_sa(self):
         self.write({'state': 'closed'})
         cash = self.env['cash_managment.cash_bank_request_confirmation'].browse(self._context.get('active_ids'))
         for req in cash:

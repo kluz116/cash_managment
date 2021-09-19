@@ -2,7 +2,7 @@
 <odoo>
         <record id="cash_managment_to_manager_cash_bank_wizard" model="ir.ui.view">
             <field name="name">cash_managment_to_manager_cash_center.form</field>
-            <field name="model">cash_managment.to_manager_cash_center</field>
+            <field name="model">cash_managment.to_manager_cash_bank</field>
             <field name="arch" type="xml">
                 <form string="Cash Confirm">
                     <group class="oe_title">
@@ -11,7 +11,7 @@
                         <field name="to_manager_date"/>
                     </group>
                     <footer>
-                        <button name="cash_confirm_manager_cashcenter" string="Confirm Cash" type="object" class="btn-primary"/>
+                        <button name="cash_confirm_manager_cashcenter_sa" string="Confirm Cash" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>

@@ -19,3 +19,5 @@ from . import CashCenterConfirmNotify
 from . import RequestConfirmationNotify
 from . import CashBankRequest
 from . import CashBankConfirmation
+from . import BranchBankRequest
+from . import coveragewindow

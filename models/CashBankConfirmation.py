@@ -10,7 +10,7 @@ class CashBankConfirmation(models.Model):
    
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
-    initiated_request_id = fields.Many2one('cash_managment.cash_bank_request',string='Expected Amount', domain = [('state','=','ongoing')],required=True)
+    initiated_request_id = fields.Many2one('cash_managment.cash_bank_request',string='Expected Amount', domain = [('state','=','new')],required=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered",required=True)
     #from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
     to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
@@ -32,7 +32,7 @@ class CashBankConfirmation(models.Model):
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('closed', 'Closed')],default="ongoing", string="Status")
+    state = fields.Selection([('pending', 'Pending'),('closed', 'Closed')],default="pending", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)

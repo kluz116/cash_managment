@@ -1,5 +1,5 @@
 from odoo import models, fields, api ,exceptions
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone 
 
 
@@ -15,6 +15,7 @@ class CashManagment(models.Model):
     description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
+    trx_proof = fields.Binary('File')
     end_date = fields.Datetime(string='Start Date')
     close_date = fields.Datetime(string='Close Date')
     validate_comment = fields.Text(string="Comment")
@@ -47,6 +48,9 @@ class CashManagment(models.Model):
     from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
     to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
+
+    expiration_branch =  fields.Char(string='Expiration Branch', compute='comp_time_branch', store=True)
+    expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod', store=True)
     
 
     @api.depends('user_id')
@@ -69,10 +73,22 @@ class CashManagment(models.Model):
 
 
     @api.depends('start_date')
+    def comp_time_branch(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa)+ + timedelta(hours=2)
+        self.expiration_branch = format(date_time, '%Y-%m-%d %H:%M') 
+    
+    @api.depends('start_date')
+    def comp_time_hod(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa)+ + timedelta(hours=8)
+        self.expiration_hod = format(date_time, '%Y-%m-%d %H:%M') 
+
+    @api.depends('start_date')
     def comp_time(self):
         east_africa = timezone('Africa/Nairobi')
         date_time = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
-        self.initiate_time = date_time
+        self. initiate_time = date_time
 
     @api.depends('week_day')
     def comp_weekday(self):

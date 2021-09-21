@@ -13,7 +13,7 @@ class CashManagment(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     title = fields.Monetary(string='Amount', required=True)
     description  = fields.Text(string="Description", required=True, size=50)
-    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated')],string="Status", required=True, default="new")
+    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired'),('expired_hod','Expired')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
     trx_proof = fields.Binary('File')
     end_date = fields.Datetime(string='Start Date')
@@ -132,7 +132,9 @@ class CashManagment(models.Model):
         elif compare_date > end_date:
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
    
-
+    @api.model
+    def _update_accrual(self):
+        
 
 
 

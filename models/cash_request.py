@@ -133,7 +133,13 @@ class CashManagment(models.Model):
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
    
     @api.model
-    def _update_accrual(self):
+    def _update_expiration_branch(self):
+        east_africa = timezone('Africa/Nairobi')
+        now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
+        expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
+
+        if expire_date > now_date:
+            
         
 
 

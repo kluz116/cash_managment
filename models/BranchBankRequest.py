@@ -1,5 +1,5 @@
 from odoo import models, fields, api,exceptions
-from datetime import datetime
+from datetime import datetime,timedelta
 from pytz import timezone 
 
 
@@ -33,7 +33,7 @@ class BranchBankRequest(models.Model):
     ten_dollar = fields.Integer(string="$10")
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
-    state = fields.Selection([('New', 'New'),('ongoing','Ongoing'),('closed', 'Closed')],default="New", string="Status")
+    state = fields.Selection([('New', 'New'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     supervision_comment = fields.Text(string="Comment")
@@ -51,9 +51,11 @@ class BranchBankRequest(models.Model):
     from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
     to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
-    
 
+    expiration_branch =  fields.Char(string='Expiration Branch', compute='comp_time_branch_', store=True)
+    expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod_', store=True)
     
+       
     @api.depends('user_id')
     def _compute_manager(self):
         for record in self:
@@ -120,6 +122,18 @@ class BranchBankRequest(models.Model):
         date_from = (date_time or '')+' '+(str(int(window_coverage.to_hour)) or '')+':'+('00')
         self.to_hour = date_from
         
+
+    @api.depends('initiate_date')
+    def comp_time_branch_(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa)+ + timedelta(hours=2)
+        self.expiration_branch = format(date_time, '%Y-%m-%d %H:%M') 
+    
+    @api.depends('initiate_date')
+    def comp_time_hod_(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa)+ + timedelta(hours=8)
+        self.expiration_hod = format(date_time, '%Y-%m-%d %H:%M') 
                 
     @api.one
     @api.constrains('week_day','week_day_coverage')
@@ -139,4 +153,19 @@ class BranchBankRequest(models.Model):
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.".format(compare_date=compare_date))
         elif compare_date > end_date:
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
+
+    @api.model
+    def _update_expiration_branch(self):
+        east_africa = timezone('Africa/Nairobi')
+        now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
+        #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
+        self.search([('expiration_branch', '<', now_date)]).write({'state': "expired_branch"})
+
+    @api.model
+    def _update_expiration_hod(self):
+        east_africa = timezone('Africa/Nairobi')
+        now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
+        #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
+        self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
+    
    

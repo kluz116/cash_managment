@@ -27,6 +27,7 @@
         'security/cashmanagment_security.xml',
         'security/ir.model.access.csv',
         'data/email_template_cash_managment.xml',
+        'data/ir_cron_data.xml',
         'wizard/cash_validate_view.xml',
         'wizard/cash_approve_view.xml',
         'wizard/cash_reject_view.xml',

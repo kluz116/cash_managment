@@ -1,10 +1,21 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
-    <record id="hr_leave_allocation_cron_accrual" model="ir.cron">
-        <field name="name">Accrual Leave: Updates the number of leaves</field>
-        <field name="model_id" ref="model_hr_leave_allocation"/>
+    <record id="update_expiration_branch_cron" model="ir.cron">
+        <field name="name">Branch Expiration: Expire Request After An 2 Hours</field>
+        <field name="model_id" ref="model_cash_managment_request"/>
         <field name="state">code</field>
-        <field name="code">model._update_accrual()</field>
+        <field name="code">model._update_expiration_branch()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+    <record id="update_expiration_hod_cron" model="ir.cron">
+        <field name="name">Hod Expiration: Expire Request After An 8 Hours</field>
+        <field name="model_id" ref="model_cash_managment_request"/>
+        <field name="state">code</field>
+        <field name="code">model._update_expiration_hod()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>

@@ -11,6 +11,17 @@
             </field>
         </record>
 
+        <record id="view_cash_managment_courier_tree" model="ir.ui.view">
+            <field name="name">cash_managment.courier.tree</field>
+            <field name="model">cash_managment.courier</field>
+             <field name="arch" type="xml">
+                <tree string="All Courier Services">
+                    <field name="courier_name" />
+                    <field name="email" />
+                </tree>
+            </field>
+        </record>
+
 
         <record id="view_coverage_managment_tree" model="ir.ui.view">
             <field name="name">cash_managment.coveragewindow.tree</field>
@@ -48,7 +59,7 @@
             <field name="name">cash_managment.branch.form</field>
             <field name="model">cash_managment.branch</field>
             <field name="arch" type="xml">
-                <form string="Add Branch" create="false" edit="false">
+                <form string="Add Branch" create="false" edit="true">
                     <sheet>
                         <group>
                             <field name="branch_code"/>
@@ -64,10 +75,13 @@
             <field name="name">cash_managment.courier.form</field>
             <field name="model">cash_managment.courier</field>
             <field name="arch" type="xml">
-                <form string="Add Courier" create="false" edit="false">
+                <form string="Add Courier Service" create="false" edit="true">
                     <sheet>
                         <group>
                             <field name="courier_name"/>
+                        </group>
+                         <group>
+                            <field name="email"/>       
                         </group>
                     </sheet>
                 </form>
@@ -137,6 +151,7 @@
             <field name="arch" type="xml">
                 <search>
                       <field name="courier_name" />
+                      <field name="email" />
     
                 </search>
             </field>
@@ -198,7 +213,7 @@
         <menuitem id="main_service_menu" name="Cash Managment"/>
         <menuitem id="config_menu" name="Configurations" parent="main_service_menu" groups="cash_managment.Cash_Managment_Support"/>
         <menuitem id="config_team" name="Branches" parent="config_menu" action="branch_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="config_courier" name="Courier" parent="config_menu" action="courier_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="config_courier" name="Courier Services" parent="config_menu" action="courier_list_action" groups="cash_managment.Cash_Managment_Support"/>
         <menuitem id="config_coverage" name="Coverage Window" parent="config_menu" action="coverage_list_action" groups="cash_managment.Cash_Managment_Support"/>
         <menuitem id="config_bank" name="Banking Institutions" parent="config_menu" action="bank_list_action" groups="cash_managment.Cash_Managment_Support"/>
             

@@ -5,8 +5,8 @@
         <field name="model_id" ref="model_cash_managment_request"/>
         <field name="state">code</field>
         <field name="code">model._update_expiration_branch()</field>
-        <field name="interval_number">1</field>
-        <field name="interval_type">days</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="True"/>
     </record>
@@ -16,8 +16,8 @@
         <field name="model_id" ref="model_cash_managment_request"/>
         <field name="state">code</field>
         <field name="code">model._update_expiration_hod()</field>
-        <field name="interval_number">1</field>
-        <field name="interval_type">days</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="True"/>
     </record>

@@ -8,4 +8,5 @@ class Courier(models.Model):
 
     
     courier_name = fields.Char(string="Courier ", required=True)
+    email = fields.Char(string="Email ", required=True)
    

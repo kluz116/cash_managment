@@ -8,8 +8,6 @@
                      <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
-                     <field name="expiration_branch" />
-                      <field name="expiration_hod" />
                     <field name="description" />
                     <field name="validate_comment"/> 
                     <field name="approval_comment"/>
@@ -342,6 +340,7 @@
                         <group>
                             <field name="description"/>
                         </group>
+                        
                          <group>
                             <field name="start_date" invisible="1"/>
                         </group>

@@ -123,17 +123,19 @@ class BranchBankRequest(models.Model):
         self.to_hour = date_from
         
 
-    @api.depends('initiate_date')
-    def comp_time_branch_(self):
-        east_africa = timezone('Africa/Nairobi')
-        date_time = datetime.now(east_africa)+ + timedelta(hours=2)
-        self.expiration_branch = format(date_time, '%Y-%m-%d %H:%M') 
     
     @api.depends('initiate_date')
     def comp_time_hod_(self):
         east_africa = timezone('Africa/Nairobi')
         date_time = datetime.now(east_africa)+ + timedelta(hours=8)
         self.expiration_hod = format(date_time, '%Y-%m-%d %H:%M') 
+
+    
+    @api.depends('initiate_date')
+    def comp_time_branch_(self):
+        east_africa = timezone('Africa/Nairobi')
+        date_time = datetime.now(east_africa)+ + timedelta(hours=2)
+        self.expiration_branch = format(date_time, '%Y-%m-%d %H:%M') 
                 
     @api.one
     @api.constrains('week_day','week_day_coverage')

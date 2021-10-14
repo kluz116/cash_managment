@@ -17,8 +17,6 @@ class RequestMapping(models.Model):
     to_total = fields.Float(string="Total UGX")
     to_total_usd = fields.Float(string="Total USD")
 
-
-
     @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self._cr, 'cash_managment_requestmapping')

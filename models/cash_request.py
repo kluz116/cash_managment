@@ -136,14 +136,12 @@ class CashManagment(models.Model):
     def _update_expiration_branch(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
-        #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
         self.search([('expiration_branch', '<', now_date)]).write({'state': "expired_branch"})
 
     @api.model
     def _update_expiration_hod(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
-        #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
         self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
             
         

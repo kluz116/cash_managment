@@ -241,6 +241,28 @@
                 </p>
             </div>
             </field>
+        </record>
+
+        <record id="email_template_notification_to_courier_services" model="mail.template">
+            <field name="name">Cash Management: Email Notification To Courier Services</field>
+            <field name="model_id" ref="model_cash_managment_cashmovement"/>
+            <field name="email_from">Margaret.Babirye@financetrust.co.ug</field>
+            <field name="email_to">${object.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Cash Transfer (CIT) Movement</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello Team, 
+                    <br /><br />
+                      ${object.courier_name}.
+      
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
   
         </record>
     </data>

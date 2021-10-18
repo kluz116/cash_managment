@@ -21,4 +21,11 @@ class CashBankingSupervision(models.TransientModel):
             req.supervision_comment = self.supervision_comment
             req.supervision_date = self.supervision_date
             req.supervised_by = self.supervised_by
+
+            template_id = self.env.ref('cash_managment.email_template_branch_bank_request_final').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(req.id,force_send=True)
+
+
+
         

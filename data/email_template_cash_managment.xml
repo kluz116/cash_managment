@@ -28,6 +28,77 @@
            
         </record>
 
+        <record id="email_template_branch_bank_request" model="mail.template">
+            <field name="name">Cash Management Branch Bank CIT: Pending Confirmation</field>
+            <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+            <field name="email_from">${object.user_id.email}</field>
+            <field name="email_to">${object.partner_id.manager.email}</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${object.actual_amount}) pending your confirmation.</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.partner_id.manager.name},
+                    <br /><br />
+                    
+                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} is still pending your confirmation. Request created on ${object.initiate_date} by ${object.created_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                
+                </p>
+            </div>
+            </field>
+        
+        </record>
+
+        <record id="email_template_branch_bank_request_supervise" model="mail.template">
+            <field name="name">Cash Management Branch Bank CIT: Pending Supervision</field>
+            <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+            <field name="email_from">${object.partner_id.manager.email}</field>
+            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${object.actual_amount}) pending your supervision.</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello Cash Team,
+                    <br /><br />
+
+                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} is still pending your Supervision. Request created on ${object.initiate_date} by ${object.created_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                
+                </p>
+            </div>
+            </field>
+        
+        </record>
+        <record id="email_template_branch_bank_request_final" model="mail.template">
+            <field name="name">Cash Management Branch Bank CIT: Done Supervision</field>
+            <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+            <field name="email_to">${object.partner_id.manager.email}</field>
+            <field name="email_to">${object.user_id.email},${object.partner_id.manager.email}</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${object.actual_amount}) has been supervised.</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.partner_id.manager.name} and ${object.created_by.name},
+                    <br /><br />
+                    
+                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} has been supervised by ${object.supervised_by.name}. Request created on ${object.initiate_date} by ${object.supervised_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                
+                </p>
+            </div>
+            </field>
+        </record>
+
+
+
         <record id="email_template_cancel_request" model="mail.template">
             <field name="name">Cash Management: Cancel Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>

@@ -22,3 +22,4 @@ from . import CashBankConfirmation
 from . import BranchBankRequest
 from . import coveragewindow
 from . import CashMovement
+from . import CashBranchBankRequest

@@ -45,6 +45,7 @@ class BranchBankRequest(models.Model):
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
     unique_field = fields.Char(compute='comp_name', store=True)
+    created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
 
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
     week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)

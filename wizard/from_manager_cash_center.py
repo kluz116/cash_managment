@@ -20,4 +20,11 @@ class FromMangerCashCenter(models.TransientModel):
             req.state = self.state
             req.from_manager_comment = self.from_manager_comment
             req.from_manager_date = self.from_manager_date
+
+            template_id = self.env.ref('cash_managment.email_template_from_manager_confirm_cash_center').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(req.id,force_send=True)
+
+
+
          

@@ -28,6 +28,84 @@
            
         </record>
 
+        <record id="email_template_from_cash_center_confirm_request" model="mail.template">
+            <field name="name">Cash Management: From Account Confirmation Cash Center Request</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.from_manager.email}</field> 
+            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 18px;">
+                   Hello ${object.from_manager.name}, 
+                    <br /><br />
+                     Confirm Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} before it gets transfered to branch ${object.to_branch}.
+                    
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
+           <!--<field name="report_template" ref="account_invoices"/>
+            <field name="report_name"></field>-->
+           
+        </record>
+
+
+        <record id="email_template_from_manager_confirm_cash_center" model="mail.template">
+            <field name="name">Cash Management: From Manager Confirmation Cash Center Request</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+            <field name="email_to">${object.from_manager.email}</field>
+            <field name="email_to">${object.to_branch_accountant.email}</field> 
+            <field name="email_cc">${object.to_branch_manager.email}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount}) from ${object.initiated_request_id.from_by_two.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 18px;">
+                    Hello ${object.to_branch_accountant.name},
+                    <br /><br />
+                     Please confirm Cash Request of ${object.actual_amount} UGX from ${object.from_manager.name} by branch ${object.from_branch}.
+                    <br/>
+                    ${object.from_manager_comment}
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
+           <!--<field name="report_template" ref="account_invoices"/>
+            <field name="report_name"></field>-->
+           
+        </record>
+
+
+        <record id="email_template_cash_center_request" model="mail.template">
+            <field name="name">Cash Management: Cash Center Transfer Notification</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request"/>
+            <field name="email_from">${object.initiated_by.email}</field>
+            <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${object.amount}) UGX Transfer.</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 18px;">
+                   Hello ${object.from_by.name} and ${object.from_by_two.name},
+                    <br /><br />
+    
+                    Please note that you are requested to transfer Amount ${object.amount} UGX to branch ${object.to_branch.branch_name}. Request created on ${object.initiate_date} by ${object.initiated_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                
+                </p>
+            </div>
+            </field>
+           <!--<field name="report_template" ref="account_invoices"/>
+            <field name="report_name"></field>-->
+           
+        </record>
+
         <record id="email_template_branch_bank_request" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: Pending Confirmation</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
@@ -136,7 +214,7 @@
             <field name="subject">Cash Request of (Ref ${object.title}) pending your approval.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
-                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                <p style="margin: 0px; padding: 0px; font-size: 18px;">
                    Hello Cash Center Team,
                     <br /><br />
                     Cash Request of ${object.title} has been validated by ${object.partner_id.manager.name} and is still pending your approval. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
@@ -215,9 +293,6 @@
             </div>
             </field>  
         </record>
-
-
-
 
         <record id="email_template_from_accountant_confirm" model="mail.template">
             <field name="name">Cash Management: From Account Confirmation Request</field>

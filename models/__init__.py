@@ -23,3 +23,5 @@ from . import BranchBankRequest
 from . import coveragewindow
 from . import CashMovement
 from . import CashBranchBankRequest
+from . import CashCenterNotify
+from . import CashCenterFromComfirmationsNotify

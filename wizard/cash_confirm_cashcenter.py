@@ -74,6 +74,10 @@ class ConfirmCashCashCenter(models.TransientModel):
         for request in cash_confirm:
             request.state = 'confirmed_two'
 
+            template_id = self.env.ref('cash_managment.email_template_from_Accountant_confirm_cash_center').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(req.id,force_send=True)
+
         
  
 

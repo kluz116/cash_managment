@@ -50,7 +50,9 @@ class CashManagment(models.Model):
     initiate_time = fields.Char(compute='comp_time', store=True)
 
     expiration_branch =  fields.Char(string='Expiration Branch', compute='comp_time_branch', store=True)
+    branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod', store=True)
+    hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     
 
     @api.depends('user_id')

@@ -6,9 +6,9 @@ from pytz import timezone
 class CashManagment(models.Model):
     _name = "cash_managment.request"
     _description ="Cash Requests Model"
-    _rec_name ='title'
+    _rec_name ='title' 
 
-    #title = fields.Integer(string='Request Amount', required=True)
+  
    
     currency_id = fields.Many2one('res.currency', string='Currency')
     title = fields.Monetary(string='Amount', required=True)
@@ -53,6 +53,7 @@ class CashManagment(models.Model):
     branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod', store=True)
     hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
+    amount_available = fields.Monetary(string='Amount Available')
     
 
     @api.depends('user_id')
@@ -138,13 +139,19 @@ class CashManagment(models.Model):
     def _update_expiration_branch(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
-        self.search([('expiration_branch', '<', now_date)]).write({'state': "expired_branch"})
+        self.search([('&'),('expiration_branch', '<', now_date),('branch_expire_status','=','yes')]).write({'state': "expired_branch"})
 
     @api.model
     def _update_expiration_hod(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
-        self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
+        self.search([('&'),('expiration_hod', '<', now_date),('hod_expire_status','=','yes')]).write({'state': "expired_hod"})
+
+    @api.multi
+
+    def print_report(self):
+        return self.env.ref('cash_managment.cash_request_report').report_action(self)
+
             
         
 

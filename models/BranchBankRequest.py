@@ -54,7 +54,10 @@ class BranchBankRequest(models.Model):
     initiate_time = fields.Char(compute='comp_time', store=True)
 
     expiration_branch =  fields.Char(string='Expiration Branch', compute='comp_time_branch_', store=True)
+    branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod_', store=True)
+    hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
+    courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     
        
     @api.depends('user_id')
@@ -162,13 +165,16 @@ class BranchBankRequest(models.Model):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
         #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
-        self.search([('expiration_branch', '<', now_date)]).write({'state': "expired_branch"})
+        #self.search([('expiration_branch', '<', now_date)]).write({'state': "expired_branch"})
+        self.search([('&'),('expiration_branch', '<', now_date),('branch_expire_status','=','yes')]).write({'state': "expired_branch"})
+
 
     @api.model
     def _update_expiration_hod(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
         #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
-        self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
+        #self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
+        self.search([('&'),('expiration_hod', '<', now_date),('hod_expire_status','=','yes')]).write({'state': "expired_hod"})
     
    

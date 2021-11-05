@@ -18,10 +18,16 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
+    'external_dependencies': {
+        'python': [
+            'xlsxwriter',
+            'xlrd',
+        ],
+    },
 
     # any module necessary for this one to work correctly
     'depends': ['mail','base'],
-
+  
     # always loaded
     'data': [
         'security/cashmanagment_security.xml',
@@ -48,6 +54,8 @@
         'views/cash_users.xml',
         'views/cash_transfer.xml',
         'views/report.xml',
+        'reports/report_cash_request.xml',
+        'reports/request_confirmation_card.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

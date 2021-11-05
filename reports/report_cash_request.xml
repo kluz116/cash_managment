@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <report
+        id="cash_request_report"
+        model="cash_managment.request"
+        string="Cash Requests"
+        report_type="qweb-pdf"
+        name="cash_managment.report_request"
+        file="cash_managment.report_request"
+
+    />
+
+    <report
+        id="cash_request_report_xlsx"
+        model="cash_managment.request"
+        string="Print to XLSX"
+        report_type="xlsx"
+        name="cash_managment.requests"
+        file="cash_managment.cash_managment_requests"
+        attachment_use="False"
+    />
+
+    </data>
+</odoo>

@@ -7,7 +7,9 @@
                 <form string="Initiate Cash Request">
                     <group class="oe_title">
                         <field name = "state" readonly="1"/>
-                         <field name = "title"/>
+                        <field name = "title"/>
+                        <field name ="amount_available"/>
+                        <field name ="currency_id"/>
                         <field name ="branch_id"/>
                         <field name ="from_by"/>
                         <field name ="from_by_two"/>
@@ -15,6 +17,7 @@
                         <field name ="to_by"/>
                         <field name ="to_by_two"/>
                         <field name ="courier"/>
+                        <field name ="cash_date"/>
                         <field name ="initiate_date" invisible="1"/> 
                         <field name = "initiated_by" invisible="1"/> 
                        

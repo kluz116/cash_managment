@@ -21,12 +21,12 @@ class CashBankRequest(models.Model):
     week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)
     from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
     to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
-    
 
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('new', 'New'),('ongoing', 'Ongoing'),('closed', 'Closed')],default="new", string="Status")
     unique_field = fields.Char(compute='comp_name', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
+    cash_date =  fields.Datetime(string='Cash Transfer Date', default=datetime.today())
   
 
 

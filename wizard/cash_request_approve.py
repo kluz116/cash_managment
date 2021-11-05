@@ -22,11 +22,14 @@ class ApprovedCashRequest(models.TransientModel):
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     courier_id = fields.Integer(related='courier.id',string="Courier")
     initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
+    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     initiated_by_id = fields.Integer(related='initiated_by.id')
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="pending", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Request Amount', required=True, domain = [('state','=','approve')])
     title_id = fields.Integer(related='title.id')
+    currency_id = fields.Many2one('res.currency', string='Currency')
+    amount_available = fields.Monetary(string='Amount Available', required=True)
     from_branch_request = fields.Integer(compute='_compute_branch_from', string='To')
    
    
@@ -65,7 +68,9 @@ class ApprovedCashRequest(models.TransientModel):
                  'initiate_date':self.initiate_date,
                  'initiated_by':self.initiated_by_id,
                  'state':self.state,
-                 'title':self.title_id
+                 'title':self.title_id,
+                 'amount_available': self.amount_available,
+                 'cash_date' : self.cash_date
                  }
 
         self.env['cash_managment.requestapproved'].create(vals)
@@ -76,8 +81,9 @@ class ApprovedCashRequest(models.TransientModel):
             request.branch_manager_from = self.from_by_id_two
             request.branch_accountant_from = self.from_by_id
             request.state = 'closed'
+            request.amount_available = self.amount_available
 
-            template_id = self.env.ref('cash_managment.email_template_initiate_request').id
-            template =  self.env['mail.template'].browse(template_id)
-            template.send_mail(request.id,force_send=True)
+            #template_id = self.env.ref('cash_managment.email_template_initiate_request').id
+            #template =  self.env['mail.template'].browse(template_id)
+            #template.send_mail(request.id,force_send=True)
  

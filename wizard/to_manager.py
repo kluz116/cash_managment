@@ -6,7 +6,7 @@ class ToManger(models.TransientModel):
     _description = "To Manager Confirm"
     _rec_name = 'state'
 
-    
+
     state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_two", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())

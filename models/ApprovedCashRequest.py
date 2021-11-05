@@ -4,7 +4,7 @@ from datetime import datetime
 class ApprovedCashRequest(models.Model):
     _name = "cash_managment.requestapproved"
     _description = "Request Approved Model"
-    _rec_name ="title"
+    _rec_name ="amount_available"
 
     
     branch_id = fields.Many2one('cash_managment.branch',string ='From', required=True)
@@ -19,6 +19,9 @@ class ApprovedCashRequest(models.Model):
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('closed', 'Closed')],default="ongoing", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Requested', required=True, domain = [('state','=','approve')])
     from_by_branch = fields.Integer(compute='_compute_from_by',string='From',store=True)
+    currency_id = fields.Many2one('res.currency', string='Currency')
+    amount_available = fields.Monetary(string='Amount Available', required=True)
+    cash_date =  fields.Datetime(string='Cash Transfer Date', default=datetime.today())
     @api.onchange ('branch_id')
     def on_change_fromid(self):
         for record in self:

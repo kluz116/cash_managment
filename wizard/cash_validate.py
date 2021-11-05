@@ -7,7 +7,7 @@ class ValidateCash(models.TransientModel):
     _rec_name = 'validate_comment'
 
     state =  fields.Selection([('new','New'),('validate','Validated'),('reject','Reject'),('approve','Approve'),('closed','Closed'),('implement','Implement')],string="Status", required=True, default="new")
-    branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
+    branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="no")
     validate_comment = fields.Text(string="Comment")
     validate_date =  fields.Datetime(string='Validate Date', default=datetime.today())
     validated_by = fields.Many2one('res.users','Validated By',default=lambda self: self.env.user)

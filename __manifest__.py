@@ -19,12 +19,12 @@
     'category': 'Uncategorized',
     'version': '0.1',
     
-    #'external_dependencies': {
-     #   'python': [
-      #      'xlsxwriter',
-       #     'xlrd',
-        #],
-    #},
+    'external_dependencies': {
+        'python': [
+            'xlsxwriter',
+            'xlrd',
+        ],
+    },
     # any module necessary for this one to work correctly
     'depends': ['mail','base'],
   

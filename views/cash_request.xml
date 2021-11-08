@@ -333,7 +333,7 @@
                     <header>
                      
                         <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
-                        <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
+                        <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-danger" groups ="cash_managment.Branch_Manager" />
                         <button name="%(cash_managment.supervise_cash_cancel_form_view)d" type="action" states='cancel' string="Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
                         <button name="%(cash_managment.wizard_cash_approve_form_view)d" type="action" states='validate' string="Approve Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
                         <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-danger" groups="cash_managment.Cash_Managment_Support" />     
@@ -544,7 +544,7 @@
         <menuitem id="config_cash_request" name="Cash Managment Requests"   sequence="1"  parent="main_service_menu"/>
         <menuitem id="config_cash_req" name="Cash Request" parent="config_cash_request"   sequence="2" action="request_list_action"/>
         <menuitem id="cash_center_requests" name="Cash Request Team (Branch To Branch)" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="bank_center_requests" name="Cash Banking- (Bank To Branch)" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="bank_center_requests" name="Cash Banking- (Bank To Branch)" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="branch_bank_requests" name="Cash Banking- (Branch To Bank)" parent="config_cash_request"   sequence="5" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request"   sequence="6" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
     

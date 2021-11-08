@@ -6,8 +6,11 @@ class CashBankConfirmation(models.Model):
     _description = "This is a model for all requests confirmations"
     _rec_name ="initiated_request_id"
 
+
+    partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
+    from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
+    partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
     currency_id = fields.Many2one('res.currency', string='Currency')
-   
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     initiated_request_id = fields.Many2one('cash_managment.cash_bank_request',string='Expected Amount', domain = [('state','=','new')],required=True)
@@ -79,3 +82,9 @@ class CashBankConfirmation(models.Model):
     def _check_amount(self):
         if self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
+
+
+    @api.depends('partner_ids')
+    def _compute_branch_from_bys(self):
+        for record in self:
+            record.from_bys = record.partner_ids.id

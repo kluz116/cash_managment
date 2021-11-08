@@ -8,6 +8,8 @@
 
                     <field name="total"/>
                     <field name="state"/>
+                    <field name = "from_branch"/>
+                     <field name = "to_branch"/>
                     <field name="deno_fifty_thounsand"/>
                     <field name="deno_twenty_thounsand"/>
                     <field name="deno_ten_thounsand"/>
@@ -82,6 +84,7 @@
                     
                     <field name="total"/>
                      <field name="state"/>
+                 
                     <field name="deno_fifty_thounsand"/>
                     <field name="deno_twenty_thounsand"/>
                     <field name="deno_ten_thounsand"/>
@@ -136,10 +139,11 @@
                 <xpath expr="//sheet" position="before">
                     <header>
                         <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_reject_form_confirmation_view)d" states='ongoing' type="action" string="Reject Confirmation" class="btn btn-primary" attrs="{'invisible':['|',('current_user', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_reject_form_confirmation_view)d" states='ongoing' type="action" string="Reject Confirmation" class="btn btn-danger" attrs="{'invisible':['|',('current_user', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_confirm_form_view)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
+
                         <button name="%(cash_managment.wizard_cash_managment_to_manager_form_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_reject_to_confirmation_view)d" states='confirmed_two' type="action" string="Reject" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_reject_to_confirmation_view)d" states='confirmed_two' type="action" string="Reject Request" class="btn btn-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         
                         <field name = "current_user" invisible='1' />
                         <field name ="current_to_branch_accountant" invisible ='1'/>
@@ -386,7 +390,11 @@
                            <field name = "state" readonly="1"/>
                         </group>
                         <group>
-                             <field name = "initiated_request_id"/>
+                           <field name ="from_bys"/>
+                        </group>
+                        <group>
+                             
+                              <field name = "initiated_request_id" domain = "[('state','=','new'),('to_by','=',from_bys)] "/>
                         </group>
                          <group>
                              <field name = "actual_amount"/>

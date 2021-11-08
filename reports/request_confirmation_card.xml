@@ -5,8 +5,8 @@
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <div class="page">
-                       <h2>Cash Transfer Report</h2>
-                        <table class="table">
+                       <h2>Cash Request Report</h2>
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Ref</th>

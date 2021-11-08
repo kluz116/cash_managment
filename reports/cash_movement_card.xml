@@ -6,11 +6,12 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                        <h2>Cash Transfer Report</h2>
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>From Branch</th>
                                     <th>To Branch</th>
+                                    <th>Courier</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -21,6 +22,9 @@
                                     </td>
                                      <td>
                                         <span t-field="x.tobranch"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.courier_name"/>
                                     </td>
                                 
                                 </tr>

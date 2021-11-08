@@ -38,7 +38,7 @@ class Re(models.Model):
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Pending Manager'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant'),('confirmed_two', 'Pending Manager'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     to_manager_comment = fields.Text(string="Comment")

@@ -33,7 +33,7 @@ class BranchBankRequest(models.Model):
     ten_dollar = fields.Integer(string="$10")
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
-    state = fields.Selection([('New', 'New'),('reject_one','Reject'),('reject_two','Reject'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
+    state = fields.Selection([('New', 'New'),('reject_one','Rejected'),('reject_two','Rejected'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     supervision_comment = fields.Text(string="Comment")

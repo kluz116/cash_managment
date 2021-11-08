@@ -15,7 +15,7 @@ class Re(models.Model):
     #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)
     initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True)
     #initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
-         
+    
     currency_id = fields.Many2one('res.currency', string='Currency')
     actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
@@ -38,7 +38,7 @@ class Re(models.Model):
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     to_manager_comment = fields.Text(string="Comment")
@@ -51,9 +51,11 @@ class Re(models.Model):
     current_user = fields.Boolean('is current user ?', compute='_get_current_user')
     current_to_branch_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
-     
-   
 
+    reject_comment_one= fields.Text(string="Reject Comment")
+    reject_date_one =  fields.Datetime(string='Reject Date', default=datetime.today())
+    rejected_by_one = fields.Many2one('res.users','Canceled By')
+    
 
     @api.depends('from_manager')
     def _get_current_user(self):
@@ -96,5 +98,3 @@ class Re(models.Model):
     def _compute_branch_from_bys(self):
         for record in self:
             record.from_bys = record.partner_ids.id
-
-   

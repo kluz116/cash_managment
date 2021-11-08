@@ -2,6 +2,8 @@ from odoo import models
 class CashRequestXlsx(models.AbstractModel):
     _name = 'report.cash_managment.requests'
     _inherit = 'report.report_xlsx.abstract'
+
+    
     def generate_xlsx_report(self, workbook, data, requests):
         for obj in requests:
             #report_name = obj.name

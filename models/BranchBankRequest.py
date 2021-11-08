@@ -33,7 +33,7 @@ class BranchBankRequest(models.Model):
     ten_dollar = fields.Integer(string="$10")
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
-    state = fields.Selection([('New', 'New'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
+    state = fields.Selection([('New', 'New'),('reject_one','Reject'),('reject_two','Reject'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     supervision_comment = fields.Text(string="Comment")
@@ -57,7 +57,23 @@ class BranchBankRequest(models.Model):
     branch_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod_', store=True)
     hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
+    #courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
+
+    reject_comment_one= fields.Text(string="Reject Comment")
+    reject_date_one =  fields.Datetime(string='Reject Date', default=datetime.today())
+    rejected_by_one = fields.Many2one('res.users','Canceled By')
+
+     
+    reject_comment_two= fields.Text(string="Reject Comment")
+    reject_date_two =  fields.Datetime(string='Reject Date', default=datetime.today())
+    rejected_by_two = fields.Many2one('res.users','Canceled By')
+
+    reject_comment_two= fields.Text(string="Reject Comment")
+    reject_date_two =  fields.Datetime(string='Reject Date', default=datetime.today())
+    rejected_by_two = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
+    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
+    
     
        
     @api.depends('user_id')

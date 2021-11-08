@@ -207,7 +207,6 @@
             </field>
         </record>
 
-
  
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>

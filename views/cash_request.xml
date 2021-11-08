@@ -167,7 +167,7 @@
             <field name="name">cash_managment.cash_bank_request.form</field>
             <field name="model">cash_managment.cash_bank_request</field>
             <field name="arch" type="xml">
-                <form string="Initiate Request" create="false" edit="false">
+                <form string="Create New Request" create="false" edit="false">
                    <sheet>
                         <group>
                            <field name = "state" readonly="1"/>
@@ -175,6 +175,9 @@
                      
                         <group>
                              <field name = "amount"/>
+                        </group>
+                        <group>
+                          <field name="currency_id"/>
                         </group>
                         
                          <group>
@@ -191,10 +194,7 @@
                         <group>
                         
                         <field name ="cash_date"/>
-                        </group>
-
-
-                        
+                        </group>   
                          <group>
                              <field name ="to_branch"/>
                          </group>
@@ -229,7 +229,10 @@
                 <xpath expr="//sheet" position="before">
                     <header>
                         <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='ongoing' string="Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_reject_branch_bank_confirmation_view)d" states='New' type="action" string="Reject Request" class="btn btn-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(wizard_cash_reject_branch_bank_confirmation_two_view)d" type="action" states='ongoing' string="Reject Request" class="btn btn-danger" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='ongoing' string="Validate And Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
+                        
                         <field name = "current_to_branch_manager" invisible='1' />
                         <field name="state" widget="statusbar" statusbar_visible="New,closed" invisible="1"/>
                     </header>
@@ -241,6 +244,9 @@
                          <group>
                              <field name = "actual_amount"/>
                         </group>
+                        <group>
+                            <field name="currency_id"/>
+                        </group>
                          <group>
                              <field name = "to_bank"/>
                         </group>
@@ -249,13 +255,7 @@
                           <field name = "trx_proof" string="Transaction Files"/>
                         </group>
 
-                        <group>
-                        
-                          <field name = "courier" />
-                        </group>
-                        
-                        
-                      
+                    
                          <notebook>
                                 <page string="UGX Denominations - Cash">
                                     <group>
@@ -336,7 +336,7 @@
                         <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
                         <button name="%(cash_managment.supervise_cash_cancel_form_view)d" type="action" states='cancel' string="Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
                         <button name="%(cash_managment.wizard_cash_approve_form_view)d" type="action" states='validate' string="Approve Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
-                        <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />     
+                        <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-danger" groups="cash_managment.Cash_Managment_Support" />     
                         <button name="%(cash_managment.wizard_cash_initaite_form_view)d" type="action" states='approve' string="Initiate Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />                  
                         <field name="state" widget="statusbar" statusbar_visible="new,validate,approve,reject,implement,closed" invisible="1"/>
                     </header>
@@ -513,7 +513,7 @@
             <field name="view_mode">tree,form</field>
             <field name ="context">{"search_default_initiate_dates":1}</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
+                <p class="o_view_nocontent_smiling_face">Create new Cash Bank Request</p>
             </field>
         </record>
 

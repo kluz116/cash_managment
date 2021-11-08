@@ -1,15 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<template id="report_request">
-    <t t-call="web.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="web.external_layout">
-                <div class="page">
-                    <h2>Cash Request</h2>
-                    <p>This object's name is <span t-field="o.title"/></p>
-                </div>
+    <template id="report_request">
+        <!--<t t-foreach="docs" t-as="o">-->
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                       <h2>Cash Transfer Report</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ref</th>
+                                    <th>Amount</th>
+                                    <th>Amount Available</th>
+                                    <th>Status</th>
+                                    <th>Validated By</th>
+                                    <th>Approved by</th>
+                                    <th>Created by</th>
+                                    
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="docs" t-as="x">
+                                    
+                                    <td>
+                                        <span t-field="x.unique_field"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.title"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="x.amount_available"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="x.state"/>
+                                    </td>
+                                    <td>
+                                      <span t-field="x.validated_by.name"/>
+                                    </td>
+                                     <td>
+                                      <span t-field="x.approved_by.name"/>
+                                    </td>
+                                     <td>
+                                      <span t-field="x.created_by.name"/>
+                                    </td>
+                                
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
             </t>
-        </t>
-    </t>
-</template>
+       <!--</t>-->
+    </template>
 </odoo>

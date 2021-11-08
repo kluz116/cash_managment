@@ -7,11 +7,13 @@
                 <form string="Cash Supervision">
                     <group class="oe_title">
                         <field name="state" readonly="1"/> 
+                        <field name="courier"/>
+                        <field name="cash_date"/>
                         <field name="supervision_comment"/>
                         <field name="supervision_date" readonly ="1"/>
                     </group>
                     <footer>
-                        <button name="cash_banking_supervision" string="Supervise" type="object" class="btn-primary"/>
+                        <button name="cash_banking_supervision" string="Validate" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>

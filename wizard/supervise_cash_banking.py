@@ -9,8 +9,10 @@ class CashBankingSupervision(models.TransientModel):
     
     state = fields.Selection([('New', 'New'),('ongoing','Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
     supervision_comment = fields.Text(string="Comment")
-    supervision_date =  fields.Datetime(string='Cancel Date', default=datetime.today())
+    supervision_date =  fields.Datetime(string='Date', default=datetime.today())
     supervised_by = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
+    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
+    courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     
     @api.multi
     def cash_banking_supervision(self):
@@ -21,6 +23,8 @@ class CashBankingSupervision(models.TransientModel):
             req.supervision_comment = self.supervision_comment
             req.supervision_date = self.supervision_date
             req.supervised_by = self.supervised_by
+            req.cash_date = self.cash_date
+            req.courier = self.courier
 
             template_id = self.env.ref('cash_managment.email_template_branch_bank_request_final').id
             template =  self.env['mail.template'].browse(template_id)

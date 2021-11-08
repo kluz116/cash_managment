@@ -5,7 +5,8 @@ class CashMovement(models.Model):
     _name = "cash_managment.cashmovement"
     _auto = False
     _rec_name ="courier_name"
- 
+    
+    id = fields.Integer( string='Id')
     courier_name = fields.Char( string='Courier')
     frombranch = fields.Char(string='From Branch')
     tobranch = fields.Char( string='To Branch')

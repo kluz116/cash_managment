@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="reject_cash_confirmation_banking_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.reject_cash_confirmation_banking.to</field>
+            <field name="model">cash_managment.reject_cash_confirmation_banking</field>
+            <field name="arch" type="xml">
+                <form string="Cash Reject">
+                    <group class="oe_title">
+                        <field name="state" readonly="1"/> 
+                        <field name="reject_comment_one"/>
+                        <field name="reject_date_one" readonly ="1"/>  
+                                 
+                    </group>
+                    <footer>
+                        <button name="reject_cash_confirmation_bankingx" string="Reject" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cash_reject_banking_confirmation_view" model="ir.actions.act_window">
+            <field name="name">Reject Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.reject_cash_confirmation_banking</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reject_cash_confirmation_banking_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

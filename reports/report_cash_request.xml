@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+
+        <record id="paperformat_request_landscape" model="report.paperformat">
+        <field name="name">Requests Landscape</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+       
+        <field name="dpi">90</field>
+        </record>
     <report
         id="cash_request_report"
         model="cash_managment.request"
@@ -8,9 +20,21 @@
         report_type="qweb-pdf"
         name="cash_managment.report_request"
         file="cash_managment.report_request"
+        paperformat="paperformat_request_landscape"
+    
 
     />
 
+    <report
+        id="cash_movement_report"
+        model="cash_managment.cashmovement"
+        string="Cash Courier Report"
+        report_type="qweb-pdf"
+        name="cash_managment.cashmovement_report_request"
+        file="cash_managment.cashmovement_report_request"
+
+    />
+ <!---
     <report
         id="cash_request_report_xlsx"
         model="cash_managment.request"
@@ -19,7 +43,11 @@
         name="cash_managment.requests"
         file="cash_managment.cash_managment_requests"
         attachment_use="False"
-    />
+    />-->
+
+
+
+
 
     </data>
 </odoo>

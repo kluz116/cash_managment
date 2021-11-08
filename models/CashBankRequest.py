@@ -4,7 +4,7 @@ from pytz import timezone
 
 class CashBankRequest(models.Model):
     _name = "cash_managment.cash_bank_request"
-    _description = "All Cash Center Requuests"
+    _description = "This is a model for the cash bank request"
     _rec_name ="amount"
 
     currency_id = fields.Many2one('res.currency', string='Currency')
@@ -26,7 +26,7 @@ class CashBankRequest(models.Model):
     state = fields.Selection([('new', 'New'),('ongoing', 'Ongoing'),('closed', 'Closed')],default="new", string="Status")
     unique_field = fields.Char(compute='comp_name', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
-    cash_date =  fields.Datetime(string='Cash Transfer Date', default=datetime.today())
+    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
   
 
 

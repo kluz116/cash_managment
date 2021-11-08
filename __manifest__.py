@@ -18,13 +18,13 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
-    'external_dependencies': {
-        'python': [
-            'xlsxwriter',
-            'xlrd',
-        ],
-    },
-
+    
+    #'external_dependencies': {
+     #   'python': [
+      #      'xlsxwriter',
+       #     'xlrd',
+        #],
+    #},
     # any module necessary for this one to work correctly
     'depends': ['mail','base'],
   
@@ -49,12 +49,20 @@
         'wizard/to_manager_cash_bank.xml',
         'wizard/cash_banking_confirm.xml',
         'wizard/supervise_cash_banking.xml',
+        'wizard/reject_cash_confrimation_from.xml',
+        'wizard/reject_cash_confrimation_to.xml',
+        'wizard/reject_cash_confrimation_branch_bank_one.xml',
+        'wizard/reject_cash_confrimation_branch_bank_two.xml',
+        'wizard/reject_cash_confrimation_from_cash_banking.xml',
+        'wizard/reject_cash_confrimation_from_cash_center.xml',
+        'wizard/reject_cash_confrimation_to_center.xml',
         'views/branch.xml',
         'views/cash_request.xml',
         'views/cash_users.xml',
         'views/cash_transfer.xml',
         'views/report.xml',
         'reports/report_cash_request.xml',
+        'reports/cash_movement_card.xml',
         'reports/request_confirmation_card.xml',
     ],
     # only loaded in demonstration mode

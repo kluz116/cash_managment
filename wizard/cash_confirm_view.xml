@@ -15,6 +15,9 @@
                         <group>
                              <field name = "actual_amount"/>
                         </group>
+                        <group>
+                            <field name="currency_id"/>
+                        </group>
                          <group>
                              <field name = "to_branch" invisible="1"/>
                         </group>

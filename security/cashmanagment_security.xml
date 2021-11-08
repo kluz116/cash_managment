@@ -30,6 +30,20 @@
         <field name="groups" eval="[(4, ref('cash_managment.Branch_Manager'))]" />
         <field name="domain_force">[('|'),('branch_code_from', '=', user.branch_id.branch_code),('branch_code_to', '=', user.branch_id.branch_code)]</field>    
     </record>
+
+    <record model="ir.rule" id="partner_view_rule_branch_accountatnt_bank_confirmations">
+        <field name="name">Branch Accountant View Rule</field>
+        <field name="model_id" ref="model_cash_managment_cash_bank_request_confirmation"/>
+        <field name="groups" eval="[(4, ref('cash_managment.Branch_Accountant'))]" />
+        <field name="domain_force">[('user_id', '=', user.id)]</field>    
+    </record>
+
+    <record model="ir.rule" id="partner_view_rule_branch_accountatnt_bank_confirmations_manager">
+        <field name="name">Branch Manager View Rule</field>
+        <field name="model_id" ref="model_cash_managment_cash_bank_request_confirmation"/>
+        <field name="groups" eval="[(4, ref('cash_managment.Branch_Manager'))]" />
+        <field name="domain_force">[('to_branch', '=', user.branch_id.branch_code)]</field>    
+    </record>
      <!-- 
   
     <record model="ir.rule" id="partner_view_rule_Branch_Manager">

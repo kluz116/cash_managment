@@ -33,6 +33,9 @@
                 <tree string="All Requests">
             
                     <field name="total"/>
+                    <field name="state"/>
+                    <field name = "from_branch"/>
+                     <field name = "to_branch"/>
                     <field name="deno_fifty_thounsand"/>
                     <field name="deno_twenty_thounsand"/>
                     <field name="deno_ten_thounsand"/>
@@ -279,11 +282,20 @@
                 </xpath>
                    <sheet>
                         <group>
+                             <field name = "from_bys" invisible='1'/>
+                        </group>
+                        <group>
+                        
+                        <field name = "partner_ids" invisible='1' />
+                        </group>
+  
+                        <group>
                            <field name = "state" readonly="1"/>
                         </group>
                         <group>
-                             <field name = "initiated_request_id"/>
+                             <field name = "initiated_request_id" domain = "[('state','=','new'),('from_by','=',from_bys)] "/>
                         </group>
+                   
                          <group>
                              <field name = "actual_amount"/>
                         </group>

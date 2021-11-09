@@ -7,6 +7,10 @@ class CashCenterConfirmations(models.Model):
     _rec_name ="initiated_request_id"
     currency_id = fields.Many2one('res.currency', string='Currency')
 
+    partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
+    from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
+    partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
+
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount Transfered', domain = [('state','=','new')],required=True)
@@ -31,7 +35,7 @@ class CashCenterConfirmations(models.Model):
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Pending Manager Approval'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Pending Manager'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant'),('confirmed_two', 'Pending Manager'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     to_manager_comment = fields.Text(string="Comment")
@@ -85,3 +89,8 @@ class CashCenterConfirmations(models.Model):
         if self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
    
+
+    @api.depends('partner_ids')
+    def _compute_branch_from_bys(self):
+        for record in self:
+            record.from_bys = record.partner_ids.id

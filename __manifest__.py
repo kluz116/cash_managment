@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Cash Managment",
+    'name': "Online Cash Managment",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -64,6 +64,7 @@
         'reports/report_cash_request.xml',
         'reports/cash_movement_card.xml',
         'reports/request_confirmation_card.xml',
+        'reports/cash_bank_request_report.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

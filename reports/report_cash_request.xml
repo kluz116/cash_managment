@@ -19,10 +19,7 @@
         report_type="qweb-pdf"
         name="cash_managment.report_request"
         file="cash_managment.report_request"
-        paperformat="paperformat_request_landscape"
-    
-
-    />
+        paperformat="paperformat_request_landscape"/>
 
     <report
         id="cash_movement_report"
@@ -30,9 +27,16 @@
         string="Cash Courier Report"
         report_type="qweb-pdf"
         name="cash_managment.cashmovement_report_request"
-        file="cash_managment.cashmovement_report_request"
+        file="cash_managment.cashmovement_report_request"/>
 
-    />
+    <report
+        id="cash_bank_request_reports"
+        model="cash_managment.cash_bank_request"
+        string="Cash Bank Request Report"
+        report_type="qweb-pdf"
+        name="cash_managment.cashbank_report_request"
+        file="cash_managment.cashbank_report_request"
+        paperformat="paperformat_request_landscape"/>
  <!---
     <report
         id="cash_request_report_xlsx"

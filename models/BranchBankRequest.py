@@ -73,7 +73,7 @@ class BranchBankRequest(models.Model):
     rejected_by_two = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
     cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
-    
+    branch_id = fields.Integer(compute='_compute_branch',string='Branch',store=True)
     
        
     @api.depends('user_id')
@@ -192,5 +192,11 @@ class BranchBankRequest(models.Model):
         #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
         #self.search([('expiration_hod', '<', now_date)]).write({'state': "expired_hod"})
         self.search([('&'),('expiration_hod', '<', now_date),('hod_expire_status','=','yes')]).write({'state': "expired_hod"})
+
+    
+    @api.depends('user_id')
+    def _compute_branch(self):
+        for record in self:
+            record.branch_id = record.partner_id.branch_id
     
    

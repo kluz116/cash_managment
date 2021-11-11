@@ -12,11 +12,13 @@
                     <field name="from_total_usd" />
                     <field name="from_confirm_date"/>
                     <field name="from_confirmed_by" />
+                    <field name="from_manager" />
                     <field name="to_branch"/>
                     <field name="to_total"/>
                     <field name="to_total_usd" />
                     <field name="to_confirm_date"/>
-                    <field name="to_confirmed_by" />    
+                    <field name="to_confirmed_by" />  
+                    <field name="to_manager" />     
                 </tree>
             </field>
         </record>
@@ -152,7 +154,7 @@
         </record>
 
         <!-- top level menu: no parent -->
-        <menuitem id="main_service_menu" name="Cash Managment"/>
+        <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_report" name="Cash Managment Reports" parent="main_service_menu"/>
         <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
         <menuitem id="cash_managment_movement" name="Cash Transfer Report" parent="confirm_cash_report" action="cash_movement_list_action"/>

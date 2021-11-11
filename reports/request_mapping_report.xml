@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="cashmovement_requestmapping">
+     
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                       <h2>Cash Transfer Confirmation Report</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>From Branch</th>
+                                    <th>Total</th>
+                                    <th>Total USD</th>
+                                    <th>Confirmed Date</th>
+                                    <th>Confirmed By</th>
+                                    <th>Confirmed By</th>
+                                    <th>To Branch</th>
+                                    <th>Total</th>
+                                    <th>Total USD</th>
+                                    <th>Confirmed Date</th>
+                                    <th>Confirmed By</th>
+                                    <th>Confirmed By</th>
+                                </tr>
+  
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="docs" t-as="x">
+                                    
+                                    <td>
+                                        <span t-field="x.from_branch"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_total"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_total_usd"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_confirm_date"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_confirmed_by"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="x.from_manager"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="x.to_branch"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.to_total"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.to_total_usd"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.to_confirm_date"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.to_confirmed_by"/>
+                                    </td>      
+                                     <td>
+                                        <span t-field="x.to_manager"/>
+                                    </td>         
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+    
+    </template>
+</odoo>

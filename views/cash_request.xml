@@ -123,25 +123,7 @@
                         <group>
                              <field name = "amount"/>
                         </group>
-                        <group>
-                        <field name ="branch_id"/>
-                        </group>
-                        <group>
-                             <field name ="from_by"/>
-                        </group>
-                         <group>
-                             <field name ="from_by_two"/>
-                        </group>
-                         <group>
-                             <field name ="to_branch"/>
-                         </group>
-                          <group>
-                             <field name ="to_by"/>
-                        </group>
-                         <group>
-                             <field name ="to_by_two"/>
-                        </group>
-                         <group>
+                           <group>
                              <field name ="courier"/>
                         </group>
                          <group>
@@ -153,9 +135,33 @@
                         <group>
                              <field name = "initiated_by" invisible="1"/> 
                         </group>
-                         
-                        
-                                                      
+
+                        <notebook>
+                            <page string="From Branch">
+                              <group>
+                                  <field name ="branch_id"/>  
+                              </group>
+                              <group>
+                                   <field name ="from_by"/> 
+                              </group> 
+                              <group>
+                                <field name ="from_by_two"/>  
+                              </group>    
+                            </page>
+                  
+                            <page string="To Branch">  
+                                <group>
+                                    <field name ="to_branch"/>
+                                </group> 
+                                <group>
+                                  <field name ="to_by"/>
+                                </group> 
+                                <group>
+                                    <field name ="to_by_two"/>  
+                                </group> 
+                                     
+                            </page>
+                        </notebook>                                       
                     </sheet>  
                 </form>
             </field>
@@ -179,10 +185,6 @@
                         <group>
                           <field name="currency_id"/>
                         </group>
-                        
-                         <group>
-                             <field name ="from_bank"/>
-                        </group>
                         <group>
                         
                         <field name ="trx_prof"/>
@@ -196,21 +198,32 @@
                         <field name ="cash_date"/>
                         </group>   
                          <group>
-                             <field name ="to_branch"/>
-                         </group>
-                          <group>
-                             <field name ="to_by"/>
-                        </group>
-                         <group>
-                             <field name ="to_by_two"/>
-                        </group>
-            
-                         <group>
                             <field name ="initiate_date" invisible="1"/> 
                         </group>
                         <group>
                              <field name = "initiated_by" invisible="1"/> 
                         </group>
+                        
+                        <notebook>
+                            <page string="From Bank">
+                              <group>
+                                <field name ="from_bank"/>
+                              </group> 
+                            </page>
+                  
+                            <page string="To Branch">  
+                                <group>
+                                    <field name ="to_branch"/>
+                                </group> 
+                                <group>
+                                  <field name ="to_by"/>
+                                </group> 
+                                <group>
+                                    <field name ="to_by_two"/>  
+                                </group> 
+                                     
+                            </page>
+                        </notebook>  
                                                                             
                     </sheet>  
                 </form>

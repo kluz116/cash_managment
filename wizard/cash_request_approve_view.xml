@@ -5,27 +5,63 @@
             <field name="model">cash_managment.approved_request</field>
             <field name="arch" type="xml">
                 <form string="Initiate Cash Request">
-                    <group class="oe_title">
+                    <sheet>
+                        <group>
                         <field name = "state" readonly="1"/>
+                        </group>
+                        <group>
                         <field name = "title"/>
+                        </group>
+                        <group>
                         <field name ="amount_available"/>
+                        </group>
+                        <group>
                         <field name ="currency_id"/>
-                        <field name ="branch_id"/>
-                        <field name ="from_by"/>
-                        <field name ="from_by_two"/>
-                        <field name ="to_branch"/>
-                        <field name ="to_by"/>
-                        <field name ="to_by_two"/>
-                        <field name ="courier"/>
-                        <field name ="cash_date"/>
-                        <field name ="initiate_date" invisible="1"/> 
-                        <field name = "initiated_by" invisible="1"/> 
-                       
-                    </group>
+                        </group>
+                        <group>
+                           <field name ="courier"/>
+                        </group>
+                         <group>
+                            <field name ="cash_date"/>
+                        </group>
+                         <group>
+                            <field name ="initiate_date" invisible="1"/> 
+                        </group>
+                         <group>
+                            <field name = "initiated_by" invisible="1"/> 
+                        </group>
+                        <notebook>
+                            <page string="From Branch">
+                              <group>
+                                  <field name ="branch_id"/>  
+                              </group>
+                              <group>
+                                   <field name ="from_by"/> 
+                              </group> 
+                              <group>
+                                <field name ="from_by_two"/>  
+                              </group>    
+                            </page>
+                  
+                            <page string="To Branch">  
+                                <group>
+                                    <field name ="to_branch"/>
+                                </group> 
+                                <group>
+                                  <field name ="to_by"/>
+                              </group> 
+                              <group>
+                                <field name ="to_by_two"/>  
+                              </group> 
+                                     
+                            </page>
+                        </notebook>
+                    
                     <footer>
                         <button name="initiate_request" string="Initiate" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
+                    </sheet>
                 </form>
             </field>
         </record>

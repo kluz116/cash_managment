@@ -37,20 +37,25 @@
         name="cash_managment.cashbank_report_request"
         file="cash_managment.cashbank_report_request"
         paperformat="paperformat_request_landscape"/>
- <!---
+
+        
+    <report
+        id="cash_Request_mapping_report"
+        model="cash_managment.requestmapping"
+        string="Cash Transfer Conformation"
+        report_type="qweb-pdf"
+        name="cash_managment.cashmovement_requestmapping"
+        file="cash_managment.cashmovement_requestmapping"/>
+ 
     <report
         id="cash_request_report_xlsx"
         model="cash_managment.request"
-        string="Print to XLSX"
+        string="Export Requests to XLSX"
         report_type="xlsx"
         name="cash_managment.requests"
         file="cash_managment.cash_managment_requests"
         attachment_use="False"
-    />-->
-
-
-
-
+    />
 
     </data>
 </odoo>

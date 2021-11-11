@@ -601,7 +601,7 @@
 
 
     
-        <menuitem id="main_service_menu" name="Cash Managment"/>
+        <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_request" name="Cash Transfer Requests" sequence="7" parent="main_service_menu"/>
         <menuitem id="confirm_cash_req" name="CIT Confirmation - Branches" sequence="8" parent="confirm_cash_request" action="confirm_request_list_action"/>
         <menuitem id="cash_center_request_confirmation" name="CIT Confirmation - Cash Center" sequence="9" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>

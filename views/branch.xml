@@ -34,6 +34,17 @@
                 </tree>
             </field>
         </record>
+        <record id="view_coverage_managment_hod_tree" model="ir.ui.view">
+            <field name="name">cash_managment.coveragewindow_hod.tree</field>
+            <field name="model">cash_managment.coveragewindow_hod</field>
+             <field name="arch" type="xml">
+                <tree string="Working Hours Coverage">
+                    <field name="working_days" />
+                    <field name="from_hour" />
+                    <field name="to_hour" />
+                </tree>
+            </field>
+        </record>
   
         <record id="view_cash_managment_tree" model="ir.ui.view">
             <field name="name">cash_managment.branch.tree</field>
@@ -106,6 +117,26 @@
         <record model="ir.ui.view" id="coverage_form_view">
             <field name="name">cash_managment.coveragewindow.form</field>
             <field name="model">cash_managment.coveragewindow</field>
+            <field name="arch" type="xml">
+                <form string="Add Coverage Window" create="false" edit="true">
+                    <sheet>
+                        <group>
+                            <field name="working_days"/>
+                        </group>
+                        <group>
+                            <field name="from_hour" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="to_hour" widget="float_time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="coverage_form_view_hod">
+            <field name="name">cash_managment.coveragewindow_hod.form</field>
+            <field name="model">cash_managment.coveragewindow_hod</field>
             <field name="arch" type="xml">
                 <form string="Add Coverage Window" create="false" edit="true">
                     <sheet>
@@ -206,14 +237,23 @@
                 <p class="o_view_nocontent_smiling_face">Create new coverage window</p>
             </field>
         </record>
+        <record model="ir.actions.act_window" id="coverage_list_action_hod">
+            <field name="name">Coverage Window Configurations - HOD</field>
+            <field name="res_model">cash_managment.coveragewindow_hod</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new coverage window- Hod</p>
+            </field>
+        </record>
 
  
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Cash Managment"/>
-        <menuitem id="config_menu" name="Configurations" parent="main_service_menu" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="config_team" name="Branches" parent="config_menu" action="branch_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="config_courier" name="Courier Services" parent="config_menu" action="courier_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="config_coverage" name="Coverage Window" parent="config_menu" action="coverage_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="config_bank" name="Banking Institutions" parent="config_menu" action="bank_list_action" groups="cash_managment.Cash_Managment_Support"/>
+        <menuitem id="config_menu" name="Configurations" sequence="11"  parent="main_service_menu" groups="cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_team" name="Branches" parent="config_menu" sequence="12"  action="branch_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_courier" name="Courier Services" parent="config_menu" sequence="13" action="courier_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_coverage" name="Coverage Window Branches" parent="config_menu" sequence="14"  action="coverage_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_coverage_hod" name="Coverage Window HOD"  sequence="15" parent="config_menu" action="coverage_list_action_hod" groups="cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_bank" name="Banking Institutions"  sequence="16" parent="config_menu" action="bank_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>
             
 </odoo>

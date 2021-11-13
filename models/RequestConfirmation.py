@@ -45,7 +45,7 @@ class Re(models.Model):
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
-    from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='To',store=True)
+    from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='From Manager',store=True)
     to_branch_accountant =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
     to_branch_manager =  fields.Integer(related ='initiated_request_id.to_by_two.id', string='To',store=True)
     current_user = fields.Boolean('is current user ?', compute='_get_current_user')

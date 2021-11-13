@@ -17,6 +17,10 @@
         <field name="name">Cash Managment Support</field>
         <field name="category_id" ref="module_cash_managment"/>
     </record>
+    <record id="Cash_Managment_IT_Support" model="res.groups">
+        <field name="name">Cash Managment IT Support Administrator</field>
+        <field name="category_id" ref="module_cash_managment"/>
+    </record>
     <record model="ir.rule" id="partner_view_rule_branch_accountatnt">
         <field name="name">Branch Accountant View Rule</field>
         <field name="model_id" ref="model_cash_managment_request"/>

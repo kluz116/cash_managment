@@ -180,6 +180,7 @@
                          <group>
                              <field name = "from_branch"/>
                         </group>
+                        
                          <group>
                              <field name = "to_branch"/>
                         </group>

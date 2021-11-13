@@ -131,9 +131,9 @@ class CashManagment(models.Model):
         compare_date = datetime.strptime(self.initiate_time,'%Y-%m-%d %H:%M')
 
         if compare_date < start_date:
-            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.".format(compare_date=compare_date))
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date} as Its already past the system working hour. Contact Operations Department for assistance".format(compare_date=compare_date))
         elif compare_date > end_date:
-            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date} as Its already past the system working hour. Contact Operations Department for assistance ".format(compare_date=compare_date))
    
     @api.model
     def _update_expiration_branch(self):

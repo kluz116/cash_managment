@@ -51,12 +51,12 @@ class CashBankRequest(models.Model):
 
     @api.depends('week_day')
     def comp_weekday(self):
-        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+        window_coverage = self.env['cash_managment.coveragewindow_hod'].search([('working_days', '=', self.week_day)])
         self.week_day_coverage = window_coverage.working_days
 
     @api.depends('week_day')
     def comp_from_houry(self):
-        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+        window_coverage = self.env['cash_managment.coveragewindow_hod'].search([('working_days', '=', self.week_day)])
 
         today = datetime.today()
         date_time = today.strftime("%Y-%m-%d")
@@ -65,7 +65,7 @@ class CashBankRequest(models.Model):
 
     @api.depends('week_day')
     def comp_to_hour(self):
-        window_coverage = self.env['cash_managment.coveragewindow'].search([('working_days', '=', self.week_day)])
+        window_coverage = self.env['cash_managment.coveragewindow_hod'].search([('working_days', '=', self.week_day)])
         today = datetime.today()
         date_time = today.strftime("%Y-%m-%d")
         date_from = (date_time or '')+' '+(str(int(window_coverage.to_hour)) or '')+':'+('00')

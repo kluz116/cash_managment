@@ -4,13 +4,11 @@
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests"  import="0" decoration-primary="state=='new'"  decoration-danger="state == 'reject'">
                      <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
                     <field name ="amount_available"/>
-                    <field name="validate_comment"/> 
-                    <field name="approval_comment"/>
                     <field name="start_date"/>
                     <field name="validate_date"/>
                     <field name="approval_date"/>
@@ -24,9 +22,10 @@
             <field name="name">cash_managment.requestapproved.tree</field>
             <field name="model">cash_managment.requestapproved</field>
              <field name="arch" type="xml">
-                <tree string="Ongoing Requests"  create="false" edit="false">
-                        
+                <tree string="Initiated Cash Request" decoration-danger="state=='pending'"  create="false" edit="false">
+                        <field name = "ref_request"/>
                         <field name = "title"/>
+                        <field name = "amount_available"/>
                         <field name = "state" />
                         <field name="branch_id"/>
                         <field name ="from_by"/>
@@ -44,7 +43,7 @@
             <field name="name">cash_managment.cash_center_request.tree</field>
             <field name="model">cash_managment.cash_center_request</field>
              <field name="arch" type="xml">
-                <tree string="Cash Center Requests">
+                <tree string="Cash Center Requests" import="0">
                 
                         <field name="unique_field" string="Ref"/>
                         <field name = "state" readonly="1"/>
@@ -68,7 +67,7 @@
             <field name="name">cash_managment.cash_bank_request.tree</field>
             <field name="model">cash_managment.cash_bank_request</field>
              <field name="arch" type="xml">
-                <tree string="Bank Cash Requests" colors="green:state=='ongoing';red:state in ('closed')">
+                <tree string="Bank Cash Requests" import="0" colors="green:state=='ongoing';red:state in ('closed')">
               
                         <field name = "unique_field" string="Ref"/>
                         <field name = "state" readonly="1"/>
@@ -90,7 +89,7 @@
             <field name="name">cash_managment.cash_branch_bank_request.tree</field>
             <field name="model">cash_managment.cash_branch_bank_request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests" import="0">
                      <field name = "unique_field" string="Ref"/>
                       <field name = "state" />
                     <field name="total"/>
@@ -114,15 +113,19 @@
             <field name="name">cash_managment.cash_center_request.form</field>
             <field name="model">cash_managment.cash_center_request</field>
             <field name="arch" type="xml">
-                <form string="Initiate Request" create="false" edit="false">
+                <form string="Initiate Request" create="false" edit="false" >
                    <sheet>
                         <group>
-                           <field name = "state" readonly="1"/>
+                           <field name = "state" readonly="1" style="color: #e60911; font-weight: bold;"/>
                         </group>
                         
                         <group>
                              <field name = "amount"/>
                         </group>
+                         <group>
+                             <field name = "currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                        </group>
+                        
                            <group>
                              <field name ="courier"/>
                         </group>
@@ -139,7 +142,7 @@
                         <notebook>
                             <page string="From Branch">
                               <group>
-                                  <field name ="branch_id"/>  
+                                  <field name ="branch_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
                               </group>
                               <group>
                                    <field name ="from_by"/> 
@@ -151,7 +154,7 @@
                   
                             <page string="To Branch">  
                                 <group>
-                                    <field name ="to_branch"/>
+                                    <field name ="to_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                                 </group> 
                                 <group>
                                   <field name ="to_by"/>
@@ -173,17 +176,17 @@
             <field name="name">cash_managment.cash_bank_request.form</field>
             <field name="model">cash_managment.cash_bank_request</field>
             <field name="arch" type="xml">
-                <form string="Create New Request" create="false" edit="false">
+                <form string="Create New Request" create="false" edit="false" export_xlsx="false">
                    <sheet>
                         <group>
-                           <field name = "state" readonly="1"/>
+                           <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
                         </group>
                      
                         <group>
                              <field name = "amount"/>
                         </group>
                         <group>
-                          <field name="currency_id"/>
+                          <field name="currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                         <group>
                         
@@ -207,13 +210,13 @@
                         <notebook>
                             <page string="From Bank">
                               <group>
-                                <field name ="from_bank"/>
+                                <field name ="from_bank" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                               </group> 
                             </page>
                   
                             <page string="To Branch">  
                                 <group>
-                                    <field name ="to_branch"/>
+                                    <field name ="to_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                                 </group> 
                                 <group>
                                   <field name ="to_by"/>
@@ -238,7 +241,7 @@
             <field name="name">cash_managment.cash_branch_bank_request.form</field>
             <field name="model">cash_managment.cash_branch_bank_request</field>
             <field name="arch" type="xml">
-                <form string="Create Branch Bank Request" create="false" edit="false">
+                <form string="Create Branch Bank Request" create="false" edit="false" export_xlsx="false">
                 <xpath expr="//sheet" position="before">
                     <header>
                         <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
@@ -253,16 +256,16 @@
                    <sheet>
                       
                         <group>
-                           <field name = "state" readonly="1"/>
+                           <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
                         </group>
                          <group>
                              <field name = "actual_amount"/>
                         </group>
                         <group>
-                            <field name="currency_id"/>
+                            <field name="currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                          <group>
-                             <field name = "to_bank"/>
+                             <field name = "to_bank" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                         <group>
                         
@@ -343,7 +346,7 @@
             <field name="name">cash_managment.request.form</field>
             <field name="model">cash_managment.request</field>
             <field name="arch" type="xml">
-                <form string="Add Request" create="false" edit="false">
+                <form string="Add Request" create="false" edit="false" export_xlsx="false">
                     <header>
                      
                         <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
@@ -363,7 +366,7 @@
                             <field name="title"/>
                         </group>
                         <group>
-                            <field name="currency_id"/>
+                            <field name="currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                         <group>
                             <field name="trx_proof"/>
@@ -533,12 +536,12 @@
 
         
         <record model="ir.actions.act_window" id="request_ongoing_list_action">
-            <field name="name">Ongoing Requests</field>
+            <field name="name">Initiated Cash Request</field>
             <field name="res_model">cash_managment.requestapproved</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree</field>
             <field name ="context">{"search_default_initiate_datess":1}</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Ongoing Cash Requests Request</p>
+                <p class="o_view_nocontent_smiling_face">Initiated Cash Request</p>
             </field>
         </record>
 
@@ -553,15 +556,13 @@
         </record>
 
  
-        <!-- top level menu: no parent -->
+    
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="config_cash_request" name="Cash Managment Requests"   sequence="1"  parent="main_service_menu"/>
         <menuitem id="config_cash_req" name="Cash Request" parent="config_cash_request"   sequence="2" action="request_list_action"/>
-        <menuitem id="cash_center_requests" name="Cash Request Team (Branch To Branch)" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support"/>
-        <menuitem id="bank_center_requests" name="Cash Banking- (Bank To Branch)" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
-        <menuitem id="branch_bank_requests" name="Cash Banking- (Branch To Bank)" parent="config_cash_request"   sequence="5" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
-        <menuitem id="config_cash_req_ongoing" name="Ongoing Cash Requests" parent="config_cash_request"   sequence="6" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support"/>
-    
-          
-            
+        <menuitem id="cash_center_requests" name="Cash Request-Inter Branch" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="bank_center_requests" name="Cash Banking-To Branch" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="branch_bank_requests" name="Cash Banking-To Bank" parent="config_cash_request"   sequence="5" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_cash_req_ongoing" name="Initiated Cash Request" parent="config_cash_request"   sequence="6" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>
+               
 </odoo>

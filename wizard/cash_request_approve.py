@@ -31,6 +31,7 @@ class ApprovedCashRequest(models.TransientModel):
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount_available = fields.Monetary(string='Amount Available', required=True)
     from_branch_request = fields.Integer(compute='_compute_branch_from', string='To')
+    ref_request = fields.Char(related ='title.unique_field', string='Ref',store=True)
    
    
     
@@ -80,7 +81,7 @@ class ApprovedCashRequest(models.TransientModel):
             request.branch_code_from = self.from_branch_request
             request.branch_manager_from = self.from_by_id_two
             request.branch_accountant_from = self.from_by_id
-            request.state = 'closed'
+            request.state = 'initiated'
             request.amount_available = self.amount_available
 
             #template_id = self.env.ref('cash_managment.email_template_initiate_request').id

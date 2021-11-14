@@ -72,7 +72,7 @@ class CashManagment(models.Model):
         value = 'CIT-'
         date_time = self.start_date.strftime("%m%d%Y")
         last= '000'
-        self.unique_field = (value or '')+''+(date_time or '')+'-'+(last or '')+''+(str(self.id))
+        self.unique_field = (value or '')+''+(str(self.branch_code_to))+'-'+(date_time or '')+'-'+(last or '')+''+(str(self.id))
 
 
     @api.depends('start_date')
@@ -120,7 +120,7 @@ class CashManagment(models.Model):
     @api.constrains('week_day','week_day_coverage')
     def _check_amount(self):
         if self.week_day != self.week_day_coverage :
-            raise exceptions.ValidationError("Sorry, Today is not a working day and you can not submit in cash request.")
+            raise exceptions.ValidationError("Sorry, Today is not a working day and you can not submit in cash request.Contact Operations Department for assistance")
 
     
     @api.one

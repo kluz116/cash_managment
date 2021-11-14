@@ -22,6 +22,8 @@ class ApprovedCashRequest(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount_available = fields.Monetary(string='Amount Available', required=True)
     cash_date =  fields.Datetime(string='Cash Transfer Date', default=datetime.today())
+    ref_request = fields.Char(related ='title.unique_field', string='Ref',store=True)
+    
     @api.onchange ('branch_id')
     def on_change_fromid(self):
         for record in self:

@@ -70,7 +70,7 @@
             <field name="name">cash_managment.branch.form</field>
             <field name="model">cash_managment.branch</field>
             <field name="arch" type="xml">
-                <form string="Add Branch" create="false" edit="true">
+                <form string="Add Branch" create="false" edit="false">
                     <sheet>
                         <group>
                             <field name="branch_code"/>
@@ -86,7 +86,7 @@
             <field name="name">cash_managment.courier.form</field>
             <field name="model">cash_managment.courier</field>
             <field name="arch" type="xml">
-                <form string="Add Courier Service" create="false" edit="true">
+                <form string="Add Courier Service" create="false" edit="false">
                     <sheet>
                         <group>
                             <field name="courier_name"/>
@@ -111,14 +111,11 @@
                 </form>
             </field>
         </record>
-
-
-
         <record model="ir.ui.view" id="coverage_form_view">
             <field name="name">cash_managment.coveragewindow.form</field>
             <field name="model">cash_managment.coveragewindow</field>
             <field name="arch" type="xml">
-                <form string="Add Coverage Window" create="false" edit="true">
+                <form string="Add Coverage Window" create="false" edit="false">
                     <sheet>
                         <group>
                             <field name="working_days"/>
@@ -138,7 +135,7 @@
             <field name="name">cash_managment.coveragewindow_hod.form</field>
             <field name="model">cash_managment.coveragewindow_hod</field>
             <field name="arch" type="xml">
-                <form string="Add Coverage Window" create="false" edit="true">
+                <form string="Add Coverage Window" create="false" edit="false">
                     <sheet>
                         <group>
                             <field name="working_days"/>
@@ -248,7 +245,7 @@
 
  
         <!-- top level menu: no parent -->
-        <menuitem id="main_service_menu" name="Cash Managment"/>
+        <menuitem id="main_service_menu" name="Online Cash Managment"/>
         <menuitem id="config_menu" name="Configurations" sequence="11"  parent="main_service_menu" groups="cash_managment.Cash_Managment_IT_Support"/>
         <menuitem id="config_team" name="Branches" parent="config_menu" sequence="12"  action="branch_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>
         <menuitem id="config_courier" name="Courier Services" parent="config_menu" sequence="13" action="courier_list_action" groups="cash_managment.Cash_Managment_IT_Support"/>

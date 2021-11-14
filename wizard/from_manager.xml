@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <form string="Cash Confirm">
                     <group class="oe_title">
-                        <field name="state" readonly="1"/> 
+                        <field name="state" readonly="1" style='color: #e60911; font-weight: bold;'/> 
                         <field name="from_manager_comment"/>
                         <field name="from_manager_date" invisible="1"/>
                     </group>

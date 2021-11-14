@@ -9,7 +9,7 @@ class CashRequestApprove(models.Model):
         
         cash = self.env['cash_managment.requestapproved'].browse(self._context.get('active_ids'))
         for req in res:
-            req.initiated_request_id.state = 'closed'
+            req.initiated_request_id.state = 'pending'
         #template_id = self.env.ref('cash_managment.email_template_create_request').id
         #template =  self.env['mail.template'].browse(template_id)
         #template.send_mail(res.id,force_send=True)

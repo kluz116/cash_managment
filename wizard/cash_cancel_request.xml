@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <form string="Cash Reject">
                     <group class="oe_title">
-                        <field name="state" readonly="1"/> 
+                        <field name="state" readonly="1" style='color: #e60911; font-weight: bold;'/> 
                         <field name="cancel_comment"/>
                         <field name="cancel_date" readonly ="1"/>
                     </group>

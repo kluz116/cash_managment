@@ -79,7 +79,7 @@ class CashCenterRequest(models.Model):
     @api.constrains('week_day','week_day_coverage')
     def _check_amount(self):
         if self.week_day != self.week_day_coverage :
-            raise exceptions.ValidationError("Sorry, Today is not a working day and you can not submit in cash request.")
+            raise exceptions.ValidationError("Sorry, Today is not a working day and you can not submit in cash request.Contact Operations Department for assistance")
 
     
     @api.one
@@ -90,9 +90,9 @@ class CashCenterRequest(models.Model):
         compare_date = datetime.strptime(self.initiate_time,'%Y-%m-%d %H:%M')
 
         if compare_date < start_date:
-            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.".format(compare_date=compare_date))
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.as Its already past the system working hour. Contact ICT Department for assistance".format(compare_date=compare_date))
         elif compare_date > end_date:
-            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
+            raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.as Its already past the system working hour. Contact ICT Department for assistance ".format(compare_date=compare_date))
    
  
    

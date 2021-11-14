@@ -7,16 +7,16 @@
                 <form string="Confirm Transfer Request" create="false" edit="false">
                    <sheet>
                         <group>
-                           <field name = "state" invisible="1"/>
+                           <field name = "state" invisible="1" style='color: #e60911; font-weight: bold;'/>
                         </group>
                         <group>
-                             <field name = "amount_request_ids"/>
+                             <field name = "amount_request_ids" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                           <group>
-                             <field name = "actual_amount"/>
+                             <field name = "actual_amount" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                           <group>
-                             <field name = "currency_id"/>
+                             <field name = "currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                          <group>
                              <field name = "to_branch" invisible="1"/>

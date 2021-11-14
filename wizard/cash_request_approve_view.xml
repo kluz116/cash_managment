@@ -7,19 +7,20 @@
                 <form string="Initiate Cash Request">
                     <sheet>
                         <group>
-                        <field name = "state" readonly="1"/>
+                        <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
                         </group>
                         <group>
-                        <field name = "title"/>
+                        <field name = "title" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                        <field name = "ref_request" style='color: #e60911; font-weight: bold;'/>
                         </group>
                         <group>
                         <field name ="amount_available"/>
                         </group>
                         <group>
-                        <field name ="currency_id"/>
+                        <field name ="currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                         <group>
-                           <field name ="courier"/>
+                           <field name ="courier" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                         </group>
                          <group>
                             <field name ="cash_date"/>
@@ -33,7 +34,7 @@
                         <notebook>
                             <page string="From Branch">
                               <group>
-                                  <field name ="branch_id"/>  
+                                  <field name ="branch_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
                               </group>
                               <group>
                                    <field name ="from_by"/> 
@@ -45,7 +46,7 @@
                   
                             <page string="To Branch">  
                                 <group>
-                                    <field name ="to_branch"/>
+                                    <field name ="to_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                                 </group> 
                                 <group>
                                   <field name ="to_by"/>

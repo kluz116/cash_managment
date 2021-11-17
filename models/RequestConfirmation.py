@@ -15,7 +15,7 @@ class Re(models.Model):
     #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)
     initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True)
     #initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
-    
+    trx_proof = fields.Binary('File')
     currency_id = fields.Many2one('res.currency', string='Currency')
     actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)

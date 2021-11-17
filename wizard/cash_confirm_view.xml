@@ -92,8 +92,8 @@
                             </group>             
                     </sheet> 
                      <footer>
-                        <button name="cash_confirm_request" string="Confirm Request" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="cash_confirm_request" string="Confirm Request" type="object" class="btn btn-outline-primary"/>
+                        <button string="Cancel" class="btn-outline-dark" special="cancel"/>
                     </footer> 
                 </form>
             </field>

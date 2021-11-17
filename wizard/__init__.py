@@ -20,3 +20,4 @@ from . import reject_cash_confrimation_branch_bank_two
 from . import reject_cash_confrimation_from_cash_banking
 from . import reject_cash_confrimation_from_cash_center
 from . import reject_cash_confrimation_to_center
+from . import disregard_request

@@ -11,8 +11,8 @@
                         <field name="to_manager_date"/>
                     </group>
                     <footer>
-                        <button name="cash_confirm_manager_cashcenter" string="Confirm Cash" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="cash_confirm_manager_cashcenter" string="Confirm Cash" type="object" class="btn btn-outline-primary"/>
+                        <button string="Cancel" class="btn btn-outline-dark" special="cancel"/>
                     </footer>
                 </form>
             </field>

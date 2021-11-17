@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="cash_disregard_request_form_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.disregard_request.form</field>
+            <field name="model">cash_managment.disregard_request</field>
+            <field name="arch" type="xml">
+                <form string="Disregard">
+                    <group class="oe_title">
+                        <field name="state" readonly="1" style='color: #e60911; font-weight: bold;'/> 
+                        <field name="disregard_comment"/>
+                        <field name="disregard_date" readonly ="1"/>
+                        <field name="disregard_by" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="cash_disregard_xxx" string="Disregard" type="object" class="btn btn-outline-danger"/>
+                        <button string="Cancel" class="btn btn-outline-dark" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_disregard_request_form_view" model="ir.actions.act_window">
+            <field name="name">Disregard Cash Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.disregard_request</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cash_disregard_request_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

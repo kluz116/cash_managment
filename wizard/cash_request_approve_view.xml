@@ -37,10 +37,10 @@
                                   <field name ="branch_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
                               </group>
                               <group>
-                                   <field name ="from_by"/> 
+                                   <field name ="from_by" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/> 
                               </group> 
                               <group>
-                                <field name ="from_by_two"/>  
+                                <field name ="from_by_two" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
                               </group>    
                             </page>
                   
@@ -49,18 +49,18 @@
                                     <field name ="to_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                                 </group> 
                                 <group>
-                                  <field name ="to_by"/>
+                                  <field name ="to_by" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
                               </group> 
                               <group>
-                                <field name ="to_by_two"/>  
+                                <field name ="to_by_two" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
                               </group> 
                                      
                             </page>
                         </notebook>
                     
                     <footer>
-                        <button name="initiate_request" string="Initiate" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="initiate_request" string="Initiate" type="object" class="btn-outline-primary"/>
+                        <button string="Cancel" class="btn-outline-dark" special="cancel"/>
                     </footer>
                     </sheet>
                 </form>

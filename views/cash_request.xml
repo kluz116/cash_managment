@@ -244,10 +244,10 @@
                 <form string="Create Branch Bank Request" create="false" edit="false" export_xlsx="false">
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Confirm Request" class="btn btn-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_reject_branch_bank_confirmation_view)d" states='New' type="action" string="Reject Request" class="btn btn-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        <button name="%(wizard_cash_reject_branch_bank_confirmation_two_view)d" type="action" states='ongoing' string="Reject Request" class="btn btn-danger" groups="cash_managment.Cash_Managment_Support" />
-                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='ongoing' string="Validate And Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_reject_branch_bank_confirmation_view)d" states='New' type="action" string="Reject Request" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(wizard_cash_reject_branch_bank_confirmation_two_view)d" type="action" states='ongoing' string="Reject Request" class="btn btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='ongoing' string="Validate And Supervise" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
                         
                         <field name = "current_to_branch_manager" invisible='1' />
                         <field name="state" widget="statusbar" statusbar_visible="New,closed" invisible="1"/>
@@ -349,13 +349,14 @@
                 <form string="Add Request" create="false" edit="false" export_xlsx="false">
                     <header>
                      
-                        <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-primary" groups ="cash_managment.Branch_Manager" />
-                        <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-danger" groups ="cash_managment.Branch_Manager" />
-                        <button name="%(cash_managment.supervise_cash_cancel_form_view)d" type="action" states='cancel' string="Supervise" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
-                        <button name="%(cash_managment.wizard_cash_approve_form_view)d" type="action" states='validate' string="Approve Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />
-                        <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-danger" groups="cash_managment.Cash_Managment_Support" />     
-                        <button name="%(cash_managment.wizard_cash_initaite_form_view)d" type="action" states='approve' string="Initiate Request" class="btn btn-primary" groups="cash_managment.Cash_Managment_Support" />                  
-                        <field name="state" widget="statusbar" statusbar_visible="new,validate,approve,reject,implement,closed" invisible="1"/>
+                        <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-outline-primary" groups ="cash_managment.Branch_Manager" />
+                        <button name="%(cash_managment.wizard_cash_cancel_form_view)d" type="action" states='new' string="Cancel Request" class="btn btn-outline-danger" groups ="cash_managment.Branch_Manager" />
+                        <button name="%(cash_managment.supervise_cash_cancel_form_view)d" type="action" states='cancel' string="Supervise" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_approve_form_view)d" type="action" states='validate' string="Approve Request" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />     
+                        <button name="%(cash_managment.wizard_cash_initaite_form_view)d" type="action" states='approve' string="Initiate Request" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" /> 
+                        <button name="%(cash_managment.wizard_disregard_request_form_view)d" type="action" states='initiated' string="Disregard Request" class="btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />                  
+                        <field name="state" widget="statusbar" statusbar_visible="new,validate,approve,reject,implement,closed,initiated" invisible="1"/>
                     </header>
                     <sheet>
                         <group>

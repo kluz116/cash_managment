@@ -56,6 +56,7 @@
         'wizard/reject_cash_confrimation_from_cash_banking.xml',
         'wizard/reject_cash_confrimation_from_cash_center.xml',
         'wizard/reject_cash_confrimation_to_center.xml',
+        'wizard/disregard_request.xml',
         'views/branch.xml',
         'views/cash_request.xml',
         'views/cash_users.xml',

@@ -11,8 +11,8 @@
                         <field name="supervision_date" readonly ="1"/>
                     </group>
                     <footer>
-                        <button name="cash_supervision" string="Supervise" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="cash_supervision" string="Supervise" type="object" class="btn btn-outline-primary"/>
+                        <button string="Cancel" class="btn-outline-dark" special="cancel"/>
                     </footer>
                 </form>
             </field>

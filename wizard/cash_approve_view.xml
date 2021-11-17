@@ -12,8 +12,8 @@
                         
                     </group>
                     <footer>
-                        <button name="cash_approve" string="Approve" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="cash_approve" string="Approve" type="object" class="btn btn-outline-primary"/>
+                        <button string="Cancel" class="btn-outline-dark" special="cancel"/>
                     </footer>
                 </form>
             </field>

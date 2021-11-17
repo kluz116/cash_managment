@@ -11,8 +11,8 @@
                         <field name="reject_date_one" readonly ="1"/>                
                     </group>
                     <footer>
-                        <button name="reject_cash_confirmation_cash_center" string="Reject" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button name="reject_cash_confirmation_cash_center" string="Reject" type="object" class="btn btn-outline-primary"/>
+                        <button string="Cancel" class="btn btn-outline-dark" special="cancel"/>
                     </footer>
                 </form>
             </field>

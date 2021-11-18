@@ -115,7 +115,7 @@
             <field name="name">cash_managment.coveragewindow.form</field>
             <field name="model">cash_managment.coveragewindow</field>
             <field name="arch" type="xml">
-                <form string="Add Coverage Window" create="false" edit="false">
+                <form string="Add Coverage Window" create="false" edit="true">
                     <sheet>
                         <group>
                             <field name="working_days"/>
@@ -135,7 +135,7 @@
             <field name="name">cash_managment.coveragewindow_hod.form</field>
             <field name="model">cash_managment.coveragewindow_hod</field>
             <field name="arch" type="xml">
-                <form string="Add Coverage Window" create="false" edit="false">
+                <form string="Add Coverage Window" create="false" edit="true">
                     <sheet>
                         <group>
                             <field name="working_days"/>

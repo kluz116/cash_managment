@@ -21,7 +21,7 @@ class DisregardRequest(models.TransientModel):
         for req in cash:
             req.state ='approve'
             
-            cash = self.env['cash_managment.requestapproved'].search([('title', '=', self.id)])
+            cash = self.env['cash_managment.requestapproved'].search([('title', '=', req.id)])
             for req in cash:
                 req.disregard_comment = self.disregard_comment
                 req.disregard_date = self.disregard_date

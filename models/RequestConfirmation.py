@@ -78,9 +78,12 @@ class Re(models.Model):
  
     
     @api.one
-    @api.constrains('total','actual_amount')
+    @api.constrains('total','total_usd','actual_amount')
     def _check_amount(self):
-        if self.actual_amount != self.total or self.actual_amount != self.total_usd :
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total_usd,amount = self.actual_amount))
+
+        elif self.currency_id.id != 2 and self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
     

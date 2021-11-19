@@ -36,6 +36,38 @@
                 </tree>
             </field>
         </record>
+        <record id="cash_managment_cashmovementreport_tree" model="ir.ui.view">
+            <field name="name">cash_managment.cashmovementreport.tree</field>
+            <field name="model">cash_managment.cashmovementreport</field>
+             <field name="arch" type="xml" >
+                <tree string="Cash Movement">
+                    <field name="courier_name" />
+                    <field name="frombranch" />
+                    <field name="tobranch"/>  
+                    <field name="effective_date"/>
+                    <field name="Amount"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_form_cashmovement_reportx" model="ir.ui.view" >
+            <field name="name">Cash Movement</field>
+            <field name="model">cash_managment.cashmovementreport</field>
+            <field name="arch" type="xml">
+                <form>
+            
+                <group>
+                    <field name="courier_name"/>
+                    <field name="frombranch"/>
+                    <field name="tobranch" />
+                    <field name="effective_date"/>
+                    <field name="Amount"/>
+                </group>
+                </form>
+            </field>
+        </record>
 
         <record id="view_form_cashmovement_report" model="ir.ui.view" >
             <field name="name">Cash Movement</field>
@@ -107,6 +139,21 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id=" cash_managment_cashmovementreport_search_view">
+            <field name="name">cash_managment.cashmovementreport.search</field>
+            <field name="model">cash_managment.cashmovementreport</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="state"/>
+                    <field name="frombranch" />
+                    <field name="tobranch"/> 
+                    <field name="Amount"/> 
+                    <separator/>
+                     <!--<filter name="group_courier_name" string="Category" icon="terp-partner" context="{'group_by':'courier_name'}"/>-->
+                </search>
+            </field>
+        </record>
+
                 
         <record model="ir.ui.view" id="confirmation_request_to_search_view">
             <field name="name">cash_managment.confirm_cash_to.search</field>
@@ -154,11 +201,22 @@
             </field>
         </record>
 
+        <record model="ir.actions.act_window" id="cash_movement_report_list_action">
+            <field name="name">Cash Movement</field>
+            <field name="res_model">cash_managment.cashmovementreport</field>
+            <field name="view_mode">tree</field>
+             <!--<field name ="context">{"search_default_group_courier_name":1}</field>-->
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Cash Transfer Status</p>
+            </field>
+        </record>
+
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_report" name="Cash Managment Reports" parent="main_service_menu"/>
         <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
         <menuitem id="cash_managment_movement" name="Cash Transfer Report" parent="confirm_cash_report" action="cash_movement_list_action"/>
+        <menuitem id="cash_managment_movement_rpt" name="Cash Transfer Report With Amount" parent="confirm_cash_report" action="cash_movement_report_list_action"/>
         <menuitem id="confirm_cash_to_req" name="Cash Transfer Confirmations Report" parent="confirm_cash_report" action="to_confirm_request_list_action"/>
          
             

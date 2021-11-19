@@ -36,6 +36,7 @@ class CashBankConfirmation(models.Model):
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
     state = fields.Selection([('pending', 'Pending'),('reject', 'Reject'),('closed', 'Closed')],default="pending", string="Status")
+    trx_prof = fields.Binary('File')
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
@@ -78,9 +79,12 @@ class CashBankConfirmation(models.Model):
     
 
     @api.one
-    @api.constrains('total','actual_amount')
+    @api.constrains('total','total_usd','actual_amount')
     def _check_amount(self):
-        if self.actual_amount != self.total:
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total_usd,amount = self.actual_amount))
+
+        elif self.currency_id.id != 2 and self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
 

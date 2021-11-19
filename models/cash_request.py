@@ -15,7 +15,7 @@ class CashManagment(models.Model):
     description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired'),('expired_hod','Expired')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=datetime.now())
-    trx_proof = fields.Binary('File')
+    trx_proof = fields.Binary('Upload File')
     end_date = fields.Datetime(string='Start Date')
     close_date = fields.Datetime(string='Close Date')
     validate_comment = fields.Text(string="Comment")

@@ -10,7 +10,7 @@ class CashCenterConfirmations(models.Model):
     partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
     partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
-
+    trx_proof = fields.Binary('Upload File')
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount Transfered', domain = [('state','=','new')],required=True)
@@ -84,11 +84,13 @@ class CashCenterConfirmations(models.Model):
     
 
     @api.one
-    @api.constrains('total','actual_amount')
+    @api.constrains('total','total_usd','actual_amount')
     def _check_amount(self):
-        if self.actual_amount != self.total:
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total_usd,amount = self.actual_amount))
+
+        elif self.currency_id.id != 2 and self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
-   
 
     @api.depends('partner_ids')
     def _compute_branch_from_bys(self):

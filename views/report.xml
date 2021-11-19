@@ -31,7 +31,8 @@
                     <field name="courier_name" />
                     <field name="frombranch" />
                     <field name="tobranch"/>  
-                    <field name="state"/>
+                    <field name="effective_date"/>
+                    
                 </tree>
             </field>
         </record>

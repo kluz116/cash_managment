@@ -12,6 +12,7 @@
                                     <th>From Branch</th>
                                     <th>To Branch</th>
                                     <th>Courier</th>
+                                    <th>Effective Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,6 +26,9 @@
                                     </td>
                                      <td>
                                         <span t-field="x.courier_name"/>
+                                    </td>
+                                     <td>
+                                        <span t-field="x.effective_date"/>
                                     </td>
                                 
                                 </tr>

@@ -45,7 +45,8 @@
                     <field name="frombranch" />
                     <field name="tobranch"/>  
                     <field name="effective_date"/>
-                    <field name="Amount"/>
+                    <field name="amount"/>
+                    <field name="currency_id"/>
                     
                 </tree>
             </field>
@@ -63,7 +64,7 @@
                     <field name="frombranch"/>
                     <field name="tobranch" />
                     <field name="effective_date"/>
-                    <field name="Amount"/>
+                    <field name="amount"/>
                 </group>
                 </form>
             </field>
@@ -147,7 +148,7 @@
                     <field name="state"/>
                     <field name="frombranch" />
                     <field name="tobranch"/> 
-                    <field name="Amount"/> 
+                    <field name="amount"/> 
                     <separator/>
                      <!--<filter name="group_courier_name" string="Category" icon="terp-partner" context="{'group_by':'courier_name'}"/>-->
                 </search>

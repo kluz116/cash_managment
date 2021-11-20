@@ -4,7 +4,7 @@
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests"  import="0" decoration-primary="state=='new'"  decoration-danger="state == 'reject'" default_order='create_date'>
+                <tree string="All Requests"  import="0" decoration-danger="state == 'reject'" default_order='create_date'>
                      <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
@@ -12,6 +12,8 @@
                     <field name="start_date"/>
                     <field name="validate_date"/>
                     <field name="approval_date"/>
+                    <field name="branch_code_to" />
+                    <field name="branch_code_from"/>
                     <field name="created_by"/>
                     <field name="validated_by"/> 
                     <field name="approved_by"/>  

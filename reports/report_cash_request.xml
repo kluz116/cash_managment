@@ -30,6 +30,14 @@
         file="cash_managment.cashmovement_report_request"/>
 
     <report
+        id="cash_movement_amounts_report"
+        model="cash_managment.cashmovementreport"
+        string="Cash Courier Report With Amount"
+        report_type="qweb-pdf"
+        name="cash_managment.cashmovement_amount_report_request"
+        file="cash_managment.cashmovement_amount_report_request"/>
+
+    <report
         id="cash_bank_request_reports"
         model="cash_managment.cash_bank_request"
         string="Cash Bank Request Report"

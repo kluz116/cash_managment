@@ -66,6 +66,7 @@
         'reports/cash_movement_card.xml',
         'reports/request_confirmation_card.xml',
         'reports/request_mapping_report.xml',
+        'reports/cash_movement_rpt.xml',
         #'reports/cash_bank_request_report.xml'
     ],
     # only loaded in demonstration mode

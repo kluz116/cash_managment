@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models,exceptions
 from datetime import datetime
 
 class ConfirmCashCashCenter(models.TransientModel):
@@ -36,6 +36,7 @@ class ConfirmCashCashCenter(models.TransientModel):
     state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_one", string="Status")
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Integer(related ='confirmed_by.id', string='To')
+    trx_proof = fields.Binary('Upload File')
 
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')
     def _compute_total(self):
@@ -54,6 +55,7 @@ class ConfirmCashCashCenter(models.TransientModel):
         vals = { 'total': self.total,
                  'amount_request_id': self.amo_request_id,
                  'actual_amount': self.actual_amount,
+                 'currency_id' :self.currency_id,
                  'to_branch': self.to_branch,
                  'deno_fifty_thounsand': self.deno_fifty_thounsand,
                  'deno_twenty_thounsand': self.deno_twenty_thounsand,
@@ -68,7 +70,8 @@ class ConfirmCashCashCenter(models.TransientModel):
                  'coin_fifty':self.coin_fifty,
                  'confirm_date':self.confirm_date,
                  'state':'confirmed',
-                 'confirmed_by':self.user_id
+                 'confirmed_by':self.user_id,
+                 'trx_proof' : self.trx_proof
                  }
                  
         self.env['cash_managment.confirm_cash_centerto'].create(vals)
@@ -79,6 +82,16 @@ class ConfirmCashCashCenter(models.TransientModel):
             template_id = self.env.ref('cash_managment.email_template_from_Accountant_confirm_cash_center').id
             template =  self.env['mail.template'].browse(template_id)
             template.send_mail(request.id,force_send=True)
+
+
+    @api.one
+    @api.constrains('total','total_usd','actual_amount')
+    def _check_amount(self):
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total_usd,amount = self.actual_amount))
+
+        elif self.currency_id.id != 2 and self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
         
  

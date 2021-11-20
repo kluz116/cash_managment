@@ -14,9 +14,10 @@
                         </group>
                           <group>
                              <field name = "actual_amount" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
-                        </group>
-                          <group>
                              <field name = "currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                        </group>
+                        <group>
+                         <field name = "trx_proof"/>
                         </group>
                          <group>
                              <field name = "to_branch" invisible="1"/>

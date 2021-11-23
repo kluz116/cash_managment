@@ -9,7 +9,7 @@ class CashReject(models.TransientModel):
     
     state =  fields.Selection([('new','New'),('validate','Validate'),('reject','Reject'),('approve','Approve'),('closed','Closed'),('implement','Implement')],string="Status", required=True, default="new")
     reject_comment = fields.Text(string="Reject Comment")
-    reject_date =  fields.Datetime(string='Reject Date', default=datetime.today())
+    reject_date =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
     
     @api.multi

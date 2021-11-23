@@ -9,7 +9,7 @@ class ToManger(models.TransientModel):
 
     state = fields.Selection([('ongoing', 'Pending Manager'),('confirmed_one', 'Pending Accountant'),('confirmed_two', 'Pending Manager'),('confirmed_three', 'Confirmed')],default="confirmed_two", string="Status")
     to_manager_comment = fields.Text(string="Comment")
-    to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    to_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
    
     
     @api.multi

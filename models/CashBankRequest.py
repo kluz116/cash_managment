@@ -16,7 +16,7 @@ class CashBankRequest(models.Model):
     to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
     to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', to_branch)]")
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
-    initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.now())
+    initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
     week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)
     from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
@@ -26,7 +26,7 @@ class CashBankRequest(models.Model):
     state = fields.Selection([('new', 'New'),('ongoing', 'Ongoing'),('closed', 'Closed')],default="new", string="Status")
     unique_field = fields.Char(compute='comp_name', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
-    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
+    cash_date =  fields.Datetime(string='Effective Date', default=lambda self: fields.datetime.now())
   
 
 

@@ -14,7 +14,7 @@ class CashCenterRequest(models.Model):
     to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', to_branch)]")
     to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', to_branch)]")
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
-    initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
+    initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
     state = fields.Selection([('new','New'),('ongoing', 'Ongoing'),('closed', 'Closed')],default="new", string="Status")
     currency_id = fields.Many2one('res.currency', string='Currency')
@@ -27,7 +27,7 @@ class CashCenterRequest(models.Model):
     from_hour =  fields.Char(string='From Hour', compute='comp_from_houry', store=True)
     to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
-    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
+    cash_date =  fields.Datetime(string='Effective Date', default=lambda self: fields.datetime.now())
     
     @api.onchange ('branch_id')
     def on_change_fromid(self):

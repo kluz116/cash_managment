@@ -9,7 +9,7 @@ class ToMangerCashCenter(models.TransientModel):
     
     state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_two", string="Status")
     to_manager_comment = fields.Text(string="Comment")
-    to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    to_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
    
     
     @api.multi

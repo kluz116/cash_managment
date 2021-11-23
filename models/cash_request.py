@@ -6,6 +6,7 @@ from pytz import timezone
 class CashManagment(models.Model):
     _name = "cash_managment.request"
     _description ="Cash Requests Model"
+    _order = "id desc"
     _rec_name ='title' 
 
   
@@ -14,7 +15,7 @@ class CashManagment(models.Model):
     title = fields.Monetary(string='Amount', required=True)
     description  = fields.Text(string="Description", required=True, size=50)
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired'),('expired_hod','Expired')],string="Status", required=True, default="new")
-    start_date = fields.Datetime(string='Start Date', default=datetime.now())
+    start_date = fields.Datetime(string='Start Date', default=lambda self: fields.datetime.now())
     trx_proof = fields.Binary('Upload File')
     end_date = fields.Datetime(string='Start Date')
     close_date = fields.Datetime(string='Close Date')
@@ -32,7 +33,7 @@ class CashManagment(models.Model):
     approved_by = fields.Many2one('res.users',string="Approved By")
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
     reject_comment = fields.Text(string="Reject Comment")
-    reject_date =  fields.Datetime(string='Reject Date', default=datetime.now())
+    reject_date =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by = fields.Many2one('res.users','Canceled By')
     branch_code_to = fields.Integer(compute='_compute_branch',string='To',store=True)
     branch_code_from = fields.Integer(string='From')

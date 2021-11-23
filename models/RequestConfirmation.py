@@ -37,12 +37,12 @@ class Re(models.Model):
     ten_dollar = fields.Monetary(string="$10")
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
-    confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
-    state = fields.Selection([('ongoing', 'Pending Manager'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant'),('confirmed_two', 'Pending Manager'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    confirm_date =  fields.Datetime(string='Confirmed Date', default=lambda self: fields.datetime.now())
+    state = fields.Selection([('ongoing', 'Pending Manager From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant To'),('confirmed_two', 'Pending Manager To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
-    from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    from_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     to_manager_comment = fields.Text(string="Comment")
-    to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    to_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='From Manager',store=True)
@@ -53,7 +53,7 @@ class Re(models.Model):
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
 
     reject_comment_one= fields.Text(string="Reject Comment")
-    reject_date_one =  fields.Datetime(string='Reject Date', default=datetime.today())
+    reject_date_one =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by_one = fields.Many2one('res.users','Canceled By')
     
 

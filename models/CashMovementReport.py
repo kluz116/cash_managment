@@ -5,13 +5,14 @@ class CashMovementReport(models.Model):
     _name = "cash_managment.cashmovementreport"
     _auto = False
     _rec_name ="effective_date"
+    _order = "id desc"
     
     id = fields.Integer( string='Id')
     courier_name = fields.Char( string='Courier')
     frombranch = fields.Char(string='From Branch Or Bank')
     tobranch = fields.Char( string='To Branch Or Bank')
     state = fields.Char( string='State')
-    effective_date= fields.Datetime(string='Effective Date')
+    effective_date= fields.Datetime(string='Effective Date',default=lambda self: fields.datetime.now())
     email = fields.Char( string='email')
     amount = fields.Float( string='Amount')
     currency_id = fields.Many2one('res.currency', string='Currency')

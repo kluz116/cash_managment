@@ -43,7 +43,7 @@ class BranchBankRequest(models.Model):
     branch_manager_from = fields.Integer(compute='_compute_manager',string='Manager',store=True)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
-    initiate_date =  fields.Datetime(string='Initiate Date', default=datetime.today())
+    initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     unique_field = fields.Char(compute='comp_name', store=True)
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
 

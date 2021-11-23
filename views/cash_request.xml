@@ -4,7 +4,7 @@
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests"  import="0" decoration-danger="state == 'reject'" default_order='create_date'>
+                <tree string="All Requests"  import="0" decoration-danger="state == 'reject'" default_order='id'>
                      <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
@@ -419,7 +419,7 @@
                     <field name="validated_by"/> 
                     <field name="approved_by"/> 
                     <separator/>
-                    <filter name="start_dates" string="Today" domain="[('start_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                    <filter name="start_dates" string="Cash Requests For Today :" domain="[('start_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
                 </search>
             </field>
         </record>
@@ -442,10 +442,6 @@
                 </search>
             </field>
         </record>
-
-
-
-
 
         <record model="ir.ui.view" id="cash_bank_request_search_view">
             <field name="name">cash_managment.cash_bank_request.search</field>
@@ -507,7 +503,7 @@
 
    
         <record model="ir.actions.act_window" id="request_list_action">
-            <field name="name">Cash Requests</field>
+            <field name="name">Create Requests From Here When You Need Cash.</field>
             <field name="res_model">cash_managment.request</field>
             <field name="view_mode">tree,form</field>
             <field name ="context">{"search_default_start_dates":1}</field>

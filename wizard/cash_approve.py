@@ -10,7 +10,7 @@ class CashApprove(models.TransientModel):
     
     state =  fields.Selection([('new','New'),('validate','Validate'),('reject','Reject'),('approve','Approve'),('closed','Closed'),('implement','Implement')],string="Status", required=True, default="new")
     approval_comment = fields.Text(string="Comment")
-    approval_date =  fields.Datetime(string='Approval Date', default=datetime.today())
+    approval_date =  fields.Datetime(string='Approval Date', default=lambda self: fields.datetime.now())
     approved_by = fields.Many2one('res.users','Approved By',default=lambda self: self.env.user)
     hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="no")
 

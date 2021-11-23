@@ -174,8 +174,8 @@
                 </xpath>
                    <sheet>
                         <group>
-                        <field name = "from_bys" invisible='1'/>
-                        <field name = "partner_ids" invisible='1' />
+                            <field name = "from_bys" invisible='1'/>
+                            <field name = "partner_ids" invisible='1' />
                         </group>
   
                         <group>

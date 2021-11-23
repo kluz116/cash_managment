@@ -9,7 +9,7 @@ class ToMangerCashBank(models.TransientModel):
     
     state = fields.Selection([('pending', 'Pending'),('closed', 'Closed')],default="pending", string="Status")
     to_manager_comment = fields.Text(string="Comment")
-    to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
+    to_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
    
     
     @api.multi

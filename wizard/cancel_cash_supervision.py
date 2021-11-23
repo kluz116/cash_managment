@@ -9,7 +9,7 @@ class CashSupervision(models.TransientModel):
     
     state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('implement','Implement')],string="Status", required=True, default="new")
     supervision_comment = fields.Text(string="Comment")
-    supervision_date =  fields.Datetime(string='Cancel Date', default=datetime.today())
+    supervision_date =  fields.Datetime(string='Cancel Date', default=lambda self: fields.datetime.now())
     supervised_by = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
     
     @api.multi

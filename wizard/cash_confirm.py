@@ -35,7 +35,7 @@ class ConfirmCash(models.TransientModel):
 
 
 
-    confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
+    confirm_date =  fields.Datetime(string='Confirmed Date',default=lambda self: fields.datetime.now())
     state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_one", string="Status")
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Integer(related ='confirmed_by.id', string='To')

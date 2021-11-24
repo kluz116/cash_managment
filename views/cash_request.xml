@@ -4,8 +4,8 @@
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests"  import="0" decoration-danger="state == 'reject'" default_order='id'>
-                     <field name="unique_field" string="Ref"/>
+                <tree string="All Requests"  import="0" decoration-warning="state == 'expired_hod'" decoration-danger="state == 'expired_branch'" default_order='id'>
+                    <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
                     <field name ="amount_available"/>

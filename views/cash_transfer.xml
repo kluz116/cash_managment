@@ -588,7 +588,7 @@
         </record>
 
           <record model="ir.actions.act_window" id="cash_center_request_confirmation_list_action">
-            <field name="name">From Branch Cash Transfer - Cash Center</field>
+            <field name="name">From Branch Cash Transfer - Inter Branch</field>
             <field name="res_model">cash_managment.cash_center_request_confirmation</field>
             <field name="view_mode">tree,form</field>
             <field name ="context">{"search_default_confirm_day":1}</field>
@@ -624,7 +624,7 @@
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_request" name="Cash Transfer Requests" sequence="7" parent="main_service_menu"/>
         <menuitem id="confirm_cash_req" name="CIT Confirmation - Branches" sequence="8" parent="confirm_cash_request" action="confirm_request_list_action"/>
-        <menuitem id="cash_center_request_confirmation" name="CIT Confirmation - Cash Center" sequence="9" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
+        <menuitem id="cash_center_request_confirmation" name="CIT Confirmation - Inter Branch" sequence="9" parent="confirm_cash_request" action="cash_center_request_confirmation_list_action"/>
         <menuitem id="cash_bank_request_confirmation" name="CIT Confirmation - Bank Institutions" sequence="10" parent="confirm_cash_request" action="cash_bank_request_confirmation_list_action"/>
  
  

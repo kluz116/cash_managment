@@ -14,7 +14,7 @@ class CashManagment(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     title = fields.Monetary(string='Amount', required=True)
     description  = fields.Text(string="Description", required=True, size=50)
-    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired'),('expired_hod','Expired')],string="Status", required=True, default="new")
+    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Reject'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired Branch'),('expired_hod','Expired HOD')],string="Status", required=True, default="new")
     start_date = fields.Datetime(string='Start Date', default=lambda self: fields.datetime.now())
     trx_proof = fields.Binary('Upload File')
     end_date = fields.Datetime(string='Start Date')

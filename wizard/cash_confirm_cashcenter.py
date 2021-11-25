@@ -54,9 +54,10 @@ class ConfirmCashCashCenter(models.TransientModel):
     @api.multi
     def cash_managment_confirm_cash_center(self):
         vals = { 'total': self.total,
-                 'amount_request_id': self.amo_request_id,
-                 'actual_amount': self.actual_amount,
+                  'total_usd': self.total_usd,
+                 'amount_request_ids': self.amo_request_id,
                  'currency_id' :self.currency_ids,
+                 'actual_amount': self.actual_amount,
                  'to_branch': self.to_branch,
                  'deno_fifty_thounsand': self.deno_fifty_thounsand,
                  'deno_twenty_thounsand': self.deno_twenty_thounsand,

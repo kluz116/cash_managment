@@ -330,16 +330,25 @@
         <record id="email_template_initiate_request" model="mail.template">
             <field name="name">Cash Management: Initiate Request</field>
             <field name="model_id" ref="model_cash_managment_requestapproved"/>
-            <field name="email_from">allan.musembya@financetrust.co.ug</field>
-            <field name="email_to">${object.from_by.email}</field> 
-            <field name="email_cc">${object.to_by.email}</field>
-            <field name="subject">Cash Request of (Ref ${object.title}) has been Initiated.</field>
+            <field name="email_from">${object.initiated_by.name}</field>
+            <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field> 
+            <field name="email_cc">allan.musembya@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${object.title.unique_field}) has been Initiated.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 13px;">
                                
-                     Hello ${object.from_by.name},  
+                     Hello ${object.from_by.name}, 
+                      <br/>
+                     You are requested to transfer Cash Worth ${object.amount_available} Effective On ${object.cash_date} Using Courier Service ${object.courier.courier_name} to ${object.to_branch.branch_name}. This transfer request 
+                     was Approved and Initiated By ${object.initiated_by.name} on ${object.initiate_date}. 
+
+                    <br />
+
+                    ${object.from_by.name} go to Cash Transfer Request -> CIT Confirmations - Branches and create a confirmation of ${object.amount_available} from ${object.branch_id.branch_name} to ${object.to_branch.branch_name}
                     <br /><br />
+                    Regards,<br/>
+                    Cash Team
     
                 </p>
             </div>

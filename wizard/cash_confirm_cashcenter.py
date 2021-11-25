@@ -11,6 +11,7 @@ class ConfirmCashCashCenter(models.TransientModel):
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     amount_request_ids = fields.Many2one('cash_managment.cash_center_request_confirmation',string='Expected Amount Transfered',domain = [('state','=','confirmed_one')],required=True)
     currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_ids = fields.Integer(related ='currency_id.id', string='Currency')
     actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     #actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
     amo_request_id = fields.Integer(related ='amount_request_ids.id', string='To')
@@ -55,7 +56,7 @@ class ConfirmCashCashCenter(models.TransientModel):
         vals = { 'total': self.total,
                  'amount_request_id': self.amo_request_id,
                  'actual_amount': self.actual_amount,
-                 'currency_id' :self.currency_id,
+                 'currency_id' :self.currency_ids,
                  'to_branch': self.to_branch,
                  'deno_fifty_thounsand': self.deno_fifty_thounsand,
                  'deno_twenty_thounsand': self.deno_twenty_thounsand,

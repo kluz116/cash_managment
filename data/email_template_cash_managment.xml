@@ -330,7 +330,7 @@
         <record id="email_template_initiate_request" model="mail.template">
             <field name="name">Cash Management: Initiate Request</field>
             <field name="model_id" ref="model_cash_managment_requestapproved"/>
-            <field name="email_from">${object.initiated_by.name}</field>
+            <field name="email_from">${object.initiated_by.email}</field>
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field> 
             <field name="email_cc">allan.musembya@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${object.title.unique_field}) has been Initiated.</field>

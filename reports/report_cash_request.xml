@@ -54,7 +54,7 @@
         report_type="qweb-pdf"
         name="cash_managment.cashmovement_requestmapping"
         file="cash_managment.cashmovement_requestmapping"/>
-  <!--
+  
     <report
         id="cash_request_report_xlsx"
         model="cash_managment.request"
@@ -63,7 +63,7 @@
         name="cash_managment.requests"
         file="cash_managment.cash_managment_requests"
         attachment_use="False"
-    />-->
+    />
 
     </data>
 </odoo>

@@ -6,7 +6,7 @@ from pytz import timezone
 class CashManagment(models.Model):
     _name = "cash_managment.request"
     _description ="Cash Requests Model"
-    _order = "id desc"
+    _order = "start_date desc"
     _rec_name ='title' 
 
   

@@ -43,4 +43,12 @@ class ApprovedCashRequest(models.Model):
         for record in self:
             record.from_by_branch = record.from_by.id
 
-   
+
+    @api.model
+    def _update_notified_initiated(self):
+        initiated_req = self.env['cash_managment.requestapproved'].search([('state', '=', 'pending')])
+        for request in initiated_req:
+            template_id = self.env.ref('cash_managment.email_template_initiate_request').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(request.id,force_send=True)
+ 

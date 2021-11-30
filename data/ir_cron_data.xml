@@ -21,4 +21,18 @@
         <field name="numbercall">-1</field>
         <field name="doall" eval="True"/>
     </record>
+
+
+    <record id="update_initiated_requests_cron" model="ir.cron">
+        <field name="name">Notify Users On Initiated Requests</field>
+        <field name="model_id" ref="model_cash_managment_requestapproved"/>
+        <field name="state">code</field>
+        <field name="code">model._update_notified_initiated()</field>
+        <field name="interval_number">60</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+
 </odoo>

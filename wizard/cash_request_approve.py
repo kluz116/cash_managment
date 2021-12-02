@@ -28,7 +28,7 @@ class ApprovedCashRequest(models.TransientModel):
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="pending", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Request Amount', required=True, domain = [('state','=','approve')])
     title_id = fields.Integer(related='title.id')
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency',required=True)
     amount_available = fields.Monetary(string='Amount Available', required=True)
     from_branch_request = fields.Integer(compute='_compute_branch_from', string='To')
     ref_request = fields.Char(related ='title.unique_field', string='Ref',store=True)

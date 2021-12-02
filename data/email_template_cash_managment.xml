@@ -8,14 +8,14 @@
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.title}) pending your validation.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.title:,}"}) pending your validation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.partner_id.manager.name},
                     <br /><br />
                     
-                    Cash Request of ${object.title} UGX is still pending your validation. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
+                    Cash Request of ${f"{object.title:,}"} UGX is still pending your validation. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -33,13 +33,13 @@
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
             <field name="email_from">${object.confirmed_by.email}</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.confirmed_by.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.initiated_request_id.from_by_two.name}, 
                     <br /><br />
-                     Confirm Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} before it gets transfered to branch ${object.to_branch}.
+                     Confirm Cash Request of  ${f"{object.actual_amount:,}"} UGX from ${object.confirmed_by.name} before it gets transfered to branch ${object.to_branch}.
                     
                     <br/><br/>
                     Regards,<br/>
@@ -59,14 +59,14 @@
             <field name="email_from">${object.initiated_request_id.from_by_two.email}</field> 
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
             <field name="email_cc">${object.initiated_request_id.to_by_two.email}</field>
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount}) from ${object.initiated_request_id.from_by_two.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"}) from ${object.initiated_request_id.from_by_two.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                   
                     Hello ${object.initiated_request_id.to_by.name},
                     <br /><br />
-                     Please confirm Cash Request of ${object.actual_amount} UGX from ${object.from_manager.name} by branch ${object.from_branch}.
+                     Please confirm Cash Request of ${f"{object.actual_amount:,}"} UGX from ${object.from_manager.name} by branch ${object.from_branch}.
                     <br/>
                     ${object.from_manager_comment}
                     <br/><br/>
@@ -86,14 +86,14 @@
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by.email}</field> 
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount}) from ${object.initiated_request_id.from_by_two.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"}) from ${object.initiated_request_id.from_by_two.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                   
                     Hello ${object.initiated_request_id.to_by_two.name},
                     <br /><br />
-                     Please confirm Cash Request of ${object.actual_amount} UGX from ${object.from_manager.name} by branch ${object.from_branch}.
+                     Please confirm Cash Request of ${f"{object.actual_amount:,}"} UGX from ${object.from_manager.name} by branch ${object.from_branch}.
                     <br/>
                     ${object.from_manager_comment}
                     <br/><br/>
@@ -114,14 +114,14 @@
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="email_to">${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email},${object.initiated_request_id.to_by_two.email}</field> 
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.actual_amount}) from ${object.initiated_request_id.from_by_two.name} has been closed</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.actual_amount:,}"}) from ${object.initiated_request_id.from_by_two.name} has been closed</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                   
                     Hello Team,
                     <br /><br />
-                     Cash Request of ${object.actual_amount} UGX from ${object.from_manager.name} by branch ${object.from_branch} has been closed by ${object.initiated_request_id.to_by_two.NAME}.
+                     Cash Request of ${f"{object.actual_amount:,}"} UGX from ${object.from_manager.name} by branch ${object.from_branch} has been closed by ${object.initiated_request_id.to_by_two.NAME}.
                     <br/>
                     ${object.from_manager_comment}
                     <br/><br/>
@@ -141,14 +141,14 @@
             <field name="email_from">${object.initiated_by.email}</field>
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.amount}) UGX Transfer.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.amount:,}"}) UGX Transfer.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 18px;">
                    Hello ${object.from_by.name} and ${object.from_by_two.name},
                     <br /><br />
     
-                    Please note that you are requested to transfer Amount ${object.amount} UGX to branch ${object.to_branch.branch_name}. Request created on ${object.initiate_date} by ${object.initiated_by.name}.
+                    Please note that you are requested to transfer Amount ${f"{object.amount:,}"} UGX to branch ${object.to_branch.branch_name}. Request created on ${object.initiate_date} by ${object.initiated_by.name}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -164,14 +164,14 @@
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.actual_amount}) pending your confirmation.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.actual_amount:,}"}) pending your confirmation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.partner_id.manager.name},
                     <br /><br />
                     
-                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} is still pending your confirmation. Request created on ${object.initiate_date} by ${object.created_by.name}.
+                    Cash Request of ${f"{object.actual_amount:,}"} UGX to be transfered to ${object.to_bank.bank_name} is still pending your confirmation. Request created on ${object.initiate_date} by ${object.created_by.name}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -187,14 +187,14 @@
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
             <field name="email_from">${object.partner_id.manager.email}</field>
             <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.actual_amount}) pending your supervision.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.actual_amount:,}"}) pending your supervision.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello Cash Team,
                     <br /><br />
 
-                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} is still pending your Supervision. Request created on ${object.initiate_date} by ${object.created_by.name}.
+                    Cash Request of ${f"{object.actual_amount:,}"} UGX to be transfered to ${object.to_bank.bank_name} is still pending your Supervision. Request created on ${object.initiate_date} by ${object.created_by.name}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -210,14 +210,14 @@
             <field name="email_to">${object.partner_id.manager.email}</field>
             <field name="email_to">${object.user_id.email},${object.partner_id.manager.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.actual_amount}) has been supervised.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.actual_amount:,}"}) has been supervised.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.partner_id.manager.name} and ${object.created_by.name},
                     <br /><br />
                     
-                    Cash Request of ${object.actual_amount} UGX to be transfered to ${object.to_bank.bank_name} has been supervised by ${object.supervised_by.name}. Request created on ${object.initiate_date} by ${object.supervised_by.name}.
+                    Cash Request of ${f"{object.actual_amount:,}"} UGX to be transfered to ${object.to_bank.bank_name} has been supervised by ${object.supervised_by.name}. Request created on ${object.initiate_date} by ${object.supervised_by.name}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -235,14 +235,14 @@
             <field name="email_from">${object.partner_id.manager.email}</field>
             <field name="email_to">${object.user_id.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.title}) canceled.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.title:,}"}) canceled.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.user_id.name},
                     <br /><br />
                     
-                    Cash Request of ${object.title} UGX has been canceled or rejected by ${object.partner_id.manager.name} on ${object.cancel_date}.
+                    Cash Request of ${f"{object.title:,}"} UGX has been canceled or rejected by ${object.partner_id.manager.name} on ${object.cancel_date}.
                     <br/>
                     ${object.cancel_comment}
                     <br/><br/>
@@ -262,14 +262,14 @@
             <field name="name">Cash Management: Approve Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>
             <field name="email_from">${object.partner_id.manager.email}</field>
-            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.title}) pending your approval.</field>
+            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.title:,}"}) pending your approval.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 18px;">
                    Hello Cash Center Team,
                     <br /><br />
-                    Cash Request of ${object.title} has been validated by ${object.partner_id.manager.name} and is still pending your approval. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
+                    Cash Request of ${f"{object.title:,}"} has been validated by ${object.partner_id.manager.name} and is still pending your approval. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -283,13 +283,13 @@
             <field name="model_id" ref="model_cash_managment_request"/>
             <field name="email_from">${object.approved_by.email}</field>
             <field name="email_to">${object.partner_id.manager.email},${object.user_id.email}</field> 
-            <field name="subject">Cash Request of (Ref ${object.title}) has been Approved.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.title:,}"}) has been Approved.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.partner_id.manager.name},${object.user_id.name}
                     <br /><br />
-                    Cash Request of ${object.title} UGX has been approved by Cash Center Member ${object.approved_by.name} on ${object.approval_date}  and it will be initiated for transfer.
+                    Cash Request of ${f"{object.title:,}"} UGX has been approved by Cash Center Member ${object.approved_by.name} on ${object.approval_date}  and it will be initiated for transfer.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -306,13 +306,13 @@
             <field name="model_id" ref="model_cash_managment_request"/>
             <field name="email_from">${object.rejected_by.email}</field>
             <field name="email_to">${object.partner_id.manager.email},${object.user_id.email}</field> 
-            <field name="subject">Cash Request of (Ref ${object.title}) has been Rejected.</field>
+            <field name="subject">Cash Request of (Ref ${f"{object.title:,}"}) has been Rejected.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.partner_id.manager.name},${object.user_id.name}
                     <br /><br />
-                    Cash Request of ${object.title} UGX has been rejected by Cash Center Member ${object.rejected_by.name} on ${object.reject_date}  and it will not be initiated.
+                    Cash Request of ${f"{object.title:,}"} UGX has been rejected by Cash Center Member ${object.rejected_by.name} on ${object.reject_date}  and it will not be initiated.
                     <br/>
                     ${object.reject_comment}
                     <br/><br/>
@@ -340,7 +340,7 @@
                                
                      Hello ${object.from_by.name}, 
                       <br/>
-                     You are requested to transfer Cash Worth ${object.amount_available} Effective On ${object.cash_date} Using Courier Service ${object.courier.courier_name} to ${object.to_branch.branch_name}. This transfer request 
+                     You are requested to transfer Cash Worth  ${f"{object.amount_available:,}"} Effective On ${object.cash_date} Using Courier Service ${object.courier.courier_name} to ${object.to_branch.branch_name}. This transfer request 
                      was Approved and Initiated By ${object.initiated_by.name} on ${object.initiate_date}. 
 
                     <br />
@@ -360,13 +360,13 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.confirmed_by.email}</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.confirmed_by.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"}  UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.initiated_request_id.from_by_two.name}, 
                     <br /><br />
-                     Confirm Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} before it gets transfered to branch ${object.to_branch}.
+                     Confirm Cash Request of ${f"{object.actual_amount:,}"} UGX from ${object.confirmed_by.name} before it gets transfered to branch ${object.to_branch}.
                     
                     <br/><br/>
                     Regards,<br/>
@@ -385,13 +385,13 @@
             <field name="email_from">${object.initiated_request_id.from_by_two.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
             <field name="email_cc">${object.initiated_request_id.to_by_two.email}</field>
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount}) from ${object.initiated_request_id.from_by_two.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"} ) from ${object.initiated_request_id.from_by_two.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                     Hello ${object.initiated_request_id.to_by.name},
                     <br /><br />
-                     Please confirm Cash Request of ${object.actual_amount} UGX from ${object.initiated_request_id.from_by_two.name} by branch ${object.from_branch}.
+                     Please confirm Cash Request of ${f"{object.actual_amount:,}"}  UGX from ${object.initiated_request_id.from_by_two.name} by branch ${object.from_branch}.
                     <br/>
                     ${object.from_manager_comment}
                     <br/><br/>
@@ -411,13 +411,13 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.initiated_request_id.to_by.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"}  UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.initiated_request_id.to_by_two.name}, 
                     <br /><br />
-                     Please Confirm Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} which has been recieved from Branch ${object.from_branch}.
+                     Please Confirm Cash Request of ${f"{object.actual_amount:,}"}  UGX from ${object.confirmed_by.name} which has been recieved from Branch ${object.from_branch}.
                     
                     <br/><br/>
                     Regards,<br/>
@@ -434,13 +434,13 @@
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Confirm Cash Request of (Ref ${object.actual_amount} UGX) from ${object.initiated_request_id.to_by.name}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${f"{object.actual_amount:,}"}  UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello Team, 
                     <br /><br />
-                     Cash Request of ${object.actual_amount} UGX from ${object.confirmed_by.name} has been confirmed and recieved from Branch ${object.from_branch}.
+                     Cash Request of ${f"{object.actual_amount:,}"}  UGX from ${object.confirmed_by.name} has been confirmed and recieved from Branch ${object.from_branch}.
       
                     <br/><br/>
                     Regards,<br/>
@@ -478,15 +478,15 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to"> ${object.initiated_request_id.to_by_two.email},${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Pending confirmation of (Ref ${object.actual_amount} UGX) from ${object.initiated_request_id.to_by.name}</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="subject">Pending confirmation of (Ref ${f"{object.actual_amount:,}"}  UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                    Hello ${object.user_id.name}, 
                     <br /><br />
                      
-                     Sorry, There is still a request of ${object.actual_amount} pending confirmation from Branch ${object.from_branch} to Branch ${object.to_branch} of this date ${object.confirm_date}. Go to Cash Transfer Request -> CIT Confirmations Branch  
+                     Sorry, There is still a request of ${f"{object.actual_amount:,}"}  pending confirmation from Branch ${object.from_branch} to Branch ${object.to_branch} of this date ${object.confirm_date}. Go to Cash Transfer Request -> CIT Confirmations Branch  
                      <br/>
                      Please ensure that this request is confimed by all stakeholders ${object.initiated_request_id.to_by_two.name},${object.initiated_request_id.to_by.name},${object.initiated_request_id.from_by.name},${object.initiated_request_id.from_by_two.name} before you can request for cash.
       

@@ -19,7 +19,7 @@ class ApprovedCashRequest(models.Model):
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('disregard','Disregarded'),('closed', 'Closed')],default="ongoing", string="Request Status")
     title = fields.Many2one('cash_managment.request',string='Requested', required=True, domain = [('state','=','approve')])
     from_by_branch = fields.Integer(compute='_compute_from_by',string='From',store=True)
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency',required=True)
     amount_available = fields.Monetary(string='Amount Available', required=True)
     cash_date =  fields.Datetime(string='Cash Transfer Date', default=datetime.today())
     ref_request = fields.Char(related ='title.unique_field', string='Ref',store=True)

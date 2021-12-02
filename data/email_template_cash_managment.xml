@@ -472,5 +472,30 @@
             </field>
   
         </record>
+
+        <record id="email_template_notification_pending" model="mail.template">
+        <field name="name">Cash Management: Notify Pending Conformation</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation"/>
+            <field name="email_from">${object.user_id.email}</field>
+            <field name="email_to"> ${object.initiated_request_id.to_by_two.email},${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending confirmation of (Ref ${object.actual_amount} UGX) from ${object.initiated_request_id.to_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.user_id.name}, 
+                    <br /><br />
+                     
+                     Sorry, There is still a request of ${object.actual_amount} pending confirmation from Branch ${object.from_branch} to Branch ${object.to_branch} of this date ${object.confirm_date}. Go to Cash Transfer Request -> CIT Confirmations Branch  
+                     <br/>
+                     Please ensure that this request is confimed by all stakeholders ${object.initiated_request_id.to_by_two.name},${object.initiated_request_id.to_by.name},${object.initiated_request_id.from_by.name},${object.initiated_request_id.from_by_two.name} before you can request for cash.
+      
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
+        </record>
     </data>
 </odoo>

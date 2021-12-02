@@ -147,11 +147,42 @@ class CashManagment(models.Model):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
         self.search([('&'),('expiration_hod', '<', now_date),('hod_expire_status','=','yes')]).write({'state': "expired_hod"})
+    
+    @api.one
+    @api.constrains('user_id')
+    def _check_pending_confirmation(self):
+        pending_confirm = self.env['cash_managment.request_confirmation'].search([('state', 'not in', ['reject_one','confirmed_three'])])
+        for request in pending_confirm:
+            if request.user_id == self.user_id and request.state =='ongoing':
+                template_id = self.env.ref('cash_managment.email_template_notification_pending').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(request.id,force_send=True)
+                raise exceptions.ValidationError("Sorry, There is still a request of {amount} pending confirmation from Branch {from_branch} to Branch {to_branch} of this date {confirm_date}.Pending confirmation with Manager {name} Go to Cash Transfer Request -> CIT Confirmations Branch  ".format(amount=f"{request.actual_amount:,}", from_branch=request.from_branch,to_branch=request.to_branch,confirm_date=request.confirm_date))
 
-    @api.multi
-
-    def print_report(self):
-        return self.env.ref('cash_managment.cash_request_report').report_action(self)
+    
+    @api.one
+    @api.constrains('partner_id')
+    def _check_pending_confirmation_two(self):
+        pending_conf = self.env['cash_managment.request_confirmation'].search([('state', 'not in', ['reject_one','confirmed_three'])])
+        for req in pending_conf:
+            if req.to_branch_accountant == self.partner_id.id and req.state =='confirmed_one':
+                template_id = self.env.ref('cash_managment.email_template_notification_pending').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+                raise exceptions.ValidationError("Sorry, There is still a request of {amount} pending confirmation from Branch {from_branch} to Branch {to_branch} of this date {confirm_date}. Confirmation still pending with Accountant {name}. Go to Cash Transfer Request -> CIT Confirmations Branch  ".format(amount=f"{req.actual_amount:,}", from_branch=req.from_branch,to_branch=req.to_branch,confirm_date=req.confirm_date, name=req.initiated_request_id.to_by.name))
+                
+    
+    @api.one
+    @api.constrains('partner_id')
+    def _check_pending_confirmation_three(self):
+        pending_conf = self.env['cash_managment.request_confirmation'].search([('state', 'not in', ['reject_one','confirmed_three'])])
+        for req in pending_conf:
+            if req.to_branch_accountant == self.partner_id.id and req.state =='confirmed_two':
+                template_id = self.env.ref('cash_managment.email_template_notification_pending').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+                raise exceptions.ValidationError("Sorry, There is still a request of {amount} pending confirmation from Branch {from_branch} to Branch {to_branch} of this date {confirm_date}. Confirmation still pending with manager {name}. Go to Cash Transfer Request -> CIT Confirmations Branch  ".format(amount=f"{req.actual_amount:,}", from_branch=req.from_branch,to_branch=req.to_branch,confirm_date=req.confirm_date, name=req.initiated_request_id.to_by_two.name))
+    
 
             
         

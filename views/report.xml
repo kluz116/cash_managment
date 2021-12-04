@@ -40,7 +40,7 @@
             <field name="name">cash_managment.cashmovementreport.tree</field>
             <field name="model">cash_managment.cashmovementreport</field>
              <field name="arch" type="xml" >
-                <tree string="Cash Movement">
+                <tree string="Cash Movement" default_order="effective_date desc">
                     <field name="courier_name" />
                     <field name="frombranch" />
                     <field name="tobranch"/>  
@@ -153,7 +153,7 @@
                     <field name="effective_date"/> 
                     <separator/>
      
-                    <filter name="effective_date" string="Today" domain="[('effective_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                    <filter name="effective_dates" string="Today" domain="[('effective_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d'))]" />
                 </search>
             </field>
         </record>
@@ -209,7 +209,7 @@
             <field name="name">Cash Movement From Branch To Branch With Amounts</field>
             <field name="res_model">cash_managment.cashmovementreport</field>
             <field name="view_mode">tree</field>
-             <field name ="context">{"search_default_group_effective_date":1}</field>
+             <field name ="context">{"search_default_effective_dates":1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Cash Transfer Status</p>
             </field>

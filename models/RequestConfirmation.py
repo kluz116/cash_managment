@@ -4,7 +4,7 @@ from datetime import datetime
 class Re(models.Model):
     _name = "cash_managment.request_confirmation"
     _description = "This is a model for all requests confirmations"
-    _rec_name ="total"
+    _rec_name ="initiated_request_id"
 
 
     partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )

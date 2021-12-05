@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="cashmovement_requestmappings">
+     
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                       <h3>Cash Transfer Confirmation Report</h3>
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th>From Branch</th>
+                                    <th></th>
+                                     <th>To Branch</th>
+                                    <th></th>
+                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <t t-foreach="docs" t-as="x">
+                                <tr>
+                                     <td colspan="2">
+                                        <span t-field="x.from_branch"/>
+                                    </td>
+                                 
+                                     <td colspan="2">
+                                        <span t-field="x.to_branch"/>
+                                    </td>
+                                 </tr>
+                                <tr>
+                                    <td>
+                                        Manager:
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_manager"/>
+                                    </td>
+                                      <td>
+                                        Manager:
+                                    </td>
+                                     <td>
+                                         <span t-field="x.to_manager"/>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Accountant:
+                                    </td>
+                                     <td>
+                                         <span t-field="x.from_confirmed_by"/>
+                                    </td>
+                                       <td>
+                                        Accountant :
+                                    </td>
+                                     <td>
+                                        <span t-field="x.to_confirmed_by"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Confirmation Date:
+                                    </td>
+                                     <td>
+                                        <span t-field="x.from_confirm_date"/>
+                                    </td>
+                                      <td>
+                                        Confirmation Date:
+                                    </td>
+                                     <td>
+                                         <span t-field="x.to_confirm_date"/>
+                                    </td>
+                                    
+                                </tr>
+           
+                                <tr class="bg-primary"> <td colspan="4">Cash  Denominations - UGX </td></tr>
+                                <tr>
+                                    <td>
+                                        50,000 Shs
+                                    </td>
+                                     <td>
+                                         <span t-field="x.deno_fifty_thounsand_from"/>
+                                        
+                                    </td>
+                                     <td>
+                                        50,000 Shs
+                                    </td>
+                                     <td>
+                                         <span t-field="x.deno_fifty_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        20,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_twenty_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        20,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_twenty_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        10,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_ten_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        10,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_ten_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_five_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        10,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_five_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_two_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        2,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_two_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        1,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_one_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        1,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.deno_one_thounsand"/>
+                                    </td>
+                                </tr>
+                                 <tr class="bg-primary"> <td colspan="4">Coins  Denominations - UGX </td></tr>
+                                <tr>
+                                    <td>
+                                        1,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_one_thounsand_from"/>
+                                    </td>
+                                     <td>
+                                        1,000 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_one_thounsand"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        500 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_five_houndred_from"/>
+                                    </td>
+                                     <td>
+                                        500 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_five_houndred"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        200 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_two_hundred_from"/>
+                                    </td>
+                                     <td>
+                                        200 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_two_hundred_from"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        100 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_one_hundred_from"/>
+                                    </td>
+                                     <td>
+                                        100 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_one_hundred"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        50 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_fifty_from"/>
+                                    </td>
+                                     <td>
+                                        50 Shs
+                                    </td>
+                                     <td>
+                                        <span t-field="x.coin_fifty"/>
+                                    </td>
+                                 </tr>
+                                <tr class="bg-primary"> <td colspan="4">Total (UGX)</td></tr>
+                                 <tr>
+                                 
+                                     <td colspan="2">
+                                        <span t-field="x.from_total"/>
+                                    </td>
+                                 
+                                     <td colspan="2">
+                                        <span t-field="x.to_total"/>
+                                    </td>
+                                 </tr>
+                                <tr class="bg-primary"> <td colspan="4">Dollars Denominations - USD </td></tr>
+                                
+                                 <tr>
+                                    <td>
+                                       $100
+                                    </td>
+                                     <td>
+                                        <span t-field="x.hundred_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $100
+                                    </td>
+                                     <td>
+                                        <span t-field="x.hundred_dollar"/>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td>
+                                       $50
+                                    </td>
+                                     <td>
+                                        <span t-field="x.fifty_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $50
+                                    </td>
+                                     <td>
+                                        <span t-field="x.fifty_dollar_from"/>
+                                    </td>
+                                 </tr>
+                                <tr>
+                                    <td>
+                                       $20
+                                    </td>
+                                     <td>
+                                        <span t-field="x.twenty_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $20
+                                    </td>
+                                     <td>
+                                        <span t-field="x.twenty_dollar"/>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                <td>
+                                       $10
+                                    </td>
+                                     <td>
+                                        <span t-field="x.ten_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $10
+                                    </td>
+                                     <td>
+                                        <span t-field="x.ten_dollar_from"/>
+                                    </td>
+                                 </tr>
+                                  <tr>
+                                   <td>
+                                       $5
+                                    </td>
+                                     <td>
+                                        <span t-field="x.five_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $5
+                                    </td>
+                                     <td>
+                                        <span t-field="x.five_dollar"/>
+                                    </td>
+                                 </tr>
+                                <tr>
+                                   <td>
+                                       $1
+                                    </td>
+                                     <td>
+                                        <span t-field="x.one_dollar_from"/>
+                                    </td>
+                                     <td>
+                                       $1
+                                    </td>
+                                     <td>
+                                        <span t-field="x.one_dollar_from"/>
+                                    </td>
+                                 </tr>
+                
+                                <tr class="bg-primary"> <td colspan="4">Total (USD)</td></tr>
+                                
+                                <tr>
+                                 
+                                     <td colspan="2">
+                                        <span t-field="x.from_total_usd"/>
+                                    </td>
+                                 
+                                     <td colspan="2">
+                                        <span t-field="x.to_total_usd"/>
+                                    </td>
+                                 </tr>
+                                 
+                                
+                        
+                            </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+    
+    </template>
+</odoo>

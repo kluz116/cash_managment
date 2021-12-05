@@ -19,12 +19,12 @@
     'category': 'Finance',
     'version': '0.1',
     
-    'external_dependencies': {
-        'python': [
-            'xlsxwriter',
-            'xlrd',
-        ],
-    },
+    #'external_dependencies': {
+        #'python': [
+            #'xlsxwriter',
+            #'xlrd',
+        #],
+    #},
     # any module necessary for this one to work correctly
     'depends': ['mail','base'],
   
@@ -67,6 +67,7 @@
         'reports/request_confirmation_card.xml',
         'reports/request_mapping_report.xml',
         'reports/cash_movement_rpt.xml',
+        'reports/demo_sample.xml'
         #'reports/cash_bank_request_report.xml'
     ],
     # only loaded in demonstration mode

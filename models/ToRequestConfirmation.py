@@ -4,37 +4,48 @@ from datetime import datetime
 class ToConfirmCash(models.Model):
     _name = "cash_managment.confirm_cash_to"
     _description = "Confirm Cash"
-    _rec_name = 'total'
+    _rec_name = 'amount_request_id'
 
     
-    total = fields.Float(compute='_compute_total',string="Total",store=True)
-    total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
+    total = fields.Monetary(compute='_compute_total',string="Total",store=True)
+    total_usd = fields.Monetary(compute='_compute_total_dollars',string="Total USD",store=True)
     amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Expected Amount Transfered')
-    actual_amount = fields.Float(string="Actual Amount Transfered", required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency', required=True)
+    actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     to_branch = fields.Integer(related ='amount_request_id.to_branch', string='To', store=True)
-    deno_fifty_thounsand = fields.Integer(string="50,000 Shs")
-    deno_twenty_thounsand = fields.Integer(string="20,000 Shs")
-    deno_ten_thounsand = fields.Integer(string="10,000 Shs")
-    deno_five_thounsand = fields.Integer(string="5,000 Shs")
-    deno_two_thounsand = fields.Integer(string="2,000 Shs")
-    deno_one_thounsand = fields.Integer(string="1,000 Shs")
-    coin_one_thounsand = fields.Integer(string="1,000 Shs")
-    coin_five_houndred = fields.Integer(string="500 Shs")
-    coin_two_hundred = fields.Integer(string="200 Shs")
-    coin_one_hundred = fields.Integer(string="100 Shs")
-    coin_fifty = fields.Integer(string="50 Shs")
-    hundred_dollar = fields.Integer(string="$100")
-    fifty_dollar = fields.Integer(string="$50")
-    twenty_dollar = fields.Integer(string="$20")
-    ten_dollar = fields.Integer(string="$10")
-    five_dollar = fields.Integer(string="$5")
-    one_dollar = fields.Integer(string="$1")
+    deno_fifty_thounsand = fields.Monetary(string="50,000 Shs")
+    deno_twenty_thounsand = fields.Monetary(string="20,000 Shs")
+    deno_ten_thounsand = fields.Monetary(string="10,000 Shs")
+    deno_five_thounsand = fields.Monetary(string="5,000 Shs")
+    deno_two_thounsand = fields.Monetary(string="2,000 Shs")
+    deno_one_thounsand = fields.Monetary(string="1,000 Shs")
+    coin_one_thounsand = fields.Monetary(string="1,000 Shs")
+    coin_five_houndred = fields.Monetary(string="500 Shs")
+    coin_two_hundred = fields.Monetary(string="200 Shs")
+    coin_one_hundred = fields.Monetary(string="100 Shs")
+    coin_fifty = fields.Monetary(string="50 Shs")
+    hundred_dollar = fields.Monetary(string="$100")
+    fifty_dollar = fields.Monetary(string="$50")
+    twenty_dollar = fields.Monetary(string="$20")
+    ten_dollar = fields.Monetary(string="$10")
+    five_dollar = fields.Monetary(string="$5")
+    one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="ongoing", string="Status")
     confirmed_by = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]}, default=lambda self: self.env.user.id)
     user_id = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     
-  
+    @api.one
+    @api.constrains('total','actual_amount')
+    def _check_amount(self):
+        if self.currency_id.id != 2 and self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} UGX The Actual Amount Expected To Be Transfered.Try To Get The Right Figures Before Confirmiming Cash.".format(total=f"{self.total:,}",amount = f"{self.actual_amount:,}"))
+        
+    @api.one
+    @api.constrains('total_usd','actual_amount')
+    def _check_amount_usd(self):
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} USD  The Actual Amount Expected To Be Transfered.Try To Get The Right Figures Before Confirmiming Cash.".format(total= f"{self.total_usd:,}",amount = f"{self.actual_amount:,}"))
 
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')
     def _compute_total(self):
@@ -48,11 +59,6 @@ class ToConfirmCash(models.Model):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
     
-    @api.one
-    @api.constrains('total','actual_amount')
-    def _check_amount(self):
-        if self.actual_amount != self.total:
-            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
 
     '''
     @api.one

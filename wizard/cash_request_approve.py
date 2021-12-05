@@ -74,7 +74,13 @@ class ApprovedCashRequest(models.TransientModel):
                  'cash_date' : self.cash_date
                  }
 
-        self.env['cash_managment.requestapproved'].create(vals)
+        res = self.env['cash_managment.requestapproved'].create(vals)
+        for reqs in res:     
+            template_id = self.env.ref('cash_managment.email_template_initiate_request').id
+            template =  self.env['mail.template'].browse(template_id)
+            template.send_mail(reqs.id,force_send=True)
+
+       
         cash_confirm_req = self.env['cash_managment.request'].browse(self._context.get('active_ids'))
         self.write({'hod_expire_status': 'no'})
         for request in cash_confirm_req:
@@ -83,10 +89,9 @@ class ApprovedCashRequest(models.TransientModel):
             request.branch_accountant_from = self.from_by_id
             request.state = 'initiated'
             request.amount_available = self.amount_available
+            request.branch_accountant_to = self.to_by_id
             request.branch_manager_to = self.to_by_id_two
             request.branch_code_to = self.to_branch.branch_code
 
-           # template_id = self.env.ref('cash_managment.email_template_initiate_request').id
-            #template =  self.env['mail.template'].browse(template_id)
-           # template.send_mail(request.id,force_send=True)
+       
  

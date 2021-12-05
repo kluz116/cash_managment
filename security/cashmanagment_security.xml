@@ -27,6 +27,27 @@
         <field name="groups" eval="[(4, ref('cash_managment.Branch_Accountant'))]" />
         <field name="domain_force">[('|'),('user_id', '=', user.id),('branch_accountant_from','=', user.partner_id.id)]</field>    
     </record>
+    <record model="ir.rule" id="partner_view_rule_to_branch_accountatnt">
+        <field name="name">Branch Accountant View Rule</field>
+        <field name="model_id" ref="model_cash_managment_request"/>
+        <field name="groups" eval="[(4, ref('cash_managment.Branch_Accountant'))]" />
+        <field name="domain_force">[('branch_accountant_to','=', user.partner_id.id)]</field>    
+    </record>
+
+    <record model="ir.rule" id="partner_request_mapping_view_rule_branch_accountatnt">
+        <field name="name">Branch Accountant View Rule Request Mapping</field>
+        <field name="model_id" ref="model_cash_managment_requestmapping"/>
+        <field name="groups" eval="[(4, ref('cash_managment.Branch_Accountant'))]" />
+        <field name="domain_force">[('|'),('to_confirmed_by','=', user.partner_id.id),('from_confirmed_by','=', user.partner_id.id)]</field>    
+    </record>
+
+    <record model="ir.rule" id="partner_requests_mapping_view_rule_branch_manager">
+        <field name="name">Branch Accountant View Rule Request Mapping</field>
+        <field name="model_id" ref="model_cash_managment_requestmapping"/>
+        <field name="groups" eval="[(4, ref('cash_managment.Branch_Manager'))]" />
+        <field name="domain_force">[('|'),('from_manager','=', user.partner_id.id),('to_manager','=', user.partner_id.id)]</field>    
+    </record>
+  
   
     <record model="ir.rule" id="partner_view_rule_Branch_Manager">
         <field name="name">Branch Manager View Rule</field>

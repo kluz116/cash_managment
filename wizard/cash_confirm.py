@@ -7,11 +7,11 @@ class ConfirmCash(models.TransientModel):
     _rec_name = 'amount_request_id'
 
     
-    total = fields.Float(compute='_compute_total',string="Total",store=True)
-    total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
+    total = fields.Monetary(compute='_compute_total',string="Total",store=True)
+    total_usd = fields.Monetary(compute='_compute_total_dollars',string="Total USD",store=True)
     amount_request_id = fields.Many2one('cash_managment.request_confirmation',string='Expected Amount Transfered',domain = [('state','=','confirmed_one')],required=True)
     
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency', required=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     amo_request_id = fields.Integer(related ='amount_request_id.id', string='To')
     to_branch = fields.Integer(related ='amount_request_id.to_branch', string='To', store=True)
@@ -33,12 +33,24 @@ class ConfirmCash(models.TransientModel):
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
 
-
-
     confirm_date =  fields.Datetime(string='Confirmed Date',default=lambda self: fields.datetime.now())
     state = fields.Selection([('ongoing', 'Pending Manager Approval'),('confirmed_one', 'Pending Accountant Approval'),('confirmed_two', 'Pending Manager Approval'),('confirmed_three', 'Confirmed')],default="confirmed_one", string="Status")
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Integer(related ='confirmed_by.id', string='To')
+
+
+    @api.one
+    @api.constrains('total','actual_amount')
+    def _check_amount(self):
+        if self.currency_id.id != 2 and self.actual_amount != self.total:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} UGX The Actual Amount Expected To Be Transfered.Try To Get The Right Figures Before Confirmiming Cash.".format(total=f"{self.total:,}",amount = f"{self.actual_amount:,}"))
+        
+    @api.one
+    @api.constrains('total_usd','actual_amount')
+    def _check_amount_usd(self):
+        if self.currency_id.id == 2 and self.actual_amount != self.total_usd:
+            raise exceptions.ValidationError("The Total Amount {total} USD Does Not Equal {amount} USD  The Actual Amount Expected To Be Transfered.Try To Get The Right Figures Before Confirmiming Cash.".format(total= f"{self.total_usd:,}",amount = f"{self.actual_amount:,}"))
+
 
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')
     def _compute_total(self):
@@ -51,19 +63,13 @@ class ConfirmCash(models.TransientModel):
         for rec in self:
             rec.total_usd = rec.hundred_dollar + rec.fifty_dollar + rec.twenty_dollar + rec.ten_dollar + rec.five_dollar + rec.one_dollar
 
-    '''@api.one
-    @api.constrains('total','amount_request_id')
-    def _check_amount(self):
-        if self.amount_request_id.initiated_request_id.title.title != self.total:
-            raise exceptions.ValidationError("The Amount {total} Shs Does Not Equal {amount} Shs  Which Was Approved By Cash Center".format(total=self.total,amount = self.amount_request_id.initiated_request_id.title.title))
-  
-    '''
+    
 
     @api.multi
     def cash_confirm_request(self):
-        #self.write({'state': 'confirmed'})  
         vals = {'total': self.total,
                 'amount_request_id': self.amo_request_id,
+                'currency_id':self.currency_id.id,
                 'actual_amount' : self.actual_amount,
                 'to_branch': self.to_branch,
                 'deno_fifty_thounsand': self.deno_fifty_thounsand,
@@ -77,6 +83,12 @@ class ConfirmCash(models.TransientModel):
                  'coin_two_hundred':self.coin_two_hundred,
                  'coin_one_hundred':self.coin_one_hundred,
                  'coin_fifty':self.coin_fifty,
+                  'hundred_dollar' : self.hundred_dollar,
+                  'fifty_dollar' : self.fifty_dollar,
+                  'twenty_dollar': self.twenty_dollar,
+                  'ten_dollar' : self.ten_dollar,
+                  'five_dollar' : self.fifty_dollar,
+                  'one_dollar' : self.one_dollar,
                  'confirm_date':self.confirm_date,
                  'state':'confirmed',
                  'confirmed_by':self.user_id}
@@ -89,4 +101,6 @@ class ConfirmCash(models.TransientModel):
             template_id = self.env.ref('cash_managment.email_template_to_manager_confirm').id
             template =  self.env['mail.template'].browse(template_id)
             template.send_mail(request.id,force_send=True)
-            
+
+    
+    

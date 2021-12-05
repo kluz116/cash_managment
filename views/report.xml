@@ -178,7 +178,7 @@
         <record model="ir.actions.act_window" id="cash_managment_requestmapping_list_action">
             <field name="name">Cash Transfer Confirmations</field>
             <field name="res_model">cash_managment.requestmapping</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree</field>
              <field name ="context">{"search_default_confirm_to":1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Cash Transfer Confirmations</p>
@@ -218,7 +218,7 @@
         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_report" name="Cash Managment Reports" parent="main_service_menu"/>
-        <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
+        <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Branch Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
         <menuitem id="cash_managment_movement" name="Cash Transfer Report" parent="confirm_cash_report" action="cash_movement_list_action"/>
         <menuitem id="cash_managment_movement_rpt" name="Cash Transfer Report With Amount" parent="confirm_cash_report" action="cash_movement_report_list_action"/>
         <menuitem id="confirm_cash_to_req" name="Cash Transfer Confirmations Report" parent="confirm_cash_report" action="to_confirm_request_list_action"/>

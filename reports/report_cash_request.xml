@@ -54,8 +54,17 @@
         report_type="qweb-pdf"
         name="cash_managment.cashmovement_requestmapping"
         file="cash_managment.cashmovement_requestmapping"/>
+
+        <report
+        id="cash_Request_mapping_report"
+        model="cash_managment.requestmapping"
+        string="Cash Transfer Conformation"
+        report_type="qweb-pdf"
+        name="cash_managment.cashmovement_requestmappings"
+        file="cash_managment.cashmovement_requestmappings"/>
+        
   
-    <report
+    <!--<report
         id="cash_request_report_xlsx"
         model="cash_managment.request"
         string="Export Requests to XLSX"
@@ -63,7 +72,7 @@
         name="cash_managment.requests"
         file="cash_managment.cash_managment_requests"
         attachment_use="False"
-    />
+    />-->
 
     </data>
 </odoo>

@@ -38,6 +38,7 @@ class CashManagment(models.Model):
     branch_code_to = fields.Integer(compute='_compute_branch',string='To',store=True)
     branch_code_from = fields.Integer(string='From')
     branch_manager_to = fields.Integer(string='Manager')
+    branch_accountant_to = fields.Integer(string='To Branch Accountatnt')
     branch_accountant_from = fields.Integer(string='From Branch Accountatnt')
     branch_manager_from = fields.Integer(string='From Branch Manager')
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)

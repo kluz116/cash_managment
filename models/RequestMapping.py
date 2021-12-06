@@ -5,6 +5,7 @@ class RequestMapping(models.Model):
     _name = "cash_managment.requestmapping"
     _auto = False
     _rec_name ="from_total"
+    _order = "from_confirm_date desc"
 
     from_branch = fields.Integer(string='Branch')
     to_branch = fields.Integer( string='Branch')

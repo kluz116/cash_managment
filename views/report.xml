@@ -5,7 +5,7 @@
             <field name="name">cash_managment.requestmapping.tree</field>
             <field name="model">cash_managment.requestmapping</field>
              <field name="arch" type="xml" >
-                <tree string="Confirmations">
+                <tree string="Confirmations" default_order="from_confirm_date desc">
                 
                     <field name="from_branch" />
                     <field name="from_total"/>
@@ -27,7 +27,7 @@
             <field name="name">cash_managment.cashmovement.tree</field>
             <field name="model">cash_managment.cashmovement</field>
              <field name="arch" type="xml" >
-                <tree string="Cash Movement">
+                <tree string="Cash Movement" default_order="effective_date desc">
                     <field name="courier_name" />
                     <field name="frombranch" />
                     <field name="tobranch"/>  

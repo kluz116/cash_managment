@@ -86,7 +86,7 @@ class CashManagment(models.Model):
     @api.depends('start_date')
     def comp_time_hod(self):
         east_africa = timezone('Africa/Nairobi')
-        date_time = datetime.now(east_africa)+ + timedelta(hours=8)
+        date_time = datetime.now(east_africa)+ + timedelta(hours=24)
         self.expiration_hod = format(date_time, '%Y-%m-%d %H:%M') 
 
     @api.depends('start_date')

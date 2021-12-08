@@ -4,7 +4,7 @@
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests"  import="0" decoration-warning="state == 'expired_hod'" decoration-danger="state == 'expired_branch'" default_order='id'>
+                <tree string="All Requests"  import="0" decoration-warning="state == 'expired_hod'" decoration-danger="state == 'expired_branch'" default_order='start_date desc'>
                     <field name="unique_field" string="Ref"/>
                     <field name="state" />
                     <field name="title" />
@@ -338,6 +338,9 @@
                              <field name ="total" readonly="1"/>
                              <field name ="total_usd" readonly="1"/>
                             </group> 
+                             <group>
+                             <field name = "created_by" readonly="1"/> 
+                             </group>
                                       
                     </sheet>  
                 </form>

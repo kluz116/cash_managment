@@ -20,6 +20,7 @@ class ToMangerCashCenter(models.TransientModel):
             req.state = self.state
             req.to_manager_comment = self.to_manager_comment
             req.to_manager_date = self.to_manager_date
+            req.initiated_request_id.state = 'closed'
             template_id = self.env.ref('cash_managment.email_template_to_manager_confirm_cash_center').id
             template =  self.env['mail.template'].browse(template_id)
             template.send_mail(req.id,force_send=True)

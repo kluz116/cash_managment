@@ -19,12 +19,12 @@
     'category': 'Finance',
     'version': '0.1',
     
-    'external_dependencies': {
-        'python': [
-            'xlsxwriter',
-            'xlrd',
-        ],
-    },
+   # 'external_dependencies': {
+       # 'python': [
+            #'xlsxwriter',
+            #'xlrd',
+        #],
+    #},
     # any module necessary for this one to work correctly
     'depends': ['mail','base'],
   
@@ -56,6 +56,8 @@
         'wizard/reject_cash_confrimation_from_cash_banking.xml',
         'wizard/reject_cash_confrimation_from_cash_center.xml',
         'wizard/reject_cash_confrimation_to_center.xml',
+        'wizard/cash_banking__confirm.xml',
+        'wizard/change_approvers.xml',
         'wizard/disregard_request.xml',
         'views/branch.xml',
         'views/cash_request.xml',

@@ -325,8 +325,6 @@
             <field name="report_name"></field>-->
            
         </record>
-
-
         <record id="email_template_initiate_request" model="mail.template">
             <field name="name">Cash Management: Initiate Request</field>
             <field name="model_id" ref="model_cash_managment_requestapproved"/>

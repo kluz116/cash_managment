@@ -165,11 +165,12 @@
 
                         <button name="%(cash_managment.wizard_cash_managment_to_manager_form_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_reject_to_confirmation_view)d" states='confirmed_two' type="action" string="Reject Request" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(wizard_change_approvers_wizard_form_view)d" type="action" states='ongoing,confirmed_one,confirmed_two'  string="Change Branch Request Approvers" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
                         
                         <field name = "current_user" invisible='1' />
                         <field name ="current_to_branch_accountant" invisible ='1'/>
                         <field name ="current_to_branch_manager" invisible ='1'/>
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" />
                     </header>
                 </xpath>
                    <sheet>
@@ -177,10 +178,10 @@
                             <field name = "from_bys" invisible='1'/>
                             <field name = "partner_ids" invisible='1' />
                         </group>
-  
+                        <!--
                         <group>
                            <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
-                        </group>
+                        </group>-->
                         <group>
                              <field name = "initiated_request_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}" domain = "[('state','=','pending'),('from_by_branch','=',from_bys)] "/>
                         </group>

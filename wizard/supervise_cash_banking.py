@@ -6,17 +6,16 @@ class CashBankingSupervision(models.TransientModel):
     _description = "Supervise Cash Request"
     _rec_name = 'state'
 
-    
-    state = fields.Selection([('New', 'New'),('ongoing','Ongoing'),('closed', 'Closed')],default="ongoing", string="Status")
+    state = fields.Selection([('New', 'New'),('reject_one','Rejected'),('reject_two','Rejected'),('approved','Approved'),('initiated','Initiated'),('confirm', 'Confirmed'),('expired_branch','Expired'),('expired_hod','Expired')],default="approved", string="Status")
     supervision_comment = fields.Text(string="Comment")
-    supervision_date =  fields.Datetime(string='Date', default=datetime.today())
+    supervision_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     supervised_by = fields.Many2one('res.users','Canceled By',default=lambda self: self.env.user)
-    cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
+    cash_date =  fields.Datetime(string='Effective Date', default=lambda self: fields.datetime.now())
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     
     @api.multi
     def cash_banking_supervision(self):
-        self.write({'state': 'closed'})
+        self.write({'state': 'initiated'})
         cash = self.env['cash_managment.cash_branch_bank_request'].browse(self._context.get('active_ids'))
         for req in cash:
             req.state = self.state

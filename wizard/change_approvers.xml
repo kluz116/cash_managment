@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>
+          <record id="change_approvers_wizard" model="ir.ui.view">
+            <field name="name">cash_managment.change_approvers.form</field>
+            <field name="model">cash_managment.change_approvers</field>
+            <field name="arch" type="xml">
+                <form string="Change Approvers">
+                    <sheet>
+                        <notebook>
+                            <page string="From Branch">
+                              <group>
+                                  <field name ="branch_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
+                              </group>
+                              <group>
+                                   <field name ="from_by" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/> 
+                              </group> 
+                              <group>
+                                <field name ="from_by_two" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
+                              </group>    
+                            </page>
+                  
+                            <page string="To Branch">  
+                                <group>
+                                    <field name ="to_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                                </group> 
+                                <group>
+                                  <field name ="to_by" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                              </group> 
+                              <group>
+                                <field name ="to_by_two" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>  
+                              </group> 
+                                     
+                            </page>
+                        </notebook>
+                    
+                    <footer>
+                        <button name="change_approvers_btn" string="Change Approvers" type="object" class="btn-outline-primary"/>
+                        <button string="Cancel" class="btn-outline-dark" special="cancel"/>
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_change_approvers_wizard_form_view" model="ir.actions.act_window">
+            <field name="name">Change Request Approvers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash_managment.change_approvers</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="change_approvers_wizard"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

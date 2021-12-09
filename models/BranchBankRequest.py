@@ -14,7 +14,7 @@ class BranchBankRequest(models.Model):
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered",required=True)
     to_bank= fields.Many2one('cash_managment.bank',string ='To Bank')
-    trx_proof = fields.Binary('File')
+    trx_proof = fields.Binary('File',attachment=True)
 
     deno_fifty_thounsand = fields.Monetary(string="50,000 Shs")
     deno_twenty_thounsand = fields.Monetary(string="20,000 Shs")
@@ -33,7 +33,7 @@ class BranchBankRequest(models.Model):
     ten_dollar = fields.Integer(string="$10")
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
-    state = fields.Selection([('New', 'New'),('reject_one','Rejected'),('reject_two','Rejected'),('ongoing','Ongoing'),('closed', 'Closed'),('expired_branch','Expired'),('expired_hod','Expired')],default="New", string="Status")
+    state = fields.Selection([('New', 'New'),('reject_one','Rejected By Manager'),('reject_two','Rejected By Cash Team'),('approved','Approved'),('initiated','Initiated'),('confirm', 'Confirmed'),('expired_branch','Expired At Branch'),('expired_hod','Expired At Head Office')],default="New", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     supervision_comment = fields.Text(string="Comment")
@@ -43,6 +43,7 @@ class BranchBankRequest(models.Model):
     branch_manager_from = fields.Integer(compute='_compute_manager',string='Manager',store=True)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
+    current_to_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
     initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     unique_field = fields.Char(compute='comp_name', store=True)
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
@@ -74,6 +75,10 @@ class BranchBankRequest(models.Model):
     cash_date =  fields.Datetime(string='Effective Date', default=datetime.today())
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     branch_id = fields.Integer(compute='_compute_branch',string='Branch',store=True)
+
+    from_comment = fields.Text(string="Comment")
+    from_date =  fields.Datetime(string='Date')
+
     
        
     @api.depends('user_id')
@@ -105,6 +110,13 @@ class BranchBankRequest(models.Model):
         for e in self:
             partner = self.env['res.users'].browse(self.env.uid).partner_id
             e.current_to_branch_manager = (True if partner.id == self.branch_manager_from else False)
+    
+    @api.depends('partner_id')
+    def _get_to_branch_accountant(self):
+        for e in self:
+            partner = self.env['res.users'].browse(self.env.uid).partner_id
+            e.current_to_accountant = (True if partner.id == self.partner_id.id else False)
+
 
     @api.depends('initiate_date')
     def comp_name(self):

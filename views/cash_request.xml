@@ -246,19 +246,22 @@
                 <form string="Create Branch Bank Request" create="false" edit="false" export_xlsx="false">
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm)d" states='New' type="action" string="Approve Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_reject_branch_bank_confirmation_view)d" states='New' type="action" string="Reject Request" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        <button name="%(wizard_cash_reject_branch_bank_confirmation_two_view)d" type="action" states='ongoing' string="Reject Request" class="btn btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />
-                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='ongoing' string="Validate And Supervise" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
-                        
-                        <field name = "current_to_branch_manager" invisible='1' />
-                        <field name="state" widget="statusbar" statusbar_visible="New,closed" invisible="1"/>
+                        <button name="%(wizard_cash_reject_branch_bank_confirmation_two_view)d" type="action" states='approved' string="Reject Request" class="btn btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(wizard_cash_banking_supervisoin_form_view)d" type="action" states='approved' string="Validate And Supervise" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
+                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm_final)d" states='initiated' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_managment_cash_banking_confirm_final)d" states='initiated' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_accountant', '=', False)]}" />  
+                        <field name="state" widget="statusbar" statusbar_visible="New,expired_branch,approved,reject_one,initiated,reject_two,expired_hod,confirm"   />
+
                     </header>
                 </xpath>
                    <sheet>
                       
                         <group>
-                           <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
+                         <field name = "current_to_branch_manager" invisible='1' />
+                          <field name = "current_to_accountant" invisible='1' />
+                           <!--<field name = "status" readonly="1" style='color: #e60911; font-weight: bold;'/>-->
                         </group>
                          <group>
                              <field name = "actual_amount"/>
@@ -562,7 +565,7 @@
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="config_cash_request" name="Cash Managment Requests"   sequence="1"  parent="main_service_menu"/>
         <menuitem id="config_cash_req" name="Cash Request" parent="config_cash_request"   sequence="2" action="request_list_action"/>
-        <menuitem id="cash_center_requests" name="Cash Request-Inter Branch" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="cash_center_requests" name="Cash Request-Inter Branch" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="bank_center_requests" name="Cash Banking-To Branch" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
         <menuitem id="branch_bank_requests" name="Cash Banking-To Bank" parent="config_cash_request"   sequence="5" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
         <menuitem id="config_cash_req_ongoing" name="Initiated Cash Request" parent="config_cash_request"   sequence="6" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>

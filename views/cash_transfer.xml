@@ -4,7 +4,7 @@
             <field name="name">cash_managment.request_confirmation.tree</field>
             <field name="model">cash_managment.request_confirmation</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests" default_order='confirm_date desc'>
 
                     <field name="total"/>
                     <field name="total_usd"/>
@@ -17,10 +17,6 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                    <field name="coin_one_thounsand"/>
-                    <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
                     <field name="hundred_dollar"/>
                     <field name="fifty_dollar"/>
                     <field name="twenty_dollar"/>
@@ -34,7 +30,7 @@
             <field name="name">cash_managment.cash_center_request_confirmation.tree</field>
             <field name="model">cash_managment.cash_center_request_confirmation</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests" default_order='confirm_date desc'>
             
                    <field name="total"/>
                     <field name="total_usd"/>
@@ -47,10 +43,6 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                    <field name="coin_one_thounsand"/>
-                    <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
                     <field name="hundred_dollar"/>
                     <field name="fifty_dollar"/>
                     <field name="twenty_dollar"/>
@@ -65,7 +57,7 @@
             <field name="name">cash_managment.request_confirmation.tree</field>
             <field name="model">cash_managment.confirm_cash_to</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests" default_order='confirm_date desc'>
                     
                     
                     <field name="total"/>
@@ -76,11 +68,6 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                     <field name="coin_one_thounsand"/>
-                    <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
-                    <field name="coin_fifty"/>
                     <field name="confirm_date"/>
                     
                 </tree>
@@ -102,11 +89,6 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                     <field name="coin_one_thounsand"/>
-                    <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
-                    <field name="coin_fifty"/>
                     <field name="hundred_dollar"/>
                     <field name="fifty_dollar"/>
                     <field name="twenty_dollar"/>
@@ -123,7 +105,7 @@
             <field name="name">cash_managment.confirm_cash_centerto.tree</field>
             <field name="model">cash_managment.confirm_cash_centerto</field>
              <field name="arch" type="xml">
-                <tree string="All Requests">
+                <tree string="All Requests" default_order='confirm_date desc'>
                     
                     
                     <field name="total"/>
@@ -136,11 +118,6 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                     <field name="coin_one_thounsand"/>
-                    <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
-                    <field name="coin_fifty"/>
                     <field name="hundred_dollar"/>
                     <field name="fifty_dollar"/>
                     <field name="twenty_dollar"/>
@@ -170,7 +147,7 @@
                         <field name = "current_user" invisible='1' />
                         <field name ="current_to_branch_accountant" invisible ='1'/>
                         <field name ="current_to_branch_manager" invisible ='1'/>
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,confirmed_two,confirmed_three" />
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,reject_one,confirmed_two,confirmed_three" />
                     </header>
                 </xpath>
                    <sheet>
@@ -195,14 +172,11 @@
                          <group>
                              <field name = "trx_proof"/>
                         </group>
-                         <group>
-                             <field name = "from_branch" style="color: #e60911; font-weight: bold;"/>
-                        </group>
-                        
-                         <group>
-                             <field name = "to_branch" style="color: #e60911; font-weight: bold;"/>
-                        </group>
-                       
+                                <group>
+                             <field name ="total" readonly="1" style="color: #e60911; font-weight: bold;"/>
+                             <field name ="total_usd" readonly="1" style="color: #e60911; font-weight: bold;"/>
+                            </group>
+                  
                     
                          <notebook>
                                 <page string="UGX Denominations - Cash">
@@ -262,11 +236,33 @@
                                        <field name ="one_dollar"/>
                                     </group> 
                                 </page>
+                                <page string="From Branch">
+                                    <group>
+                                        <field name = "from_branch" style="color: #e60911; font-weight: bold;"/>
+                                    </group>
+               
+                                    <group>
+                                       <field name ="from_manager_name"/>
+                                    </group>
+                                    <group>
+                                       <field name ="confirmed_by"/>
+                                    </group>
+                                  
+                                </page>
+                                
+                                <page string="To Branch">
+                                    <group>
+                                   <field name = "to_branch" style="color: #e60911; font-weight: bold;"/>
+                                   </group>
+                                     <group>
+                                       <field name ="to_branch_accountant_name"/>
+                                    </group>
+                                     <group>
+                                       <field name ="to_branch_manager_name"/>
+                                    </group>   
+                                </page>
                           </notebook>  
-                            <group>
-                             <field name ="total" readonly="1" style="color: #e60911; font-weight: bold;"/>
-                             <field name ="total_usd" readonly="1" style="color: #e60911; font-weight: bold;"/>
-                            </group> 
+                     
                             <group>
                              <field name ="confirm_date" invisible="1"/>
                             </group> 
@@ -291,12 +287,12 @@
                         <button name="%(cash_managment.wizard_cash_managment_confirm_cash_center_cash)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_managment_to_manager_cash_cente_wizard)d" states='confirmed_two' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_reject_to_center_confirmation_view)d" states='confirmed_two' type="action" string="Reject Request" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
-                        
+                        <button name="%(wizard_change_approvers_cash_center_wizard_form_view)d" type="action" states='ongoing,confirmed_one,confirmed_two'  string="Change Branch Request Approvers" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
                         
                         <field name = "current_user" invisible='1' />
                         <field name ="current_to_branch_accountant" invisible ='1'/>
                         <field name ="current_to_branch_manager" invisible ='1'/>
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,reject_one,confirmed_two,confirmed_three" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,reject_one,confirmed_two,confirmed_three" />
                     </header>
                 </xpath>
                    <sheet>
@@ -308,9 +304,9 @@
                         <field name = "partner_ids" invisible='1' />
                         </group>
   
-                        <group>
+                        <!--<group>
                            <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
-                        </group>
+                        </group>-->
                         <group>
                              <field name = "initiated_request_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}" domain = "[('state','=','new'),('from_by','=',from_bys)] "/>
                         </group>
@@ -323,14 +319,10 @@
                         <group>
                              <field name = "trx_proof"/>
                         </group>
-                         <group>
-                             <field name = "from_branch" style="color: #e60911; font-weight: bold;"/>
-                        </group>
-                         <group>
-                             <field name = "to_branch" style="color: #e60911; font-weight: bold;"/>
-                        </group>
-                        
-                      
+                        <group>
+                            <field name ="total" readonly="1" style="color: #e60911; font-weight: bold;"/>
+                            <field name ="total_usd" readonly="1" style="color: #e60911; font-weight: bold;"/>
+                        </group> 
                          <notebook>
                                 <page string="UGX Denominations - Cash">
                                     <group>
@@ -389,11 +381,33 @@
                                        <field name ="one_dollar"/>
                                     </group> 
                                 </page>
+                                <page string="From Branch">
+                                    <group>
+                                        <field name = "from_branch" style="color: #e60911; font-weight: bold;"/>
+                                    </group>
+               
+                                    <group>
+                                       <field name ="from_manager_name"/>
+                                    </group>
+                                    <group>
+                                       <field name ="confirmed_by"/>
+                                    </group>
+                                  
+                                </page>
+                                
+                                <page string="To Branch">
+                                    <group>
+                                   <field name = "to_branch" style="color: #e60911; font-weight: bold;"/>
+                                   </group>
+                                     <group>
+                                       <field name ="to_branch_accountant_name"/>
+                                    </group>
+                                     <group>
+                                       <field name ="to_branch_manager_name"/>
+                                    </group>   
+                                </page>
                           </notebook>  
-                            <group>
-                             <field name ="total" readonly="1" style="color: #e60911; font-weight: bold;"/>
-                             <field name ="total_usd" readonly="1" style="color: #e60911; font-weight: bold;"/>
-                            </group> 
+ 
                             <group>
                              <field name ="confirm_date" invisible="1"/>
                             </group> 

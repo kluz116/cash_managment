@@ -1,8 +1,8 @@
 from odoo import models, fields, api
 from datetime import datetime
 
-class ChangeApprovers(models.TransientModel):
-    _name = "cash_managment.change_approvers"
+class ChangeApproversCashCenter(models.TransientModel):
+    _name = "cash_managment.change_approvers_cash_center"
     _description = "this shows all agents that get mapped to tickets"
     _rec_name ="branch_id"
 
@@ -33,22 +33,17 @@ class ChangeApprovers(models.TransientModel):
             self.to_by == record.to_by    
     
     @api.multi
-    def change_approvers_btn(self):
-        cash = self.env['cash_managment.request_confirmation'].browse(self._context.get('active_ids'))
+    def change_approvers_cash_center_btn(self):
+        cash = self.env['cash_managment.cash_center_request_confirmation'].browse(self._context.get('active_ids'))
         for req in cash:
             req.from_manager = self.from_by_two
             req.to_branch_accountant = self.to_by
             req.to_branch_manager = self.to_by_two
-
+            
             req.initiated_request_id.from_by = self.from_by
             req.initiated_request_id.from_by_two = self.from_by_two
             req.initiated_request_id.to_by = self.to_by
             req.initiated_request_id.to_by_two = self.to_by_two
-
-            req.initiated_request_id.title.branch_accountant_from = self.from_by
-            req.initiated_request_id.title.branch_manager_from = self.from_by_two
-            req.initiated_request_id.title.branch_accountant_to = self.to_by
-            req.initiated_request_id.title.branch_manager_to = self.to_by_two
 
         
 

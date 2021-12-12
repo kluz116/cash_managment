@@ -35,7 +35,7 @@ class CashCenterToConfirmCash(models.Model):
     state = fields.Selection([('ongoing', 'Ongoing'), ('pending', 'Pending'),('confirmed', 'Confirmed')],default="ongoing", string="Status")
     confirmed_by = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]}, default=lambda self: self.env.user.id)
     user_id = fields.Many2one('res.users', string='Confirmed By', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
-    trx_proof = fields.Binary('Upload File')
+    trx_proof = fields.Binary('File',attachment=True)
   
 
     @api.depends('deno_fifty_thounsand', 'deno_twenty_thounsand','deno_ten_thounsand','deno_five_thounsand','deno_two_thounsand','deno_one_thounsand','coin_one_thounsand','coin_five_houndred','coin_two_hundred','coin_one_hundred','coin_fifty')

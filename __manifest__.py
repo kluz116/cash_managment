@@ -59,6 +59,7 @@
         'wizard/cash_banking__confirm.xml',
         'wizard/change_approvers.xml',
         'wizard/disregard_request.xml',
+        'wizard/change_approvers_cash_center.xml',
         'views/branch.xml',
         'views/cash_request.xml',
         'views/cash_users.xml',

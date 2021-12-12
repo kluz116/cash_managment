@@ -8,14 +8,14 @@
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
             <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
-            <field name="subject">Cash Request of (Ref ${object.title}) pending your validation.</field>
+            <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) pending your validation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
-                   Hello ${object.partner_id.manager.name},
+                    Hello ${object.partner_id.manager.name},
                     <br /><br />
-                    
-                    Cash Request of ${object.title} UGX is still pending your validation. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
+
+                    Cash Request of ${'{:,.2f}'.format(object.title)} UGX is still pending your validation. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.

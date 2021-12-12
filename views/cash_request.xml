@@ -134,6 +134,10 @@
                          <group>
                              <field name ="cash_date"/>
                         </group>
+                          <group>
+                             <field name ="trx_proof"/>
+                        </group>
+                           
                          <group>
                             <field name ="initiate_date" invisible="1"/> 
                         </group>
@@ -354,7 +358,7 @@
             <field name="name">cash_managment.request.form</field>
             <field name="model">cash_managment.request</field>
             <field name="arch" type="xml">
-                <form string="Add Request" create="false" edit="false" export_xlsx="false">
+                <form string="Add Request" create="false" edit="false">
                     <header>
                      
                         <button name="%(cash_managment.wizard_validate_form_view)d" type="action" states='new' string="Validate Request" class="btn btn-outline-primary" groups ="cash_managment.Branch_Manager" />
@@ -364,12 +368,12 @@
                         <button name="%(cash_managment.wizard_cash_reject_form_view)d" type="action" states='validate' string="Reject Request" class="btn btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />     
                         <button name="%(cash_managment.wizard_cash_initaite_form_view)d" type="action" states='approve' string="Initiate Request" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" /> 
                         <button name="%(cash_managment.wizard_disregard_request_form_view)d" type="action" states='initiated' string="Disregard Request" class="btn-outline-danger" groups="cash_managment.Cash_Managment_Support" />                  
-                        <field name="state" widget="statusbar" statusbar_visible="new,validate,approve,reject,implement,closed,initiated" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,expired_branch,cancel,validate,expired_hod,reject,approve,initiated,closed"/>
                     </header>
                     <sheet>
-                        <group>
+                       <!---<group>
                             <field name="state"  readonly="1"/>
-                        </group>
+                        </group>-->
                         
                         <group>
                             <field name="title"/>

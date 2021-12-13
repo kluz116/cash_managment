@@ -6,9 +6,9 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                        <h2>Cash Transfer Report With Amounts</h2>
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <thead>
-                                <tr>
+                                <tr class="bg-primary">
                                     <th>From Branch</th>
                                     <th>To Branch</th>
                                     <th>Courier</th>

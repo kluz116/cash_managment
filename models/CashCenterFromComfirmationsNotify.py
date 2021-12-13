@@ -8,8 +8,8 @@ class CashCenterFromNotify(models.Model):
         res = super(CashCenterFromNotify, self).create(values)
         
         cash = self.env['cash_managment.cash_center_request'].browse(self._context.get('active_ids'))
-        for req in cash:
-            req.state = 'ongoing'
+        for req in res:
+            req.initiated_request_id.state = 'ongoing'
           
         template_id = self.env.ref('cash_managment.email_template_from_cash_center_confirm_request').id
         template =  self.env['mail.template'].browse(template_id)

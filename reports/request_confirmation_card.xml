@@ -6,19 +6,16 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                        <h2>Cash Request Report</h2>
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <thead>
-                                <tr>
+                                <tr class="bg-primary">
                                     <th>Ref</th>
                                     <th>Amount</th>
                                     <th>Amount Available</th>
                                     <th>Status</th>
                                     <th>Validated By</th>
                                     <th>Approved by</th>
-                                    <th>Created by</th>
-                                    
-                                    
-                                    
+                                    <th>Created by</th>                               
                                 </tr>
                             </thead>
                             <tbody>

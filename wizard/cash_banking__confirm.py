@@ -23,7 +23,7 @@ class CashBankingConfirmFinal(models.TransientModel):
             req.from_date = self.from_date
             req.trx_proof = self.trx_proof
 
-            template_id = self.env.ref('cash_managment.email_template_branch_bank_request_supervise').id
+            template_id = self.env.ref('cash_managment.email_template_branch_bank_request_confirm').id
             template =  self.env['mail.template'].browse(template_id)
             template.send_mail(req.id,force_send=True)
          

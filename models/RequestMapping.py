@@ -19,8 +19,8 @@ class RequestMapping(models.Model):
     from_total_usd = fields.Float(string="Total USD")
     to_total = fields.Float(string="Total UGX")
     to_total_usd = fields.Float(string="Total USD")
-    currency_id_from = fields.Many2one('res.currency', string='Currency', required=True)
-    currency_id_to = fields.Many2one('res.currency', string='Currency', required=True)
+    currency_id_from = fields.Many2one('res.currency', string='Currency')
+    currency_id_to = fields.Many2one('res.currency', string='Currency')
     deno_fifty_thounsand_from = fields.Float(string="50,000 Shs")
     deno_fifty_thounsand = fields.Float(string="50,000 Shs")
     deno_twenty_thounsand_from = fields.Float(string="20,000 Shs")
@@ -59,8 +59,8 @@ class RequestMapping(models.Model):
 
     @api.model_cr
     def init(self):
-        tools.drop_view_if_exists(self._cr, 'cash_managment_requestmapping')
-        self._cr.execute(""" CREATE OR REPLACE VIEW cash_managment_requestmapping AS
+        tools.drop_view_if_exists(self._cr, 'cash_managment_requestmappings')
+        self._cr.execute(""" CREATE OR REPLACE VIEW cash_managment_requestmappings AS
              (
                 select row_number() OVER (ORDER BY 1) AS id,* from (
                             select 

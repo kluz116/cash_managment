@@ -47,6 +47,14 @@
         <field name="groups" eval="[(4, ref('cash_managment.Branch_Manager'))]" />
         <field name="domain_force">[('|'),('from_manager','=', user.partner_id.id),('to_manager','=', user.partner_id.id)]</field>    
     </record>
+
+
+    <record id="partner_view_rule_cash_managment_requestmapping" model="ir.rule">
+        <field name="model_id" ref="model_cash_managment_requestmapping" />
+        <field name="name">Cash Managment Support</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('cash_managment.Cash_Managment_Support'))]"/>
+    </record>
   
   
     <record model="ir.rule" id="partner_view_rule_Branch_Manager">

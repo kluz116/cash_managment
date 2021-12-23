@@ -113,7 +113,7 @@
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="email_to">${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email},${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug, allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) from ${object.initiated_request_id.from_by_two.name} has been closed</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -140,7 +140,7 @@
             <field name="model_id" ref="model_cash_managment_cash_center_request"/>
             <field name="email_from">${object.initiated_by.email}</field>
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug ,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug </field>
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.amount)}) UGX Transfer.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -163,7 +163,7 @@
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) pending your confirmation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -431,7 +431,7 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -476,7 +476,7 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to"> ${object.initiated_request_id.to_by_two.email},${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Pending confirmation of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -500,7 +500,7 @@
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
             <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Change of for (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -538,5 +538,163 @@
             </field>
         
         </record>
+        <record id="email_template_pending_confirmation_from_manager" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation From Manager</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.from_by_two.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification.
+                     <br/>
+                     ${object.initiated_request_id.from_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+        <record id="email_template_pending_confirmation_to_accountant" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation To Accountant</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.to_by.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification
+                     <br/>
+                     ${object.initiated_request_id.to_by.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+        <record id="email_template_pending_confirmation_to_manager" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation To Manager</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.to_by_two.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification
+                    <br/>
+                     ${object.initiated_request_id.to_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+
+
+
+
+
+
+        <record id="email_template_pending_confirmation_from_manager1" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation From Manager</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.from_by_two.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification
+                     <br/>
+                     ${object.initiated_request_id.from_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+        <record id="email_template_pending_confirmation_to_accountant1" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation To Accountant</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.to_by.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification
+                    <br/>
+                     ${object.initiated_request_id.to_by.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+        <record id="email_template_pending_confirmation_to_manager1" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation To Manager</field>
+            <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.to_by_two.name}, 
+                    <br /><br />
+                     You still have a pending confirmation of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} in the online cash managment.
+                     <br/>
+                     Kindly confirm any cash in the system to stop this escalation notification
+                    <br/>
+                     ${object.initiated_request_id.to_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+
     </data>
 </odoo>

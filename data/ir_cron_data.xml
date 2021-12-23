@@ -34,5 +34,27 @@
         <field name="doall" eval="True"/>
     </record>
 
+    <record id="pending_confirmation_cron" model="ir.cron">
+        <field name="name">Pending Confirmation Notificatrion </field>
+        <field name="model_id" ref="model_cash_managment_request_confirmation"/>
+        <field name="state">code</field>
+        <field name="code">model._update_notified_pending_confirmation()</field>
+        <field name="interval_number">120</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
 
+    <record id="pending_confirmation_cash_center_cron" model="ir.cron">
+        <field name="name">Pending Confirmation Notificatrion Cash Center </field>
+        <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
+        <field name="state">code</field>
+        <field name="code">model._update_notified_pending_confirmation_cash_center()</field>
+        <field name="interval_number">120</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+    
 </odoo>

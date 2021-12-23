@@ -542,7 +542,7 @@
                     
                      <field name ="confirm_date"/>
                     <separator/>
-                     <filter name="confirm_dates" string="Today" domain="[('confirm_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                     <filter name="confirm_dates" string="Pending Confirmations" domain="[('state', 'not in', ['reject_one','confirmed_three'])]" />
                 </search>
             </field>
         </record>
@@ -556,7 +556,8 @@
                     
                      <field name ="confirm_date"/>
                     <separator/>
-                     <filter name="confirm_day" string="Today" domain="[('confirm_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+
+                    <filter name="confirm_day" string="Pending Confirmations" domain="[('state', 'not in', ['reject_one','confirmed_three'])]" />
                 </search>
             </field>
         </record>

@@ -20,4 +20,5 @@ class ToMangerCashBank(models.TransientModel):
             req.state = self.state
             req.to_manager_comment = self.to_manager_comment
             req.to_manager_date = self.to_manager_date
+            req.initiated_request_id.state = 'closed'
          

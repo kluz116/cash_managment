@@ -71,7 +71,8 @@ class ApprovedCashRequest(models.TransientModel):
                  'state':self.state,
                  'title':self.title_id,
                  'amount_available': self.amount_available,
-                 'cash_date' : self.cash_date
+                 'cash_date' : self.cash_date,
+                 'currency_id' : self.currency_id.id
                  }
 
         res = self.env['cash_managment.requestapproved'].create(vals)

@@ -101,3 +101,20 @@ class CashCenterConfirmations(models.Model):
     def _compute_branch_from_bys(self):
         for record in self:
             record.from_bys = record.partner_ids.id
+
+    @api.model
+    def _update_notified_pending_confirmation_cash_center(self):
+        pending_conf = self.env['cash_managment.cash_center_request_confirmation'].search([('state', 'not in', ['reject_one','confirmed_three'])])
+        for req in pending_conf:
+            if req.state =='confirmed_two':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_to_manager1').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+            elif req.state =='confirmed_one':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_to_accountant1').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+            elif req.state =='ongoing':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_from_manager1').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)

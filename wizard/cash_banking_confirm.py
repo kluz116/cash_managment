@@ -20,6 +20,7 @@ class CashBankingConfirm(models.TransientModel):
             req.state = self.state
             req.to_manager_comment = self.from_manager_comment
             req.to_manager_date = self.from_manager_date
+            req.branch_expire_status = 'no'
 
             template_id = self.env.ref('cash_managment.email_template_branch_bank_request_supervise').id
             template =  self.env['mail.template'].browse(template_id)

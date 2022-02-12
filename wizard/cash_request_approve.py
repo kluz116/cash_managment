@@ -94,5 +94,8 @@ class ApprovedCashRequest(models.TransientModel):
             request.branch_manager_to = self.to_by_id_two
             request.branch_code_to = self.to_branch.branch_code
 
+
+        
+
        
  

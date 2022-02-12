@@ -22,6 +22,7 @@ class CashBankingSupervision(models.TransientModel):
             req.supervision_comment = self.supervision_comment
             req.supervision_date = self.supervision_date
             req.supervised_by = self.supervised_by
+            req.hod_expire_status = 'no'
             req.cash_date = self.cash_date
             req.courier = self.courier
 

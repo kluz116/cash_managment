@@ -22,6 +22,29 @@
         <field name="doall" eval="True"/>
     </record>
 
+    <record id="bank_request_update_expiration_branch_cron" model="ir.cron">
+        <field name="name">Branch Expiration Bank: Expire Request After An 2 Hours</field>
+        <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+        <field name="state">code</field>
+        <field name="code">model.bank_request_update_expiration_branch()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+    <record id="bank_request_update_expiration_hod_cron" model="ir.cron">
+        <field name="name">Branch Expiration Bank: Expire Request After An 8 Hours</field>
+        <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+        <field name="state">code</field>
+        <field name="code">model.bank_request_update_expiration_hod()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+
 
     <record id="update_initiated_requests_cron" model="ir.cron">
         <field name="name">Notify Users On Initiated Requests</field>

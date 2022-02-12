@@ -9,7 +9,7 @@ class CashBankConfirmation(models.Model):
 
     partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
-    partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
+    #partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
     currency_id = fields.Many2one('res.currency', string='Currency')
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)

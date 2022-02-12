@@ -91,7 +91,7 @@
             <field name="name">cash_managment.cash_branch_bank_request.tree</field>
             <field name="model">cash_managment.cash_branch_bank_request</field>
              <field name="arch" type="xml">
-                <tree string="All Requests" import="0">
+                <tree string="All Requests" import="0" default_order='initiate_date'>
                      <field name = "unique_field" string="Ref"/>
                       <field name = "state" />
                     <field name="total"/>
@@ -106,6 +106,8 @@
                     <field name="coin_two_hundred"/>
                     <field name="coin_one_hundred"/>
                     <field name="coin_fifty"/>
+                    <field name="trx_proof"/>
+                    
                     
                 </tree>
             </field>
@@ -278,10 +280,9 @@
                         </group>
                         <group>
                         
-                          <field name = "trx_proof" string="Transaction Files"/>
+                          <field name = "trx_proof" string="BOU And CIT Reciept"/>
                         </group>
 
-                    
                          <notebook>
                                 <page string="UGX Denominations - Cash">
                                     <group>
@@ -506,7 +507,9 @@
                     
                      <field name ="initiate_date"/>
                     <separator/>
-                     <filter name="confirm_day" string="Today" domain="[('initiate_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                    
+                    <filter name="confirm_day" string="Pending Requests" domain="[('state', 'not in', ['confirm','reject_one','reject_two','expired_branch','expired_hod'])]" />
+                 
                 </search>
             </field>
         </record>

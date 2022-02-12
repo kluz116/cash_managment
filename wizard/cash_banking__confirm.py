@@ -10,7 +10,7 @@ class CashBankingConfirmFinal(models.TransientModel):
     state = fields.Selection([('New', 'New'),('reject_one','Rejected'),('reject_two','Rejected'),('approved','Approved'),('initiated','Initiated'),('confirm', 'Confirmed'),('expired_branch','Expired'),('expired_hod','Expired')],default="confirm", string="Status")
     from_comment = fields.Text(string="Comment")
     from_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
-    trx_proof = fields.Binary(string='Upload file', attachment=True)
+    trx_proof = fields.Binary(string='Attach BOU Or CIT Receipt', attachment=True, required=True)
    
     
     @api.multi

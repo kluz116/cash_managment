@@ -9,7 +9,8 @@ class Re(models.Model):
 
     partner_ids = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id.id )
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
-    partner_id = fields.Many2one('res.users', string='Accountant', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
+    #partner_id = fields.Many2one('res.partner','Customer', default=lambda self: self.env.user.partner_id)
+    #partner_id = fields.Many2one('res.users', string='Accountant', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)

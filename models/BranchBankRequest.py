@@ -14,7 +14,7 @@ class BranchBankRequest(models.Model):
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered",required=True)
     to_bank= fields.Many2one('cash_managment.bank',string ='To Bank')
-    trx_proof = fields.Binary('File',attachment=True)
+    trx_proof = fields.Binary('BOU And CIT Receipt',attachment=True)
 
     deno_fifty_thounsand = fields.Monetary(string="50,000 Shs")
     deno_twenty_thounsand = fields.Monetary(string="20,000 Shs")
@@ -189,7 +189,7 @@ class BranchBankRequest(models.Model):
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
 
     @api.model
-    def _update_expiration_branch(self):
+    def bank_request_update_expiration_branch(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
         #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
@@ -198,7 +198,7 @@ class BranchBankRequest(models.Model):
 
 
     @api.model
-    def _update_expiration_hod(self):
+    def bank_request_update_expiration_hod(self):
         east_africa = timezone('Africa/Nairobi')
         now_date = datetime.now(east_africa).strftime('%Y-%m-%d %H:%M')
         #expire_date = datetime.strptime(self.expiration_branch,'%Y-%m-%d %H:%M')
@@ -210,5 +210,15 @@ class BranchBankRequest(models.Model):
     def _compute_branch(self):
         for record in self:
             record.branch_id = record.partner_id.branch_id
+
+    @api.model
+    def _update_bank_request_notified_pending_confirmation(self):
+        pending_conf = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated'])])
+        for req in pending_conf:
+            if req.state =='initiated':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_to_manager').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+    
     
    

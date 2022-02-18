@@ -211,6 +211,14 @@ class BranchBankRequest(models.Model):
         for record in self:
             record.branch_id = record.partner_id.branch_id
 
+    @api.one
+    @api.constrains('partner_id')
+    def _check_initiated_request_banking(self):
+        pending_conf = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated'])])
+        for req in pending_conf:
+            if req.partner_id == self.partner_id.id and req.state =='initiated':
+                raise exceptions.ValidationError("Sorry, There is still a request of {actual_amount} already initiated. Go to Cash Managment Request -> Cash Banking - To bank and confirm with a reciept before you proceed with your request for cash ".format(amount=f"{req.actual_amount:,}"))
+    
     @api.model
     def _update_bank_request_notified_pending_confirmation(self):
         pending_conf = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated'])])

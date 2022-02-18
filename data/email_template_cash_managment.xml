@@ -701,6 +701,7 @@
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
             <field name="email_from">${object.confirmed_by.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -711,8 +712,10 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                     <br/>
-                     ${object.initiated_request_id.to_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
-                    
+                     ${object.initiated_request_id.to_by_two.name} go to Cash Managment Request -> CAsh Banking - To Bank  and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                     <br/>
+                     Remember to attach the banking reciepts
+
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.

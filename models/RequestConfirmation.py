@@ -60,14 +60,14 @@ class Re(models.Model):
     reject_comment_one= fields.Text(string="Reject Comment")
     reject_date_one =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by_one = fields.Many2one('res.users','Canceled By')
-    base_url = fields.Char('Base Url', compute='_get_base_url')
    
     @api.multi
     def _get_base_url(self):
         web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         action_id = self.env.ref('cash_managment.confirm_request_list_action', raise_if_not_found=False)
-        return """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,self.id,action_id.id)
+        return """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,str(self).id,action_id.id)
 
+    base_url = fields.Char('Base Url', default=_get_base_url)
     
 
     @api.depends('from_manager')

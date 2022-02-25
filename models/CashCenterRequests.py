@@ -20,7 +20,7 @@ class CashCenterRequest(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount = fields.Monetary(string='Amount', required=True)
     unique_field = fields.Char(compute='comp_name', store=True)
-    trx_proof = fields.Binary('File',attachment=True)
+    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
 
 
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())

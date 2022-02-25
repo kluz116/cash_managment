@@ -4,12 +4,13 @@ from pytz import timezone
 
 class CashBankRequest(models.Model):
     _name = "cash_managment.cash_bank_request"
+    _inherit="mail.thread"
     _description = "This is a model for the cash bank request"
     _rec_name ="amount"
 
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount = fields.Monetary(string='Amount', required=True)
-    trx_prof = fields.Binary('File')
+    trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
     branch_id = fields.Many2one('cash_managment.branch',string ='From')
     from_bank= fields.Many2one('cash_managment.bank',string ='From Bank')
     to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)

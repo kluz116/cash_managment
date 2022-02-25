@@ -7,16 +7,20 @@
             <field name="model_id" ref="model_cash_managment_request"/>
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) pending your validation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 15px;">
                     Hello ${object.partner_id.manager.name},
-                    <br /><br />
-
+                    
+                    <br />
                     Cash Request of ${'{:,.2f}'.format(object.title)} UGX is still pending your validation. Request created on ${object.start_date} by ${object.created_by.name} from Branch ${object.branch_code_to}.
-                    <br/><br/>
+                    <br/>
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}">For cash request validation Click on this button.</a>
+                    </div>
+                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
                 
@@ -554,8 +558,9 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification.
                      <br/>
-                     ${object.initiated_request_id.from_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
-                    
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.from_by_two.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -580,7 +585,9 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                      <br/>
-                     ${object.initiated_request_id.to_by.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.to_by.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -604,8 +611,9 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                     <br/>
-                     ${object.initiated_request_id.to_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Branches and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
-                    
+                      <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.to_by_two.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -637,7 +645,9 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                      <br/>
-                     ${object.initiated_request_id.from_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.from_by_two.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -662,7 +672,10 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                     <br/>
-                     ${object.initiated_request_id.to_by.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                      <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.to_by.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
+                    
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.
@@ -687,7 +700,7 @@
                      <br/>
                      Kindly confirm any cash in the system to stop this escalation notification
                     <br/>
-                     ${object.initiated_request_id.to_by_two.name} go to Cash Transfer Request -> CIT Confirmations - Inter Branch and confirm ${'{:,.2f}'.format(object.actual_amount)} from ${object.initiated_request_id.branch_id.branch_name} to ${object.initiated_request_id.to_branch.branch_name}
+                     ${object.initiated_request_id.to_by_two.name} For confirmation <a href="${object.base_url}"> follow this link</a>
                     <br/><br/>
                     Regards,<br/>
                     Cash Center Team.

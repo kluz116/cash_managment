@@ -12,7 +12,8 @@ class CashCenterConfirmations(models.Model):
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
     partner_id = fields.Many2one('res.partner','Customer', default=lambda self: self.env.user.partner_id)
     #partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
-    trx_proof = fields.Binary('File',attachment=True)
+   
+    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount Transfered', domain = [('state','=','new')],required=True)
@@ -36,7 +37,7 @@ class CashCenterConfirmations(models.Model):
     ten_dollar = fields.Monetary(string="$10")
     five_dollar = fields.Monetary(string="$5")
     one_dollar = fields.Monetary(string="$1")
-    confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
+    confirm_date =  fields.Datetime(string='Confirmed Date', default=lambda self: fields.datetime.now())
     state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Confirmation To'),('confirmed_two', 'Pending Manager Confirmation To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=datetime.today())
@@ -57,16 +58,14 @@ class CashCenterConfirmations(models.Model):
     reject_comment_one= fields.Text(string="Reject Comment")
     reject_date_one =  fields.Datetime(string='Reject Date', default=datetime.today())
     rejected_by_one = fields.Many2one('res.users','Canceled By')
-    base_url = fields.Char('Base Url')
-
-
-
-    @api.one
-    def get_base_url(self):
-        self.ensure_one()
-        web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        action_id = self.env.ref('cash_managment.cash_center_request_confirmation_list_action', raise_if_not_found=False)
-        self.base_url = """{}/web#id={}&view_type=form&model=cash_managment.cash_center_request_confirmation&action={}""".format(web_base_url,self.id,action_id.id)
+    base_url = fields.Char('Base Url', compute='_get_url_id', store='True')
+   
+    @api.depends('confirm_date')
+    def _get_url_id(self):
+        for e in self:
+            web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            action_id = self.env.ref('cash_managment.cash_center_request_confirmation_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.cash_center_request_confirmation&action={}""".format(web_base_url,e.id,action_id.id)
 
     @api.depends('from_manager')
     def _get_current_user(self):

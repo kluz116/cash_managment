@@ -3,6 +3,7 @@ from datetime import datetime
 
 class Re(models.Model):
     _name = "cash_managment.request_confirmation"
+    _inherit="mail.thread"
     _description = "This is a model for all requests confirmations"
     _rec_name ="initiated_request_id"
 
@@ -11,12 +12,12 @@ class Re(models.Model):
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
     #partner_id = fields.Many2one('res.partner','Customer', default=lambda self: self.env.user.partner_id)
     #partner_id = fields.Many2one('res.users', string='Accountant', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
-    total = fields.Float(compute='_compute_total',string="Total",store=True)
-    total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
+    total = fields.Float(compute='_compute_total',string="Total",store=True,track_visibility='always')
+    total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True,track_visibility='always')
     #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)
-    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True)
+    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True,track_visibility='always')
     #initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
-    trx_proof = fields.Binary('File')
+    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
     currency_id = fields.Many2one('res.currency', string='Currency',required=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
@@ -40,7 +41,7 @@ class Re(models.Model):
     one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=lambda self: fields.datetime.now())
 
-    state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Confirmation To '),('confirmed_two', 'Pending Manager Confirmation To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status")
+    state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Confirmation To '),('confirmed_two', 'Pending Manager Confirmation To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status",track_visibility='always')
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     to_manager_comment = fields.Text(string="Comment")
@@ -60,14 +61,16 @@ class Re(models.Model):
     reject_comment_one= fields.Text(string="Reject Comment")
     reject_date_one =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by_one = fields.Many2one('res.users','Canceled By')
+    base_url = fields.Char('Base Url', compute='_get_url_id', store='True')
    
-    @api.multi
-    def _get_base_url(self):
-        web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        action_id = self.env.ref('cash_managment.confirm_request_list_action', raise_if_not_found=False)
-        return """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,str(self).id,action_id.id)
+    @api.depends('confirm_date')
+    def _get_url_id(self):
+        for e in self:
+            web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            action_id = self.env.ref('cash_managment.confirm_request_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,e.id,action_id.id)
 
-    base_url = fields.Char('Base Url', default=_get_base_url)
+    
     
 
     @api.depends('from_manager')

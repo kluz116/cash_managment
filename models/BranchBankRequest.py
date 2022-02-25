@@ -5,6 +5,7 @@ from pytz import timezone
 
 class BranchBankRequest(models.Model):
     _name = "cash_managment.cash_branch_bank_request"
+    _inherit="mail.thread"
     _description = "This is a model for Branch to bank request of cash"
     _rec_name ="actual_amount"
 
@@ -14,7 +15,7 @@ class BranchBankRequest(models.Model):
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     actual_amount = fields.Monetary(string="Actual Amount Transfered",required=True)
     to_bank= fields.Many2one('cash_managment.bank',string ='To Bank')
-    trx_proof = fields.Binary('BOU And CIT Receipt',attachment=True)
+    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
 
     deno_fifty_thounsand = fields.Monetary(string="50,000 Shs")
     deno_twenty_thounsand = fields.Monetary(string="20,000 Shs")
@@ -78,6 +79,16 @@ class BranchBankRequest(models.Model):
 
     from_comment = fields.Text(string="Comment")
     from_date =  fields.Datetime(string='Date')
+
+    base_url = fields.Char('Base Url', compute='_get_url_id', store='True')
+   
+    @api.depends('initiate_date')
+    def _get_url_id(self):
+        for e in self:
+            web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            action_id = self.env.ref('cash_managment.request_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request&action={}""".format(web_base_url,e.id,action_id.id)
+
 
     
        

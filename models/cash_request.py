@@ -5,23 +5,24 @@ from pytz import timezone
 
 class CashManagment(models.Model):
     _name = "cash_managment.request"
-    _description ="Cash Requests Model"
+    _inherit="mail.thread"
+    _description ="Cash Request"
     _order = "start_date desc"
     _rec_name ='title' 
 
   
    
     currency_id = fields.Many2one('res.currency', string='Currency',required=True)
-    title = fields.Monetary(string='Amount', required=True)
+    title = fields.Monetary(string='Amount', required=True,track_visibility='always')
     description  = fields.Text(string="Description", required=True, size=50)
-    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Rejected'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired Branch'),('expired_hod','Expired HOD')],string="Status", required=True, default="new")
+    state =  fields.Selection([('new','New'),('validate','Validated'),('cancel','Canceled'),('reject','Rejected'),('approve','Approved'),('closed','Closed'),('initiated','Initiated'),('expired_branch','Expired Branch'),('expired_hod','Expired HOD')],string="Status", required=True, default="new",track_visibility='always')
     start_date = fields.Datetime(string='Start Date', default=lambda self: fields.datetime.now())
     trx_proof = fields.Binary('File',attachment=True)
     end_date = fields.Datetime(string='Start Date')
     close_date = fields.Datetime(string='Close Date')
     validate_comment = fields.Text(string="Comment")
     validate_date =  fields.Datetime(string='Validate Date')
-    validated_by = fields.Many2one('res.users',String='Validated By')
+    validated_by = fields.Many2one('res.users',String='Validated By',track_visibility='always')
     approval_comment = fields.Text(string="Comment")
     approval_date =  fields.Datetime(string='Approval Date')
     cancel_comment = fields.Text(string="Comment")
@@ -29,9 +30,9 @@ class CashManagment(models.Model):
     canceled_by = fields.Many2one('res.users',string ='Canceled By')
     supervision_comment = fields.Text(string="Comment")
     supervision_date =  fields.Datetime(string='Cancel Date')
-    supervised_by = fields.Many2one('res.users',string ='Supervised By')
-    approved_by = fields.Many2one('res.users',string="Approved By")
-    created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
+    supervised_by = fields.Many2one('res.users',string ='Supervised By',track_visibility='always')
+    approved_by = fields.Many2one('res.users',string="Approved By",track_visibility='always')
+    created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user,track_visibility='always')
     reject_comment = fields.Text(string="Reject Comment")
     reject_date =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
     rejected_by = fields.Many2one('res.users','Canceled By')
@@ -56,6 +57,15 @@ class CashManagment(models.Model):
     expiration_hod =  fields.Char(string='Expiration HOD', compute='comp_time_hod', store=True)
     hod_expire_status =  fields.Selection([('yes','Yes'),('no','No')],string="Expire Status", required=True, default="yes")
     amount_available = fields.Monetary(string='Amount Available')
+    base_url = fields.Char('Base Url', compute='_get_url_id', store='True')
+   
+    @api.depends('start_date')
+    def _get_url_id(self):
+        for e in self:
+            web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            action_id = self.env.ref('cash_managment.request_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request&action={}""".format(web_base_url,e.id,action_id.id)
+
     
 
     @api.depends('user_id')

@@ -518,6 +518,17 @@
                                        <field name ="one_dollar"/>
                                     </group> 
                                 </page>
+                                <page string="To Branch">
+                                    <group>
+                                   <field name = "to_branch" style="color: #e60911; font-weight: bold;"/>
+                                   </group>
+                                     <group>
+                                       <field name ="to_manager_accountant"/>
+                                    </group>
+                                     <group>
+                                       <field name ="to_manager_name"/>
+                                    </group>   
+                                </page>
                           </notebook>  
                             <group>
                              <field name ="total" readonly="1" style="color: #e60911; font-weight: bold;"/>

@@ -13,7 +13,7 @@ class CashCenterConfirmations(models.Model):
     partner_id = fields.Many2one('res.partner','Customer', default=lambda self: self.env.user.partner_id)
     #partner_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.partner_id.id)
    
-    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
+    trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
     total = fields.Float(compute='_compute_total',string="Total",store=True)
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True)
     initiated_request_id = fields.Many2one('cash_managment.cash_center_request',string='Expected Amount Transfered', domain = [('state','=','new')],required=True)

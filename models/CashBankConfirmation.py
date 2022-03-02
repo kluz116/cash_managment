@@ -43,6 +43,8 @@ class CashBankConfirmation(models.Model):
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     to_branch_accountant =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
     to_branch_manager =  fields.Integer(related ='initiated_request_id.to_by_two.id', string='To',store=True)
+    to_manager_name =  fields.Char(related ='initiated_request_id.to_by_two.name', string='Manager')
+    to_manager_accountant =  fields.Char(related ='initiated_request_id.to_by.name', string='Accountant')
 
     current_to_branch_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')

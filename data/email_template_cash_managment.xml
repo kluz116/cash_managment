@@ -346,8 +346,11 @@
                      was Approved and Initiated By ${object.initiated_by.name} on ${object.initiate_date}. 
 
                     <br /><br/>
+                    <div class="col text-center">
+                         <a class="btn btn-success" role="button" href=""> ${object.from_by.name} go to Cash Transfer Request -> CIT Confirmations - Branches and create a confirmation of ${'{:,.2f}'.format(object.amount_available)} from ${object.branch_id.branch_name} to ${object.to_branch.branch_name}</a>
+                    </div>
 
-                    ${object.from_by.name} go to Cash Transfer Request -> CIT Confirmations - Branches and create a confirmation of ${'{:,.2f}'.format(object.amount_available)} from ${object.branch_id.branch_name} to ${object.to_branch.branch_name}
+                   
                     <br /><br />
                     Regards,<br/>
                     Cash Team
@@ -621,13 +624,6 @@
             </div>
             </field>     
         </record>
-
-
-
-
-
-
-
 
         <record id="email_template_pending_confirmation_from_manager1" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation From Manager</field>

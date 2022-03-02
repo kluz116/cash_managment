@@ -32,6 +32,7 @@ class ApprovedCashRequest(models.TransientModel):
     amount_available = fields.Monetary(string='Amount Available', required=True)
     from_branch_request = fields.Integer(compute='_compute_branch_from', string='To')
     ref_request = fields.Char(related ='title.unique_field', string='Ref',store=True)
+    
    
    
     

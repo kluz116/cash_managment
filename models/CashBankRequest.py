@@ -10,7 +10,7 @@ class CashBankRequest(models.Model):
 
     currency_id = fields.Many2one('res.currency', string='Currency')
     amount = fields.Monetary(string='Amount', required=True)
-    trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
+    trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
     branch_id = fields.Many2one('cash_managment.branch',string ='From')
     from_bank= fields.Many2one('cash_managment.bank',string ='From Bank')
     to_branch = fields.Many2one('cash_managment.branch',string ='To', required=True)

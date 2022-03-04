@@ -7,7 +7,7 @@
             <field name="model_id" ref="model_cash_managment_request"/>
             <field name="email_from">${object.user_id.email}</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) pending your validation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -334,7 +334,7 @@
             <field name="model_id" ref="model_cash_managment_requestapproved"/>
             <field name="email_from">${object.initiated_by.email}</field>
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field> 
-            <field name="email_cc">allan.musembya@financetrust.co.ug,cashmanagement@financetrust.co.ug</field>
+            <field name="email_cc">cashmanagement@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${object.title.unique_field}) has been Initiated.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -710,7 +710,7 @@
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
             <field name="email_from">${object.confirmed_by.email}</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,allan.musembya@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">

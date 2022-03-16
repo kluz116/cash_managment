@@ -240,6 +240,75 @@
                 </form>
             </field>
         </record>
+
+
+
+
+
+        <record id="bank_cash_view_form_request" model="ir.ui.view">
+            <field name="name">cash_managment.cash_bank_request.form</field>
+            <field name="model">cash_managment.cash_bank_request_hod</field>
+            <field name="arch" type="xml">
+                <form string="Create New Request" create="false" edit="false" export_xlsx="false">
+                   <sheet>
+                        <group>
+                           <field name = "state" readonly="1" style='color: #e60911; font-weight: bold;'/>
+                        </group>
+                     
+                        <group>
+                             <field name = "amount"/>
+                        </group>
+                        <group>
+                          <field name="currency_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                        </group>
+                        <group>
+                        
+                        <field name ="trx_prof"/>
+                        </group>
+                        <group>
+                        
+                        <field name ="courier"/>
+                        </group>
+                        <group>
+                        
+                        <field name ="cash_date"/>
+                        </group>   
+                         <group>
+                            <field name ="initiate_date" invisible="1"/> 
+                        </group>
+                        <group>
+                             <field name = "initiated_by" invisible="1"/> 
+                        </group>
+                        
+                        <notebook>
+                          
+                  
+                            <page string="From Branch">  
+                                <group>
+                                    <field name ="from_branch" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                                </group> 
+                                <group>
+                                  <field name ="to_by"/>
+                                </group> 
+                                <group>
+                                    <field name ="to_by_two"/>  
+                                </group> 
+                                     
+                            </page>
+                            <page string="To Bank">
+                              <group>
+                                <field name ="to_bank" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}"/>
+                              </group> 
+                            </page>
+                        </notebook>  
+                                                                            
+                    </sheet>  
+                </form>
+            </field>
+        </record>
+  
+
+
   
 
 
@@ -480,8 +549,25 @@
                 </search>
             </field>
         </record>
-
-
+        <record model="ir.ui.view" id="cash_bank_request_hod_search_view">
+            <field name="name">cash_managment.cash_bank_request_hod.search</field>
+            <field name="model">cash_managment.cash_bank_request_hod</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                        <field name = "state"/>
+                         <field name = "amount"/>
+                         <field name ="to_bank"/>
+                         <field name ="to_by"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date" /> 
+                        <field name = "initiated_by" /> 
+                       
+                    <separator/>
+                     <filter name="initiate_dates" string="Today" domain="[('initiate_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                </search>
+            </field>
+        </record>
+        
         <record model="ir.ui.view" id="cash_ongoing_request_search_view">
             <field name="name">cash_managment.cash_ongoing_request.search</field>
             <field name="model">cash_managment.requestapproved</field>
@@ -542,11 +628,21 @@
                 <p class="o_view_nocontent_smiling_face">Create new Cash Request</p>
             </field>
         </record>
-
+        
 
         <record model="ir.actions.act_window" id="cash_bank_request_list_action">
             <field name="name">CIT Bank To Branch Requests</field>
             <field name="res_model">cash_managment.cash_bank_request</field>
+            <field name="view_mode">tree,form</field>
+            <field name ="context">{"search_default_initiate_dates":1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create new Cash Bank Request</p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cash_bank_request_list_action_hod">
+            <field name="name">CIT Bank To Branch HOD Requests</field>
+            <field name="res_model">cash_managment.cash_bank_request_hod</field>
             <field name="view_mode">tree,form</field>
             <field name ="context">{"search_default_initiate_dates":1}</field>
             <field name="help" type="html">
@@ -582,7 +678,8 @@
         <menuitem id="config_cash_req" name="Cash Request" parent="config_cash_request"   sequence="2" action="request_list_action"/>
         <menuitem id="cash_center_requests" name="Cash Request-Inter Branch" parent="config_cash_request"   sequence="3" action="cash_center_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant"/>
         <menuitem id="bank_center_requests" name="Cash Banking-To Branch" parent="config_cash_request"   sequence="4" action="cash_bank_request_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
-        <menuitem id="branch_bank_requests" name="Cash Banking-To Bank" parent="config_cash_request"   sequence="5" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
-        <menuitem id="config_cash_req_ongoing" name="Initiated Cash Request" parent="config_cash_request"   sequence="6" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="bank_center_requests_hod" name="Cash Banking-HOD" parent="config_cash_request"   sequence="5" action="cash_bank_request_list_action_hod" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="branch_bank_requests" name="Cash Banking-To Bank" parent="config_cash_request"   sequence="6" action="branch_bank_request_confirmation_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Branch_Manager,cash_managment.Branch_Accountant,cash_managment.Cash_Managment_IT_Support"/>
+        <menuitem id="config_cash_req_ongoing" name="Initiated Cash Request" parent="config_cash_request"   sequence="7" action="request_ongoing_list_action" groups="cash_managment.Cash_Managment_Support,cash_managment.Cash_Managment_IT_Support"/>
                
 </odoo>

@@ -27,3 +27,4 @@ from . import CashCenterNotify
 from . import CashCenterFromComfirmationsNotify
 from . import coverage_wiindow_hod
 from . import CashMovementReport
+from . import CashBankRequestHod

@@ -12,14 +12,12 @@ class HODRequestConfirmation(models.Model):
     from_bys = fields.Integer(compute='_compute_branch_from_bys',string='From',store=True)
     total = fields.Float(compute='_compute_total',string="Total",store=True,track_visibility='always')
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True,track_visibility='always')
-    #from_m =  fields.Integer(related ='initiated_request_id.from_by.id', string='To',store=True)
-    initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered',required=True,track_visibility='always')
-    #initiated_request_id = fields.Many2one('cash_managment.requestapproved',string='Expected Amount Transfered', domain = [('state','=','pending')],required=True)
+    initiated_request_id = fields.Many2one('cash_managment.cash_bank_request_hod',string='Expected Amount Transfered',required=True,track_visibility='always')
     trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
-    currency_id = fields.Many2one('res.currency', string='Currency',required=True)
-    actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',required=True,default=43)
+    
     from_branch = fields.Integer(related ='initiated_request_id.branch_id.branch_code', string='From', store=True)
-    to_branch = fields.Integer(related ='initiated_request_id.to_branch.branch_code', string='To',store=True)
+    #to_bank = fields.Char(related ='initiated_request_id.to_bank.bank_name', string='To',store=True)
     deno_fifty_thounsand = fields.Monetary(string="50,000 Shs")
     deno_twenty_thounsand = fields.Monetary(string="20,000 Shs")
     deno_ten_thounsand = fields.Monetary(string="10,000 Shs")
@@ -42,17 +40,12 @@ class HODRequestConfirmation(models.Model):
     state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Confirmation To '),('confirmed_two', 'Pending Manager Confirmation To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status",track_visibility='always')
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
-    #to_manager_comment = fields.Text(string="Comment")
-    #to_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
-    from_manager =  fields.Integer(related ='initiated_request_id.from_by_two.id', string='From Manager',store=True)
-    from_manager_name =  fields.Char(related ='initiated_request_id.from_by_two.name', string='From Manager')
     to_branch_accountant =  fields.Integer(related ='initiated_request_id.to_by.id', string='To',store=True)
     to_branch_manager =  fields.Integer(related ='initiated_request_id.to_by_two.id', string='To',store=True)
     to_branch_accountant_name =  fields.Char(related ='initiated_request_id.to_by.name', string='Accountant')
     to_branch_manager_name =  fields.Char(related ='initiated_request_id.to_by_two.name', string='Manger')
-    current_user = fields.Boolean('is current user ?', compute='_get_current_user')
     current_to_branch_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
 
@@ -67,15 +60,6 @@ class HODRequestConfirmation(models.Model):
             web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
             action_id = self.env.ref('cash_managment.confirm_request_list_action', raise_if_not_found=False)
             e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,e.id,action_id.id)
-
-    
-    
-
-    @api.depends('from_manager')
-    def _get_current_user(self):
-        for e in self:
-            partner = self.env['res.users'].browse(self.env.uid).partner_id
-            e.current_user = (True if partner.id == self.from_manager else False)
 
     @api.depends('to_branch_accountant')
     def _get_to_branch_accountant(self):

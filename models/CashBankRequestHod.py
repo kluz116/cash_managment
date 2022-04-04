@@ -8,7 +8,7 @@ class CashBankRequestHod(models.Model):
     _description = "This is a model for the cash bank request"
     _rec_name ="amount"
 
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency', default=43)
     amount = fields.Monetary(string='Amount', required=True)
     trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
     branch_id = fields.Many2one('cash_managment.branch',string ='From')

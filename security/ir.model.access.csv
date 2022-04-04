@@ -66,3 +66,14 @@ access_cash_managment_cash_bank33,cash_managment,model_cash_managment_cash_bank_
 
 
 
+access_cash_managment_cash_bank111,cash_managment,model_cash_managment_request_confirmation_bank_hod,Cash_Managment_Support,1,1,0,0
+access_cash_managment_cash_bank122,cash_managment,model_cash_managment_request_confirmation_bank_hod,Branch_Manager,1,1,0,0
+access_cash_managment_cash_bank133,cash_managment,model_cash_managment_request_confirmation_bank_hod,Branch_Accountant,1,1,1,0
+
+
+
+
+
+
+
+

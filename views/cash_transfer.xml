@@ -311,26 +311,28 @@
                 <form string="Create Banking Confirmation Request" create="false" edit="false">
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_reject_form_confirmation_view)d" states='ongoing' type="action" string="Reject Confirmation" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
-                        <button name="%(cash_managment.wizard_cash_confirm_form_view)d" states='confirmed_one' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_accountant', '=', False)]}" />
-
+                        <button name="%(cash_managment.wizard_cash_managment_from_manager_form_wizard_hod)d" states='ongoing' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(cash_managment.wizard_cash_reject_form_confirmation_view_hod)d" states='ongoing' type="action" string="Reject Confirmation" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                    
                         <button name="%(wizard_change_approvers_wizard_form_view)d" type="action" states='ongoing,confirmed_one,confirmed_two'  string="Change Branch Request Approvers" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
                         
                     
                         <field name ="current_to_branch_accountant" invisible ='1'/>
                         <field name ="current_to_branch_manager" invisible ='1'/>
-                        <field name="state" widget="statusbar" statusbar_visible="ongoing,confirmed_one,reject_one,confirmed_two,confirmed_three" />
+                        <field name="state" widget="statusbar" statusbar_visible="ongoing,reject_one,confirmed_three" />
                     </header>
                 </xpath>
                    <sheet>
                         <group>
                             <field name = "from_bys" invisible='1'/>
                             <field name = "partner_ids" invisible='1' />
+                            
+                            
                         </group>
                         
                         <group>
-                             <field name = "initiated_request_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}" domain = "[('state','=','new'),('from_branch','=',from_bys)] "/>
+                             <field name = "initiated_request_id" options="{'no_quick_create':True,'no_quick_edit':True,'no_open':True}" domain = "[('state','=','new'),('to_by_branch','=',from_bys)] "/>
+                             <field name ="actual_amount"/>
                         </group>
                       
                          <group>

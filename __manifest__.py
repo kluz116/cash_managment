@@ -60,6 +60,8 @@
         'wizard/change_approvers.xml',
         'wizard/disregard_request.xml',
         'wizard/change_approvers_cash_center.xml',
+        'wizard/reject_from_manager_hod.xml',
+        'wizard/from_manager_hod.xml',
         'views/branch.xml',
         'views/cash_request.xml',
         'views/cash_users.xml',

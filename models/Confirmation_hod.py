@@ -13,6 +13,7 @@ class HODRequestConfirmation(models.Model):
     total = fields.Float(compute='_compute_total',string="Total",store=True,track_visibility='always')
     total_usd = fields.Float(compute='_compute_total_dollars',string="Total USD",store=True,track_visibility='always')
     initiated_request_id = fields.Many2one('cash_managment.cash_bank_request_hod',string='Expected Amount Transfered',required=True,track_visibility='always')
+    actual_amount = fields.Monetary(string="Actual Amount Transfered", required=True)
     trx_proof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
     currency_id = fields.Many2one('res.currency', string='Currency',required=True,default=43)
     
@@ -37,7 +38,7 @@ class HODRequestConfirmation(models.Model):
     one_dollar = fields.Monetary(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=lambda self: fields.datetime.now())
 
-    state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_one', 'Pending Accountant Confirmation To '),('confirmed_two', 'Pending Manager Confirmation To'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status",track_visibility='always')
+    state = fields.Selection([('ongoing', 'Pending Manager Confirmation From'),('reject_one','Rejected'),('confirmed_three', 'Confirmed')],default="ongoing", string="Status",track_visibility='always')
     from_manager_comment = fields.Text(string="Comment")
     from_manager_date =  fields.Datetime(string='Date', default=lambda self: fields.datetime.now())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)
@@ -58,8 +59,8 @@ class HODRequestConfirmation(models.Model):
     def _get_url_id(self):
         for e in self:
             web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-            action_id = self.env.ref('cash_managment.confirm_request_list_action', raise_if_not_found=False)
-            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation&action={}""".format(web_base_url,e.id,action_id.id)
+            action_id = self.env.ref('cash_managment.request_confirmation_bank_hod_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request_confirmation_bank_hod&action={}""".format(web_base_url,e.id,action_id.id)
 
     @api.depends('to_branch_accountant')
     def _get_to_branch_accountant(self):

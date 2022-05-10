@@ -734,5 +734,88 @@
         </record>
 
 
+
+        <record id="email_template_branch_bank_request_hod" model="mail.template">
+            <field name="name">Cash Management Branch Bank CIT: HOD Initiated</field>
+            <field name="model_id" ref="model_cash_managment_cash_bank_request_hod"/>
+            <field name="email_from">${object.initiated_by.email}</field>
+            <field name="email_to">${object.to_by.email},${object.to_by_two.email}</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="subject">Baning Request of (Ref ${'{:,.2f}'.format(object.amount)}).</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.to_by.name} and ${object.to_by_two.name},
+                    <br /><br />
+                    
+                    You are requested to bank ${'{:,.2f}'.format(object.amount)} UGX to be transfered to ${object.to_bank.bank_name} has been initiated by ${object.initiated_by.name}. Request created on ${object.initiate_date} by ${object.initiated_by.name}.
+                    <br/>
+                    ${object.to_by.name}  Go to CIT Confirmation - Cash Banking By Head Office and a create a confirmation
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                
+                </p>
+            </div>
+            </field>
+        </record>
+
+        <record id="email_template_from_accountant_confirm_hod" model="mail.template">
+            <field name="name">Cash Management: From Account Confirmation Request Hod</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation_bank_hod"/>
+            <field name="email_from">${object.confirmed_by.email}</field>
+            <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
+            <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.initiated_request_id.to_by_two.name}, 
+                    <br /><br />
+                     Confirm Cash Request of ${'{:,.2f}'.format(object.actual_amount)} UGX from ${object.confirmed_by.name} before it gets transfered to bank.
+                    
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> ${object.initiated_request_id.to_by_two.name} For confirmation For cash request validation Click on this button.</a>
+                    </div>
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
+           <!--<field name="report_template" ref="account_invoices"/>
+            <field name="report_name"></field>-->
+           
+        </record>
+        
+
+        <record id="email_template_from_accountant_confirm_hod_final" model="mail.template">
+            <field name="name">Cash Management: From Account Confirmation Request Hod</field>
+            <field name="model_id" ref="model_cash_managment_request_confirmation_bank_hod"/>
+            <field name="email_from">${object.initiated_request_id.to_by_two.email}</field> 
+            <field name="email_to">${object.confirmed_by.email}</field>
+            <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                   Hello ${object.confirmed_by.name}, 
+                    <br /><br />
+                     CAsh Request to  ${object.initiated_request_id.to_bank.bank_name} has been confirmed and closed off.
+                    
+                    <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}">  For confirmation For cash request validation Click on this button.</a>
+                    </div>
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>
+           <!--<field name="report_template" ref="account_invoices"/>
+            <field name="report_name"></field>-->
+           
+        </record>
+
+
+
     </data>
 </odoo>

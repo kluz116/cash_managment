@@ -16,6 +16,7 @@ class CashBankRequestHod(models.Model):
     from_branch = fields.Many2one('cash_managment.branch',string ='From Branch', required=True)
     to_by = fields.Many2one('res.partner','Accountant',domain="[('branch_id', '=', from_branch),('role','=','accountant')]" ,required=True)
     to_by_two = fields.Many2one('res.partner','Manager',domain="[('branch_id', '=', from_branch),('role','=','manager')]",required=True)
+    to_by_branch = fields.Integer(compute='_compute_from_by',string='To',store=True)
     courier = fields.Many2one('cash_managment.courier',ondelete='cascade',string='Courier')
     initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
@@ -24,7 +25,7 @@ class CashBankRequestHod(models.Model):
     to_hour =  fields.Char(string='To Hour', compute='comp_to_hour', store=True)
 
     initiated_by = fields.Many2one('res.users','Initated By',default=lambda self: self.env.user)
-    state = fields.Selection([('new', 'New'),('ongoing', 'Ongoing'),('closed', 'Closed')],default="new", string="Status")
+    state = fields.Selection([('new', 'New'),('ongoing', 'Ongoing'),('rejected','Rejected'),('closed', 'Closed')],default="new", string="Status")
     unique_field = fields.Char(compute='comp_name', store=True)
     initiate_time = fields.Char(compute='comp_time', store=True)
     cash_date =  fields.Datetime(string='Effective Date', default=lambda self: fields.datetime.now())
@@ -34,6 +35,13 @@ class CashBankRequestHod(models.Model):
     def on_change_toid(self):
         for record in self:
             self.to_by == record.to_by    
+    
+    
+    @api.depends('to_by')
+    def _compute_from_by(self):
+        for record in self:
+            record.to_by_branch = record.to_by.id
+
 
     @api.depends('from_branch','initiate_date')
     def comp_name(self):
@@ -89,6 +97,9 @@ class CashBankRequestHod(models.Model):
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}.".format(compare_date=compare_date))
         elif compare_date > end_date:
             raise exceptions.ValidationError("Sorry, You can not submit in request at this time {compare_date}. ".format(compare_date=compare_date))
+
+    
+    
    
 
     

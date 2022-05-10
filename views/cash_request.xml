@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+       <record model="ir.ui.view" id="cash_bank_request_hod_tree_view">
+            <field name="name">cash_managment.cash_bank_request_hod.search</field>
+            <field name="model">cash_managment.cash_bank_request_hod</field>
+            <field name="arch" type="xml">
+                <tree string="Requests">
+                       <field name="unique_field" string="Ref"/>
+                        <field name = "state"/>
+                         <field name = "amount"/>
+                         <field name ="to_bank"/>
+                         <field name ="to_by"/>
+                        <field name ="courier"/>
+                        <field name ="initiate_date" /> 
+                        <field name = "initiated_by" /> 
+                       
+                </tree>
+            </field>
+        </record>
+        
         <record id="view_cash_request_tree" model="ir.ui.view">
             <field name="name">cash_managment.request.tree</field>
             <field name="model">cash_managment.request</field>

@@ -203,8 +203,15 @@ class CashManagment(models.Model):
             if req.partner_id == self.partner_id.id and req.state =='initiated':
                 raise exceptions.ValidationError("Sorry, There is still a request of {amount} already initiated. Go to Cash Transfer Request -> CIT Confirmations Branch and create a confirmation before you proceed with your request for cash ".format(amount=f"{req.title:,}"))
     
+    @api.one
+    @api.constrains('partner_id')
+    def _check_initiated_request_pending(self):
+        pending_conf = self.env['cash_managment.requestapproved'].search([('state', 'in', ['pending'])])
+        for req in pending_conf:
+            if req.from_by.id == self.partner_id.id and req.state =='pending':
+                raise exceptions.ValidationError(f"Hello {req.from_by.name}, You still have a pending cash transfer of {req.amount_available:,} to {req.to_branch.branch_name}. Transfer was initiated by {req.initiated_by.name} on this date {req.initiate_date} using {req.courier.courier_name}  courier services. Go to Cash Transfer Request -> CIT Confirmations Branch and create a confirmation before you proceed with your request for cash ")
 
-            
+
         
 
 

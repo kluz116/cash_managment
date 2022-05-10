@@ -29,3 +29,5 @@ from . import coverage_wiindow_hod
 from . import CashMovementReport
 from . import CashBankRequestHod
 from . import Confirmation_hod
+from . import CashBankRequestHodNotify
+from . import Confirmation_hod_Notify

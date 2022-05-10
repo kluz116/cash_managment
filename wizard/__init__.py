@@ -24,3 +24,5 @@ from . import disregard_request
 from . import cash_banking__confirm
 from . import change_approvers
 from . import change_approvers_cash_center
+from . import from_manager_hod
+from . import reject_from_manager_hod

@@ -86,7 +86,7 @@
             </field>
         </record>
 
-        <record id="request_confirmation_to_tree" model="ir.ui.view">
+         <record id="request_confirmation_to_tree" model="ir.ui.view">
             <field name="name">cash_managment.request_confirmation.tree</field>
             <field name="model">cash_managment.confirm_cash_to</field>
              <field name="arch" type="xml">
@@ -99,16 +99,16 @@
                     <field name="deno_five_thounsand"/>
                     <field name="deno_two_thounsand"/>
                     <field name="deno_one_thounsand"/>
-                     <field name="coin_one_thounsand"/>
+                    <field name="coin_one_thounsand"/>
                     <field name="coin_five_houndred"/>
-                    <field name="coin_two_hundred"/>
-                    <field name="coin_one_hundred"/>
-                    <field name="coin_fifty"/>
+                    <field name="to_branch"/>
                     <field name="confirm_date"/>
+                    <field name="confirmed_by"/>
                     
                 </tree>
             </field>
         </record>
+
 
 
         <record model="ir.ui.view" id=" cash_managment_requestmapping_search_view">
@@ -168,10 +168,9 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="state" />
-    
                      <field name ="confirm_date"/>
                     <separator/>
-                     <filter name="confirm_datess" string="Today" domain="[('confirm_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00'))]" />
+                    <filter name="confirm_datess" string="Group By Day" icon="terp-partner" context="{'group_by':'confirm_date:day'}"/>
                 </search>
             </field>
         </record>
@@ -189,12 +188,12 @@
         </record>
 
         <record model="ir.actions.act_window" id="to_confirm_request_list_action">
-            <field name="name">Cash Transfer Confirmations</field>
+            <field name="name">Recieving Branch Cash Confirmations</field>
             <field name="res_model">cash_managment.confirm_cash_to</field>
             <field name="view_mode">tree,form</field>
              <field name ="context">{"search_default_confirm_datess":1}</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Cash Transfer Confirmations</p>
+                <p class="o_view_nocontent_smiling_face">Recieving Branch Cash Confirmations</p>
             </field>
         </record>
         
@@ -219,10 +218,11 @@
         </record>
 
         <!-- top level menu: no parent -->
+         <!-- top level menu: no parent -->
         <menuitem id="main_service_menu" name="Online Cash Management"/>
         <menuitem id="confirm_cash_report" name="Cash Managment Reports" parent="main_service_menu"/>
         <menuitem id="cash_managment_requestmapping" name="Cash Confirmation Branch Summary Report" parent="confirm_cash_report" action="cash_managment_requestmapping_list_action"/>
         <menuitem id="cash_managment_movement" name="Cash Transfer Report" parent="confirm_cash_report" action="cash_movement_list_action"/>
         <menuitem id="cash_managment_movement_rpt" name="Cash Transfer Report With Amount" parent="confirm_cash_report" action="cash_movement_report_list_action"/>
-        <menuitem id="confirm_cash_to_req" name="Cash Transfer Confirmations Report" parent="confirm_cash_report" action="to_confirm_request_list_action"/>           
+        <menuitem id="confirm_cash_to_req" name="Recieving Branch Cash Confirmations" parent="confirm_cash_report" action="to_confirm_request_list_action"/>       
 </odoo>

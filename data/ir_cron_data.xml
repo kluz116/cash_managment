@@ -79,5 +79,17 @@
         <field name="doall" eval="True"/>
     </record>
 
+    <record id="pending_confirmation_branch_bank_cron" model="ir.cron">
+        <field name="name">Pending Confirmation Notificatrion Branch Bank </field>
+        <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+        <field name="state">code</field>
+        <field name="code">model._update_branch_bank_request_notified_pending_confirmation()</field>
+        <field name="interval_number">120</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+
     
 </odoo>

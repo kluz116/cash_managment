@@ -5,9 +5,10 @@
         <record id="email_template_create_request" model="mail.template">
             <field name="name">Cash Management: Pending Validation</field>
             <field name="model_id" ref="model_cash_managment_request"/>
-            <field name="email_from">${object.user_id.email}</field>
+            <!--<field name="email_from">${object.user_id.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) pending your validation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -35,7 +36,8 @@
         <record id="email_template_from_cash_center_confirm_request" model="mail.template">
             <field name="name">Cash Management: From Account Confirmation Cash Center Request</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
@@ -60,7 +62,8 @@
         <record id="email_template_from_manager_confirm_cash_center" model="mail.template">
             <field name="name">Cash Management: From Manager Confirmation Cash Center Request</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.from_by_two.email}</field> 
+            <!--<field name="email_from">${object.initiated_request_id.from_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
             <field name="email_cc">${object.initiated_request_id.to_by_two.email}</field>
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) from ${object.initiated_request_id.from_by_two.name}</field>
@@ -88,7 +91,8 @@
         <record id="email_template_from_Accountant_confirm_cash_center" model="mail.template">
             <field name="name">Cash Management: From Accountant Confirmation Cash Center Request</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.to_by.email}</field> 
+            <!--<field name="email_from">${object.initiated_request_id.to_by.email}</field> -->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) from ${object.initiated_request_id.from_by_two.name}</field>
             <field name="body_html" type="html">
@@ -115,9 +119,10 @@
         <record id="email_template_to_manager_confirm_cash_center" model="mail.template">
             <field name="name">Cash Management: To Manager Confirmation Cash Center Request</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.to_by_two.email}</field> 
+            <!--<field name="email_from">${object.initiated_request_id.to_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email},${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) from ${object.initiated_request_id.from_by_two.name} has been closed</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -142,9 +147,10 @@
         <record id="email_template_cash_center_request" model="mail.template">
             <field name="name">Cash Management: Cash Center Transfer Notification</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request"/>
-            <field name="email_from">${object.initiated_by.email}</field>
+            <!--<field name="email_from">${object.initiated_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug </field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.amount)}) UGX Transfer.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -165,9 +171,10 @@
         <record id="email_template_branch_bank_request" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: Pending Confirmation</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
-            <field name="email_from">${object.user_id.email}</field>
+            <!--<field name="email_from">${object.user_id.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) pending your confirmation.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -189,8 +196,9 @@
         <record id="email_template_branch_bank_request_supervise" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: Pending Supervision</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
-            <field name="email_from">${object.partner_id.manager.email}</field>
-            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_from">${object.partner_id.manager.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) pending your supervision.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -211,9 +219,10 @@
         <record id="email_template_branch_bank_request_final" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: Initiated</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
-            <field name="email_from">${object.supervised_by.email}</field>
+            <!--<field name="email_from">${object.supervised_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.user_id.email},${object.partner_id.manager.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) has been supervised.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -236,9 +245,10 @@
         <record id="email_template_cancel_request" model="mail.template">
             <field name="name">Cash Management: Cancel Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>
-            <field name="email_from">${object.partner_id.manager.email}</field>
+            <!--<field name="email_from">${object.partner_id.manager.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.user_id.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) canceled.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -265,8 +275,9 @@
         <record id="email_template_validate_request" model="mail.template">
             <field name="name">Cash Management: Approve Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>
-            <field name="email_from">${object.partner_id.manager.email}</field>
-            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_from">${object.partner_id.manager.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) pending your approval.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -285,7 +296,8 @@
         <record id="email_template_approve_request" model="mail.template">
             <field name="name">Cash Management: Approved Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>
-            <field name="email_from">${object.approved_by.email}</field>
+            <!--<field name="email_from">${object.approved_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.partner_id.manager.email},${object.user_id.email}</field> 
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) has been Approved.</field>
             <field name="body_html" type="html">
@@ -308,7 +320,8 @@
         <record id="email_template_reject_request" model="mail.template">
             <field name="name">Cash Management: Rejected Request</field>
             <field name="model_id" ref="model_cash_managment_request"/>
-            <field name="email_from">${object.rejected_by.email}</field>
+            <!--<field name="email_from">${object.rejected_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field> 
             <field name="email_to">${object.partner_id.manager.email},${object.user_id.email}</field> 
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.title)}) has been Rejected.</field>
             <field name="body_html" type="html">
@@ -332,7 +345,8 @@
         <record id="email_template_initiate_request" model="mail.template">
             <field name="name">Cash Management: Initiate Request</field>
             <field name="model_id" ref="model_cash_managment_requestapproved"/>
-            <field name="email_from">${object.initiated_by.email}</field>
+            <!--<field name="email_from">${object.initiated_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.from_by.email},${object.from_by_two.email},${object.to_by.email},${object.to_by_two.email}</field> 
             <field name="email_cc">cashmanagement@financetrust.co.ug</field>
             <field name="subject">Cash Request of (Ref ${object.title.unique_field}) has been Initiated.</field>
@@ -363,7 +377,8 @@
         <record id="email_template_from_accountant_confirm" model="mail.template">
             <field name="name">Cash Management: From Account Confirmation Request</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
@@ -387,7 +402,8 @@
         <record id="email_template_from_manager_confirm" model="mail.template">
             <field name="name">Cash Management: From Manager Confirmation Request</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.from_by_two.email}</field>
+            <!--<field name="email_from">${object.initiated_request_id.from_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
             <field name="email_cc">${object.initiated_request_id.to_by_two.email}</field>
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) from ${object.initiated_request_id.from_by_two.name}</field>
@@ -414,7 +430,8 @@
         <record id="email_template_to_manager_confirm" model="mail.template">
             <field name="name">Cash Management: To Manager Confirmation Request</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.to_by.email}</field>
+            <!--<field name="email_from">${object.initiated_request_id.to_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
@@ -436,9 +453,10 @@
         <record id="email_template_final_manager_confirm" model="mail.template">
             <field name="name">Cash Management: To Manager Final Confirmation Request</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
+            <!--<field name="email_from">${object.initiated_request_id.to_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -460,7 +478,7 @@
             <field name="model_id" ref="model_cash_managment_cashmovement"/>
             <field name="email_from">Margaret.Babirye@financetrust.co.ug</field>
             <field name="email_to">${object.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Transfer (CIT) Movement</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -481,9 +499,10 @@
         <record id="email_template_notification_pending" model="mail.template">
         <field name="name">Cash Management: Notify Pending Conformation</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.user_id.email}</field>
+            <!--<field name="email_from">${object.user_id.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to"> ${object.initiated_request_id.to_by_two.email},${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug,Allan.Musembya@financetrust.co.ug</field>
             <field name="subject">Pending confirmation of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -494,6 +513,8 @@
                      Sorry, There is still a request of ${'{:,.2f}'.format(object.actual_amount)} pending confirmation from Branch ${object.from_branch} to Branch ${object.to_branch} of this date ${object.confirm_date}. Go to Cash Transfer Request -> CIT Confirmations Branch  
                      <br/>
                      Please ensure that this request is confimed by all stakeholders ${object.initiated_request_id.to_by_two.name},${object.initiated_request_id.to_by.name},${object.initiated_request_id.from_by.name},${object.initiated_request_id.from_by_two.name} before you can request for cash.
+                     <br/>
+                     Follow this link ${object.base_url} to confirm this request.
       
                     <br/><br/>
                     Regards,<br/>
@@ -505,9 +526,10 @@
         <record id="email_template_change_of_approvers" model="mail.template">
             <field name="name">Cash Management: Change Confirmations Users</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.initiated_request_id.to_by_two.email}</field>
+            <!--<field name="email_from">${object.initiated_request_id.to_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by.email},${object.initiated_request_id.from_by.email},${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Change of for (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.initiated_request_id.to_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -526,8 +548,9 @@
               <record id="email_template_branch_bank_request_confirm" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: Confirmed</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
-            <field name="email_from">${object.partner_id.manager.email}</field>
-            <field name="email_to">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_from">${object.partner_id.manager.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
+           <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)}) pending your supervision.</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -548,9 +571,10 @@
         <record id="email_template_pending_confirmation_from_manager" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation From Manager</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -575,9 +599,10 @@
         <record id="email_template_pending_confirmation_to_accountant" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation To Accountant</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -602,7 +627,7 @@
         <record id="email_template_pending_confirmation_to_manager" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation To Manager</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
@@ -628,9 +653,10 @@
         <record id="email_template_pending_confirmation_from_manager1" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation From Manager</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.from_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -655,9 +681,10 @@
         <record id="email_template_pending_confirmation_to_accountant1" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation To Accountant</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -683,9 +710,10 @@
         <record id="email_template_pending_confirmation_to_manager1" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation To Manager</field>
             <field name="model_id" ref="model_cash_managment_cash_center_request_confirmation"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -708,9 +736,10 @@
         <record id="email_template_pending_confirmation_to_manager_bank_request" model="mail.template">
             <field name="name">Cash Management: Pending Confirmation To Manager</field>
             <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -738,9 +767,10 @@
         <record id="email_template_branch_bank_request_hod" model="mail.template">
             <field name="name">Cash Management Branch Bank CIT: HOD Initiated</field>
             <field name="model_id" ref="model_cash_managment_cash_bank_request_hod"/>
-            <field name="email_from">${object.initiated_by.email}</field>
+            <!--<field name="email_from">${object.initiated_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.to_by.email},${object.to_by_two.email}</field>
-            <field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
             <field name="subject">Baning Request of (Ref ${'{:,.2f}'.format(object.amount)}).</field>
             <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
@@ -763,7 +793,8 @@
         <record id="email_template_from_accountant_confirm_hod" model="mail.template">
             <field name="name">Cash Management: From Account Confirmation Request Hod</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation_bank_hod"/>
-            <field name="email_from">${object.confirmed_by.email}</field>
+            <!--<field name="email_from">${object.confirmed_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.initiated_request_id.to_by_two.email}</field> 
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
@@ -791,7 +822,8 @@
         <record id="email_template_from_accountant_confirm_hod_final" model="mail.template">
             <field name="name">Cash Management: From Account Confirmation Request Hod</field>
             <field name="model_id" ref="model_cash_managment_request_confirmation_bank_hod"/>
-            <field name="email_from">${object.initiated_request_id.to_by_two.email}</field> 
+            <!--<field name="email_from">${object.initiated_request_id.to_by_two.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
             <field name="email_to">${object.confirmed_by.email}</field>
             <field name="subject">Confirm Cash Request of (Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
             <field name="body_html" type="html">
@@ -813,6 +845,67 @@
            <!--<field name="report_template" ref="account_invoices"/>
             <field name="report_name"></field>-->
            
+        </record>
+
+
+        <record id="email_template_pending_confirmation_banking_accountant" model="mail.template">
+            <field name="name">Cash Management: Pending Confirmation Banking Accountant</field>
+            <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+            <!--<field name="email_from">${object.supervised_by.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
+            <field name="email_to">${object.user_id.email},${object.partner_id.manager.email}</field> 
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
+            <field name="subject">Pending Confirmation Escalation(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                    Hello ${object.partner_id.manager.name} and ${object.created_by.name},
+                    <br /><br />
+                    
+                    Cash Request of ${'{:,.2f}'.format(object.actual_amount)} UGX to be transfered to ${object.to_bank.bank_name} is still pending confirmation .Initiated by ${object.supervised_by.name}. Request initiated on ${object.initiate_date} by ${object.supervised_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                    <br/>
+                      <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> For more information, please click on this link.....</a>
+                    </div>
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
+        </record>
+
+        <record id="email_template_pending_confirmation_banking_accountant_confirmed" model="mail.template">
+            <field name="name">Cash Management: Confirmed Bank Branch Request</field>
+            <field name="model_id" ref="model_cash_managment_cash_branch_bank_request"/>
+            <!--<field name="email_from">${object.partner_id.manager.email}</field>-->
+            <field name="email_from">cclog@financetrust.co.ug</field>
+            <field name="email_to">${object.user_id.email},</field> 
+            <!--<field name="email_cc">Eric.Ssenyonga@financetrust.co.ug,Margaret.Babirye@financetrust.co.ug</field>-->
+            <field name="subject">Confirmation Notification(Ref ${'{:,.2f}'.format(object.actual_amount)} UGX) from ${object.confirmed_by.name}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 15px;">
+                    Hello Team,
+                    <br /><br />
+                    
+                    Cash Request of ${'{:,.2f}'.format(object.actual_amount)} UGX to be transfered to ${object.to_bank.bank_name} has been confirmed by ${object.partner_id.manager.name} . Request initiated on ${object.initiate_date} by ${object.supervised_by.name}.
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                    <br/>
+                      <div class="col text-center">
+                        <a class="btn btn-success" role="button" href="${object.base_url}"> For more information, please click on this link.....</a>
+                    </div>
+                    <br/><br/>
+                    Regards,<br/>
+                    Cash Center Team.
+                </p>
+            </div>
+            </field>     
         </record>
 
 

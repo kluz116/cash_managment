@@ -36,7 +36,7 @@ class CashBankConfirmation(models.Model):
     one_dollar = fields.Integer(string="$1")
     confirm_date =  fields.Datetime(string='Confirmed Date', default=datetime.today())
     state = fields.Selection([('pending', 'Pending'),('reject', 'Reject'),('closed', 'Closed')],default="pending", string="Status")
-    trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True,required=True)
+    trx_prof = fields.Binary(string ='Upload CIT Receipts', attachment=True)
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     confirmed_by = fields.Many2one('res.users','Confirmed By:',default=lambda self: self.env.user)

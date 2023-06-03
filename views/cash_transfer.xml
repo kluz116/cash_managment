@@ -595,6 +595,8 @@
                     <header>
                         <button name="%(cash_managment.wizard_cash_reject_banking_confirmation_view)d" states='pending' type="action" string="Reject Request" class="btn btn-outline-danger" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
                         <button name="%(cash_managment.wizard_cash_managment_to_manager_cash_bank_wizard)d" states='pending' type="action" string="Confirm Request" class="btn btn-outline-primary" attrs="{'invisible':['|',('current_to_branch_manager', '=', False)]}" />
+                        <button name="%(wizard_change_approvers_cash_center_wizard_form_view_banking)d" type="action" states='pending'  string="Change Branch Request Approvers" class="btn btn-outline-primary" groups="cash_managment.Cash_Managment_Support" />
+                        
                         <field name = "current_to_branch_manager" invisible='1' />
                         <field name="state" widget="statusbar" statusbar_visible="pending,closed" invisible="1"/>
                     </header>

@@ -34,7 +34,7 @@ class CashManagment(models.Model):
     approved_by = fields.Many2one('res.users',string="Approved By",track_visibility='always')
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user,track_visibility='always')
     reject_comment = fields.Text(string="Reject Comment")
-    reject_date =  fields.Datetime(string='Reject Date', default=lambda self: fields.datetime.now())
+    reject_date =  fields.Datetime(string='Reject Date')
     rejected_by = fields.Many2one('res.users','Canceled By')
     branch_code_to = fields.Integer(compute='_compute_branch',string='To',store=True)
     branch_code_from = fields.Integer(string='From')
@@ -45,6 +45,9 @@ class CashManagment(models.Model):
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
     unique_field = fields.Char(compute='comp_name', store=True)
+
+    initiate_date =  fields.Datetime(string='Initiated Date')
+    initiated_by = fields.Many2one('res.users',string ='Initiated By')
 
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
     week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)

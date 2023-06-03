@@ -16,7 +16,7 @@ class CashMovementReport(models.Model):
     state = fields.Char( string='State')
     effective_date= fields.Date(string='Effective Date')
     email = fields.Char( string='email')
-    amount = fields.Float( string='Amount')
+    amount = fields.Monetary( string='Amount')
     currency_id = fields.Many2one('res.currency', string='Currency')
     
 
@@ -29,9 +29,11 @@ class CashMovementReport(models.Model):
                 UNION ALL
                SELECT c.courier_name, a.branch_name AS FromBranch,a.branch_code,(select branch_name from  public.cash_managment_branch where id= b.to_branch) AS ToBranch,(select branch_code from  public.cash_managment_branch where id= b.to_branch) AS to_branch_code,b.state,CAST(b.cash_date AS DATE) AS effective_date,c.email, b.amount AS Amount,cc.id AS currency_id FROM public.cash_managment_branch a join public.cash_managment_cash_center_request b on a.id = b.branch_id join public.cash_managment_courier c on b.courier = c.id left join public.res_currency cc on b.currency_id = cc.id
                 UNION ALL
-               SELECT c.courier_name, d.bank_name AS FromBank,d.id,a.branch_name AS ToBranch,a.branch_code AS to_branch_code,b.state,CAST(b.cash_date AS DATE) AS effective_date,c.email,b.amount AS Amount,cc.id AS currency_id FROM public.cash_managment_branch a join public.cash_managment_cash_bank_request b on a.id = b.to_branch join public.cash_managment_courier c on b.courier = c.id join public.cash_managment_bank d on b.from_bank =d.id left join public.res_currency cc on b.currency_id = cc.id
+               SELECT c.courier_name, d.bank_name AS FromBranch,a.branch_code,a.branch_name AS ToBranch,a.branch_code AS to_branch_code,b.state,CAST(b.cash_date AS DATE) AS effective_date,c.email,b.amount AS Amount,cc.id AS currency_id FROM public.cash_managment_branch a join public.cash_managment_cash_bank_request b on a.id = b.to_branch join public.cash_managment_courier c on b.courier = c.id join public.cash_managment_bank d on b.from_bank =d.id left join public.res_currency cc on b.currency_id = cc.id
                  UNION ALL
                SELECT c.courier_name,a.branch_name AS FromBranch,a.branch_code,d.bank_name AS ToBranch,d.id,b.state,CAST(b.cash_date AS DATE) AS effective_date,c.email,b.actual_amount AS Amount, cc.id AS currency_id FROM public.cash_managment_branch a join public.cash_managment_cash_branch_bank_request b on a.id = b.branch_id join public.cash_managment_courier c on b.courier = c.id join public.cash_managment_bank d on b.to_bank =d.id left join public.res_currency cc on b.currency_id = cc.id 
+                 UNION ALL
+               SELECT c.courier_name, a.branch_name AS FromBranch,a.branch_code AS branch_code,d.bank_name AS ToBranch,a.branch_code AS branch_code,b.state,CAST(b.cash_date AS DATE) AS effective_date,c.email,b.amount AS Amount,cc.id AS currency_id FROM public.cash_managment_branch a join public.cash_managment_cash_bank_request_hod b on a.id = b.from_branch join public.cash_managment_courier c on b.courier = c.id join public.cash_managment_bank d on b.to_bank =d.id left join public.res_currency cc on b.currency_id = cc.id
               ) AS x order by x.effective_date desc )""")
 
 

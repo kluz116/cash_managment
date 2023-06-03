@@ -1,4 +1,5 @@
 from odoo import models, fields, api,exceptions
+from odoo.exceptions import UserError
 from datetime import datetime,timedelta
 from pytz import timezone 
 
@@ -34,7 +35,7 @@ class BranchBankRequest(models.Model):
     ten_dollar = fields.Integer(string="$10")
     five_dollar = fields.Integer(string="$5")
     one_dollar = fields.Integer(string="$1")
-    state = fields.Selection([('New', 'New'),('reject_one','Rejected By Manager'),('reject_two','Rejected By Cash Team'),('approved','Approved'),('initiated','Initiated'),('confirm', 'Confirmed'),('expired_branch','Expired At Branch'),('expired_hod','Expired At Head Office')],default="New", string="Status")
+    state = fields.Selection([('New', 'New'),('reject_one','Rejected By Manager'),('reject_two','Rejected By Cash Team'),('approved','Approved'),('initiated','Initiated'),('confirm', 'Pending Final Confirmation'),('confirm_final', 'Confirmed'),('expired_branch','Expired At Branch'),('expired_hod','Expired At Head Office')],default="New", string="Status")
     to_manager_comment = fields.Text(string="Comment")
     to_manager_date =  fields.Datetime(string='Date', default=datetime.today())
     supervision_comment = fields.Text(string="Comment")
@@ -43,11 +44,14 @@ class BranchBankRequest(models.Model):
     user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True, default=lambda self: self.env.user.id)
     branch_manager_from = fields.Integer(compute='_compute_manager',string='Manager',store=True)
     partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
+    #partner_id = fields.Many2one ('res.partner', 'Customer', default = lambda self: self.env.user.partner_id )
     current_to_branch_manager = fields.Boolean('is current user ?', compute='_get_to_branch_manager')
     current_to_accountant = fields.Boolean('is current user ?', compute='_get_to_branch_accountant')
     initiate_date =  fields.Datetime(string='Initiate Date', default=lambda self: fields.datetime.now())
     unique_field = fields.Char(compute='comp_name', store=True)
     created_by = fields.Many2one('res.users',string ='Created By',default=lambda self: self.env.user)
+    confirmed_by = fields.Many2one('res.users',string ='Confirmed By')
+
 
     week_day =  fields.Integer(string='Week Day', default=datetime.today().weekday())
     week_day_coverage =  fields.Integer(string='Try', compute='comp_weekday', store=True)
@@ -80,19 +84,21 @@ class BranchBankRequest(models.Model):
     from_comment = fields.Text(string="Comment")
     from_date =  fields.Datetime(string='Date')
 
+    from_comment_manager = fields.Text(string="Comment")
+    from_date_manager =  fields.Datetime(string='Date')
+
+
     base_url = fields.Char('Base Url', compute='_get_url_id', store='True')
    
     @api.depends('initiate_date')
     def _get_url_id(self):
         for e in self:
             web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-            action_id = self.env.ref('cash_managment.request_list_action', raise_if_not_found=False)
-            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.request&action={}""".format(web_base_url,e.id,action_id.id)
+            action_id = self.env.ref('cash_managment.branch_bank_request_confirmation_list_action', raise_if_not_found=False)
+            e.base_url = """{}/web#id={}&view_type=form&model=cash_managment.cash_branch_bank_request&action={}""".format(web_base_url,e.id,action_id.id)
 
-
-    
-       
-    @api.depends('user_id')
+   
+    @api.depends('partner_id')
     def _compute_manager(self):
         for record in self:
             record.branch_manager_from = record.partner_id.manager
@@ -114,8 +120,9 @@ class BranchBankRequest(models.Model):
     def _check_amount(self):
         if self.actual_amount != self.total:
             raise exceptions.ValidationError("The Total Amount {total} Shs Does Not Equal {amount} Shs The Actual Amount Expected To Be Transfered".format(total=self.total,amount = self.actual_amount))
-
-
+        elif  self.actual_amount ==0 and self.total ==0:
+            raise exceptions.ValidationError("The Total Amount {total} Shs Can not be Zero And  {amount} Shs The Actual Amount Can Not Be Zero".format(total=self.total,amount = self.actual_amount))
+        
     @api.depends('branch_manager_from')
     def _get_to_branch_manager(self):
         for e in self:
@@ -223,21 +230,33 @@ class BranchBankRequest(models.Model):
             record.branch_id = record.partner_id.branch_id
 
     @api.one
-    @api.constrains('partner_id')
-    def _check_initiated_request_banking(self):
-        pending_conf = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated'])])
-        for req in pending_conf:
-            if req.partner_id == self.partner_id.id and req.state =='initiated':
-                raise exceptions.ValidationError("Sorry, There is still a request of {actual_amount} already initiated. Go to Cash Managment Request -> Cash Banking - To bank and confirm with a reciept before you proceed with your request for cash ".format(amount=f"{req.actual_amount:,}"))
-    
+    @api.constrains('branch_id')
+    def _check_initiated_request_cash_banking(self):
+        pending_confs = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated','New'])])
+        for req in pending_confs:
+            if req.branch_id == self.branch_id and req.state =='initiated':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_banking_accountant').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+                raise UserError(f"Sorry, There is still a request of {req.actual_amount:,} already initiated. Go to Cash Managment Request -> Cash Banking - To bank and confirm with a reciept before you proceed with your request for cash ")
+            elif req.branch_id == self.branch_id and req.state =='confirm':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_banking_accountant').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
+                raise UserError(f"Sorry, There is still a request of {req.actual_amount:,} already confimed by Accountant and its pending with your manager. Go to Cash Managment Request -> Cash Banking - To bank and confirm with a reciept before you proceed with your request for cash ")
+            elif req.branch_id == self.branch_id and req.state =='New':
+                raise UserError(f"Sorry, There is still a request of {req.actual_amount:,} already Created but not yet approved. Follow up with your manager so it can be approved ")
     @api.model
-    def _update_bank_request_notified_pending_confirmation(self):
+    def _update_branch_bank_request_notified_pending_confirmation(self):
         pending_conf = self.env['cash_managment.cash_branch_bank_request'].search([('state', 'in', ['initiated'])])
         for req in pending_conf:
             if req.state =='initiated':
-                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_to_manager').id
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_banking_accountant').id
                 template =  self.env['mail.template'].browse(template_id)
                 template.send_mail(req.id,force_send=True)
-    
+            elif req.state =='confirm':
+                template_id = self.env.ref('cash_managment.email_template_pending_confirmation_banking_accountant').id
+                template =  self.env['mail.template'].browse(template_id)
+                template.send_mail(req.id,force_send=True)
     
    

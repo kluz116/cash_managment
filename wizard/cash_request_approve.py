@@ -90,6 +90,8 @@ class ApprovedCashRequest(models.TransientModel):
             request.branch_manager_from = self.from_by_id_two
             request.branch_accountant_from = self.from_by_id
             request.state = 'initiated'
+            request.initiate_date = self.initiate_date
+            request.initiated_by = self.initiated_by_id
             request.amount_available = self.amount_available
             request.branch_accountant_to = self.to_by_id
             request.branch_manager_to = self.to_by_id_two
